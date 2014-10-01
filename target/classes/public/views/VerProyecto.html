@@ -1,0 +1,32 @@
+<ol class="breadcrumb">
+	<li><a href="./">Inicio</a></li>
+	<li class="active">Ver</li>
+</ol>
+
+<ul class="nav nav-pills pull-right" >
+	<li><a href="#/AsociarComponente/{{proyecto.id}}">Asociar Requisito</a></li>
+        <li><a ng-click="ABorrar(proyecto['_id'])" >Borrar</a> </li>
+</ul>
+
+<h1>{{proyecto["nombre"]}}</h1>
+
+<ul class="list-group" id="datos">
+	<li class="list-group-item list-group-item-info"> Datos </li>
+        <li class="list-group-item">
+            <b> Participantes </b>: {{proyecto["participantes"]}} 
+        </li>
+	<li class="list-group-item">
+            <b> Descripción </b>: <span> {{proyecto["descripcion"]}} </span>
+        </li>
+        
+</ul>
+
+<ul class="list-group" id="componentes">
+	<li class="list-group-item list-group-item-info"> Requisitos </li>
+	<li class="list-group-item">
+            {{proyecto["requisitos"]}} 
+        </li>
+        <!--<li class="list-group-item" ng-repeat='componente in proyecto["componentes"]'>
+            {{componente}}
+        </li>-->
+</ul>

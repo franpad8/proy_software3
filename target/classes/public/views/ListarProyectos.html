@@ -1,0 +1,50 @@
+<ol class="breadcrumb">
+	<li><a href="#/">Inicio</a></li>
+</ol>
+
+<ul class="nav nav-pills pull-right" >
+	<li><a ng-click="APreCrear()">Crear Nuevo</a></li>
+</ul> 
+
+<h1>Proyectos registrados</h1>
+<table class="table table-bordered">
+	<tr>
+		<th> Nombre </th>
+                <!--<th> Participantes </th>-->
+		<th> Acción </th>
+	</tr>
+	<tr ng-repeat='proyecto in proyectos' >
+		<td>  
+			<a ng-click="AProyecto(proyecto['_id'])"> 
+				{{proyecto.nombre}}
+			</a> 
+		</td>
+		<!--
+                <td>  
+			 <a ng-click="AProyecto(proyecto['_id'])"> 
+				{{proyecto.participantes}}
+			<!-- </a> 
+		</td>-->
+                
+                <td> 
+			<div class="btn-group btn-group-sm">
+				<a class="btn btn-default" 
+				 data-toggle="modal" data-target="#myModal">
+					Modificar
+				</a>
+                                <a class="btn btn-default" 
+				 data-toggle="modal" data-target="#myModal">
+					Borrar
+				</a>
+                                <!--<a ng-click="AModificar(proyecto['_id'])" class="btn btn-default">
+					Modificar
+				</a> -->
+				<!--<a href="#BorrarProyecto/{{proyecto._id}}" class="btn btn-default" 
+				 data-toggle="modal" data-target="#myModal">
+					Borrar
+				</a>
+				<a href="#VerProyecto/{{proyecto._id}}#componentes" class="btn btn-default">Ver componentes</a>-->
+			</div>
+		</td> 
+	</tr>
+</table>

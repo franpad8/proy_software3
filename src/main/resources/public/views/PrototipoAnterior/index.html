@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<!-- saved from url=(0050)http://getbootstrap.com/examples/starter-template/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Gestor de proyectos</title>
+
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+  </head>
+
+  <body>
+    <div class="navbar navbar-inverse" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="./">Gestor de proyectos</a>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <!--li class="active"><a href="#">Crear nuevo</a></li-->
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+			<ol class="breadcrumb">
+				<li><a href="./">Inicio</a></li>
+			</ol>
+
+			<ul class="nav nav-pills pull-right" >
+				<li><a href="./crear.html">Crear Nuevo</a></li>
+			</ul>
+
+
+      <div>
+        <h1>Proyectos registrados</h1>
+				<table class="table table-bordered">
+					<tr>
+						<th> Nombre </th>
+						<th> Acción </th>
+					</tr>
+					<tr>
+						<td>  
+							<a href="./ver.html">
+								Praesent id dolor dignissim, mollis lacus laoreet, eleifend tortor.
+							</a>
+						</td>
+						<td> 
+							<div class="btn-group btn-group-sm">
+								<a href="./modificar.html" class="btn btn-default">Modificar</a>
+								<a href="#" class="btn btn-default" data-toggle="modal" data-target="#myModal">Borrar</a>
+								<a href="./ver.html#componentes" class="btn btn-default">Ver componentes</a>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>  
+							<a href="./ver.html">
+								Cras cursus ligula non diam hendrerit, in aliquam erat fermentum.
+							</a>
+						</td>
+						<td> 
+							<div class="btn-group btn-group-sm">
+								<a href="./modificar.html" class="btn btn-default">Modificar</a>
+								<a href="#" class="btn btn-default" data-toggle="modal" data-target="#myModal">Borrar</a>
+								<a href="./ver.html#componentes" class="btn btn-default">Ver componentes</a>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>  
+							<a href="./ver.html">
+								Donec a tellus non lorem luctus imperdiet.
+							</a>
+						</td>
+						<td> 
+							<div class="btn-group btn-group-sm">
+								<a href="./modificar.html" class="btn btn-default">Modificar</a>
+								<a href="#" class="btn btn-default" data-toggle="modal" data-target="#myModal">Borrar</a>
+								<a href="./ver.html#componentes" class="btn btn-default">Ver componentes</a>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>  
+							<a href="./ver.html">
+								Cras molestie odio non vulputate ullamcorper.
+							</a>
+						</td>
+						<td> 
+							<div class="btn-group btn-group-sm">
+								<a href="./modificar.html" class="btn btn-default">Modificar</a>
+								<a href="#" class="btn btn-default" data-toggle="modal" data-target="#myModal">Borrar</a>
+								<a href="./ver.html#componentes" class="btn btn-default">Ver componentes</a>
+							</div>
+						</td>
+					</tr>
+				</table>
+      </div>
+
+    </div><!-- /.container -->
+
+
+<div id="myModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Confirmar</h4>
+      </div>
+      <div class="modal-body">
+        <p>Confirme si quiere borrar este proyecto</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary">Confirmar</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+</body></html>

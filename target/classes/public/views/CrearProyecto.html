@@ -1,0 +1,35 @@
+<ol class="breadcrumb">
+	<li><a href="./">Inicio</a></li>
+	<li class=active>Crear</li>
+</ol>
+
+<h1>Crear nuevo proyecto</h1>
+
+<form name="fProyectoForm" ng-submit="ACrear(fProyectoForm.$valid)" novalidate>
+	<div class="form-group">
+		<label for="fProyecto_nombre">Nombre</label>
+		<input type="text" class="form-control" id="fProyecto_nombre" name="nombre" ng-model="fProyecto.nombre" required>
+	</div>
+        
+    <!--<div ng-repeat='participante in participantes' >
+		<li>  
+			<a ng-click="AProyecto(participante['_id'])"> 
+				{{participante.nombre}}
+			</a> 
+		</li>		
+                <td>  
+				{{participante.participantes}}
+		</td> 
+        
+    </div> -->
+    
+	<div class="form-group">
+		<label for="fProyecto_participantes">Participantes</label>
+		<input type="text" class="form-control" id="fProyecto_autor" name="participantes" ng-model="fProyecto.participantes" required>
+	</div>
+	<div class="form-group">
+		<label for="fProyecto_descripcion">Descripción</label>
+		<textarea class="form-control" id="fProyecto_descripcion" name="descripcion" ng-model="fProyecto.descripcion"> </textarea>
+	</div>
+	<button type="submit" class="btn btn-default">Registrar</button>
+</form>
