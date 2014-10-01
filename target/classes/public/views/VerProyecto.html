@@ -11,17 +11,38 @@
 <h1>{{proyecto["nombre"]}}</h1>
 
 <ul class="list-group" id="datos">
-	<li class="list-group-item list-group-item-info"> Datos </li>
+        <li class="list-group-item list-group-item-info"> Descripcion </li>
         <li class="list-group-item">
-            <b> Participantes </b>: {{proyecto["participantes"]}} 
-        </li>
-	<li class="list-group-item">
-            <b> Descripción </b>: <span> {{proyecto["descripcion"]}} </span>
+            <span> {{proyecto["descripcion"]}} </span>
         </li>
         
-</ul>
+        <li class="list-group-item list-group-item-info"> Participantes </li>
+        <li class="list-group-item">
+            <table class="table table-condensed table-hover">
+                <tr>
+                    <th> Nombre </th>
+                    <!--<th> Participantes </th>-->
+                    <th> Rol </th>
+                </tr>
 
-<ul class="list-group" id="componentes">
+                <tr ng-repeat='participante in proyecto["participantes"]' >
+                    <td>  
+                            {{participante.nombre}}
+
+                    </td>
+                    <td>  
+                            {{participante.rol}}
+
+                    </td>
+                </tr>
+
+
+            </table>
+            
+        </li>
+	
+
+
 	<li class="list-group-item list-group-item-info"> Requisitos </li>
 	<li class="list-group-item">
             {{proyecto["requisitos"]}} 
