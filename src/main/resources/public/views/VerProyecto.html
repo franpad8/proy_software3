@@ -44,8 +44,8 @@
 
 
 	<li class="list-group-item list-group-item-info"> Requisitos </li>
-	<li class="list-group-item">
-            {{proyecto["requisitos"]}} 
+	<li class="list-group-item" ng-repeat='requisito in proyecto["requisitos"]'>
+            {{requisitos}} 
         </li>
         <!--<li class="list-group-item" ng-repeat='componente in proyecto["componentes"]'>
             {{componente}}
