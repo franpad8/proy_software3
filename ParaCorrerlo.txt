@@ -1,0 +1,8 @@
+para ejecutarlo tienen que tener MongoDB..
+si lo corren sin crear nada en la BD obvio estara vacio.. para crear algo
+manualmente abrimos un shell y hacemos:
+1) mongo
+2) copiamos esto:
+
+> db.proyectos.insert({nombre : "Proyecto X", autor: "Seamus Colleman", participantes : [{nombre: "Guillermo", rol: "Lider Proyecto"}, {nombre: "Ricardo", rol: "Desarrollador"}, {nombre: "Luis", rol: "Probador"}, {nombre: "Alberto", rol: "Documentador"}], requisitos : "requisistos", descripcion: "Descripcion 1"})
+
