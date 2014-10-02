@@ -4,6 +4,7 @@ manualmente abrimos un shell y hacemos:
 1) mongo
 2) copiamos esto:
 
+DEBEN AGREGAR ALGUNOS PARTICIPANTES A LA BD.
 
 > db.participante.insert({Nombre: "Jose Hernandez", tlf: "04144355853", email: "jh08@gmail.com"})
 WriteResult({ "nInserted" : 1 })
@@ -14,13 +15,15 @@ WriteResult({ "nInserted" : 1 })
 > db.participante.insert({Nombre: "Alfonso Santos", tlf: "0416234123", email: "asant234@gmail.com"})
 WriteResult({ "nInserted" : 1 })
 
- db.participantes.find()
+> db.participantes.find()
 { "_id" : ObjectId("542c829051c789e051452ce7"), "Nombre" : "Jose Hernandez", "tlf" : "04144355853", "email" : "jh08@gmail.com" }
 { "_id" : ObjectId("542c82c751c789e051452ce8"), "Nombre" : "Luis Mercado", "tlf" : "04123456788", "email" : "lm12@gmail.com" }
 { "_id" : ObjectId("542c835651c789e051452ce9"), "Nombre" : "Carlos Garcia", "tlf" : "04162345667", "email" : "sadfq234@gmail.com" }
 { "_id" : ObjectId("542c836c51c789e051452cea"), "Nombre" : "Alfonso Santos", "tlf" : "0416234123", "email" : "asant234@gmail.com" }
 
 
+PARA INSERTAR PROYECTOS:
+ 
+> db.proyectos.insert({nombre : "Proyecto X", autor: "Seamus Colleman", participantes : [{_id: ObjectId("542c829051c789e051452ce7")}, {_id: ObjectId("542c82c751c789e051452ce8")}], requisitos : "requisistos", descripcion: "Descripcion 1"})
 
-> db.proyectos.insert({nombre : "Proyecto X", autor: "Seamus Colleman", participantes : [{nombre: "Guillermo", rol: "Lider Proyecto"}, {nombre: "Ricardo", rol: "Desarrollador"}, {nombre: "Luis", rol: "Probador"}, {nombre: "Alberto", rol: "Documentador"}], requisitos : "requisistos", descripcion: "Descripcion 1"})
-
+ATENCION: AL INSERTAR UN PROYECTO, DEBEN ASEGURARSE QUE EN EL CAMPO PARTICIPANTES EL ID DEL PARTICIPANTE QUE QUIERAN AGREGAR COINCIDA CON EL DE LA COLECCION PARTICIPANTE.
