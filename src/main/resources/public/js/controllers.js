@@ -52,12 +52,25 @@ myApp.controller('CrearProyecto', ['$scope', '$location', 'myApp.services', func
 }]);
 myApp.controller('VerProyecto', ['$scope', '$location', '$routeParams', 'myApp.services', function($scope, $location, $routeParams, service) {
       $scope.proy = '';
+      $scope.participantes=[];
+      
+
       service.Proyecto({"_id":$routeParams._id}).then(function (object) {
         $scope.res = object.data;
+        
         for (var key in object.data) {
             $scope[key] = object.data[key];
         }
+        for(var i=0; i < object.data.proyecto['participantes'].length; i++){
+            service.getParticipante({"_id": JSON.stringify(object.data.proyecto.participantes[i]._id)}).then(function(object){
+                $scope.participantes.push(object.data.data);
+                
+        });
+        
+       }
       });
+      
+
       
       $scope.ABorrar = function(_id) {
         service.ABorrar({"_id":JSON.stringify(_id)}).then(function (object) {

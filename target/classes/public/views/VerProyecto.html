@@ -4,7 +4,7 @@
 </ol>
 
 <ul class="nav nav-pills pull-right" >
-	<li><a href="#/AsociarComponente/{{proyecto.id}}">Asociar Requisito</a></li>
+	<li><a href="#/AsociarComponente/{{proyecto._id}}">Asociar Requisito</a></li>
         <li><a ng-click="ABorrar(proyecto['_id'])" >Borrar</a> </li>
 </ul>
 
@@ -18,26 +18,36 @@
         
         <li class="list-group-item list-group-item-info"> Participantes </li>
         <li class="list-group-item">
+            
+        <div class="container-fluid">
             <table class="table table-condensed table-hover">
                 <tr>
                     <th> Nombre </th>
                     <!--<th> Participantes </th>-->
-                    <th> Rol </th>
+                    <th> Teléfono </th>
+                    <th> Email </th>
                 </tr>
 
-                <tr ng-repeat='participante in proyecto["participantes"]' >
+                <tr ng-repeat="participante in participantes" ng-show='participantes.length'>
                     <td>  
-                            {{participante.nombre}}
+                            {{participante.Nombre}}
 
                     </td>
                     <td>  
-                            {{participante.rol}}
+                            {{participante.tlf}}
 
+                    </td>
+                    <td>
+                            {{participante.email}}
                     </td>
                 </tr>
 
 
             </table>
+            
+   
+
+         </div>
             
         </li>
 	

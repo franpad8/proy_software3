@@ -7,6 +7,7 @@ import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
 import com.mongodb.util.JSON;
 import freemarker.template.Configuration;
+import java.io.Console;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.nio.charset.Charset;
@@ -36,6 +37,30 @@ public class ProyectosService {
         MongoClient client = new MongoClient(new ServerAddress("localhost", 27017));
 
         final DB database = client.getDB("test");
+        
+        Spark.get(new Route("/proyecto/obtenerParticipante"){
+            @Override
+            public Object handle(final Request request,
+                    final Response response){
+                String res = "{}";
+                res = "{\"data\": ";
+                try{
+                  
+                    ObjectId crit = (ObjectId)JSON.parse(request.queryParams("_id"));
+                    CRUD crud = new CRUD("test", "localhost");
+                    final DBObject mensaje = crud.findById("participante", crit);
+                    res += mensaje.toString();
+                    res +=  "}";
+                
+                } catch(IOException e) {
+                    e.printStackTrace();
+                    
+                }
+                
+                return res;
+            }
+    
+        });
 
 
         Spark.get(new Route("/proyectos/listar") {
@@ -45,6 +70,7 @@ public class ProyectosService {
                 String res = "{}";
                 //Action code goes here, change res accordingly
                 res = "{\"data\": [";
+                ObjectId crit = (ObjectId)JSON.parse(request.queryParams("_id"));
                 try {
                     CRUD crud = new CRUD("test", "localhost");
                     for(DBObject row:crud.list("proyectos")) {

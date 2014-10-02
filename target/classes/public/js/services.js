@@ -7,6 +7,18 @@ myApp.service('myApp.services', ['$http', function($http) {
         return $http.get('proyectos/listar');
     };
     
+    this.getParticipante = function(args) {
+        if(typeof args == 'undefined') {
+          return $http.get('proyecto/obtenerParticipante');
+        } else {
+          return $http({
+            url: 'proyecto/obtenerParticipante',
+            method: 'GET',
+            params: args
+          });
+        }
+    };
+    
     this.ABorrar = function(args) {
         if(typeof args == 'undefined') {
           return $http.get('proyecto/ABorrar');
