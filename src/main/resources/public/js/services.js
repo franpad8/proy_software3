@@ -113,6 +113,15 @@ myApp.service('myApp.services', ['$http', function($http) {
         });
     };
     
+    this.AAsociar = function(args) {
+        return  $http({
+          url: "proyecto/AAsociar",
+          method: 'GET',
+          params: args
+         
+        });
+    };
+    
     
     this.AModif = function(fProyecto, args) {
         return  $http({

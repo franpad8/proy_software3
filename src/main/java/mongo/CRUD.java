@@ -10,6 +10,7 @@ import com.mongodb.ServerAddress;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import org.bson.types.ObjectId;
 
 public class CRUD {
 
@@ -88,6 +89,18 @@ public class CRUD {
     public void setDatabase(DB database) {
         this.database = database;
     }
-
+    
+    public void insertCollection(String collection, String nombre , String requisito) {
+        //Esta es la coleccion proyectos
+        DBCollection coll = database.getCollection(collection);
+        //proyecto a modificar
+   
+        
+        BasicDBObject newDocument = new BasicDBObject();
+	newDocument.append("$addToSet", new BasicDBObject().append("requisitos", requisito));
+ 
+	BasicDBObject searchQuery = new BasicDBObject().append("nombre", nombre);
+	coll.update(searchQuery, newDocument);
+    }
     
 }

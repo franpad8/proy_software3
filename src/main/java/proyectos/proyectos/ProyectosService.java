@@ -99,6 +99,7 @@ public class ProyectosService {
                     CRUD crud = new CRUD("test", "localhost");
                     crud.removeObject("proyectos", 
                             new BasicDBObject("_id", crit));
+                    
 
                 } catch (IOException e) {
                    e.printStackTrace();
@@ -144,7 +145,31 @@ public class ProyectosService {
                 //Action code ends here
                 return res;
             }
-        });        
+        }); 
+        
+        Spark.get(new Route("/proyecto/AAsociar") {
+            @Override
+            public Object handle(final Request request,
+                    final Response response) {
+                String res = "{}";
+                //Action code goes here, change res accordingly
+                try {
+                    //ObjectId crit = (ObjectId)JSON.parse(request.queryParams("nombre"));
+                    res = "{\"proyecto\": ";
+                    CRUD crud = new CRUD("test", "localhost");
+                    crud.insertCollection("proyectos", request.queryParams("nombre"), request.queryParams("requisito")); 
+
+                    /*res += mensaje.toString() 
+                            + ", \"_id\": { \"$oid\" : \"" + mensaje.get("_id").toString()
+                            + "\"}}";*/
+                } catch (Throwable e) {
+                   e.printStackTrace();
+                }
+
+                //Action code ends here
+                return res;
+            }
+        });
        
         
         Spark.get(new Route("/proyecto/AProyecto") {
@@ -180,7 +205,7 @@ public class ProyectosService {
                    e.printStackTrace();
                 }
 
-                System.out.println(""+res);
+
                 //Action code ends here
                 return res;
             }

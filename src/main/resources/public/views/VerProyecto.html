@@ -54,9 +54,18 @@
 
 
 	<li class="list-group-item list-group-item-info"> Requisitos </li>
-	<li class="list-group-item" ng-repeat='requisito in proyecto["requisitos"]'>
+	<li class="list-group-item" ng-repeat='requisito in proyecto["requisitos"] '>
             {{requisito}} 
         </li>
+        
+        <form name="fAsociarForm" ng-submit="AAsociar(fAsociarForm.$valid)" >
+	<div class="form-group">
+		<label for="fAsociar_nombre">Nuevo Requisito</label>
+		<input type="text" class="form-control" id="fAsociar_nombre" name="nombre" ng-model="fAsociar.nombre" required>
+	</div>
+        <button type="submit" class="btn btn-default">Asociar</button>
+</form>
+        
         <!--<li class="list-group-item" ng-repeat='componente in proyecto["componentes"]'>
             {{componente}}
         </li>-->

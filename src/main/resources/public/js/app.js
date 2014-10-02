@@ -22,9 +22,6 @@ myApp.config(['$routeProvider', function($routeProvider) {
             }).when('/BorrarProyecto/:proyectoId', {
                 controller: 'BorrarProyecto',
                 templateUrl: 'views/BorrarProyecto.html'
-            }).when('/AsociarComponente/:proyectoId', {
-                controller: 'AsociarComponente',
-                templateUrl: 'views/AsociarComponente.html'
             });
 }]);
 //});

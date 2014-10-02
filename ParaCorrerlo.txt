@@ -27,3 +27,21 @@ PARA INSERTAR PROYECTOS:
 > db.proyectos.insert({nombre : "Proyecto X", autor: "Seamus Colleman", participantes : [{_id: ObjectId("542c829051c789e051452ce7")}, {_id: ObjectId("542c82c751c789e051452ce8")}], requisitos : "requisistos", descripcion: "Descripcion 1"})
 
 ATENCION: AL INSERTAR UN PROYECTO, DEBEN ASEGURARSE QUE EN EL CAMPO PARTICIPANTES EL ID DEL PARTICIPANTE QUE QUIERAN AGREGAR COINCIDA CON EL DE LA COLECCION PARTICIPANTE.
+
+
+DEBEN AGREGAR ALGUNOS PARTICIPANTES A LA BD.
+
+lo de HOY JUEVES:
+
+> db.participante.insert({Nombre: "Jose Hernandez", tlf: "04144355853", email: "jh08@gmail.com"})
+> db.participante.insert({Nombre: "Luis Mercado", tlf: "04123456788", email: "lm12@gmail.com"})
+> db.participante.insert({Nombre: "Carlos Garcia", tlf: "04162345667", email: "sadfq234@gmail.com"})
+> db.participante.insert({Nombre: "Alfonso Santos", tlf: "0416234123", email: "asant234@gmail.com"})
+
+un par de los que usamos hoy.. 
+{ "_id" : ObjectId("542d875737a7ab8a964851e7"), "nombre" : "Proyecto X", "autor" : "Seamus Colleman", "participantes" : [ { "_id" : ObjectId("542d864de797cae6bb9dc6a4") }, { "_id" : ObjectId("542d864de797cae6bb9dc6a5") } ], "requisitos" : [ "requisistos", [ "music" ], "music", "PALOMA" ], "descripcion" : "Descripcion 1" }
+{ "_id" : ObjectId("542d875937a7ab8a964851e8"), "nombre" : "Proyecto Prueba Con Requisitos", "autor" : "Seamus Colleman", "participantes" : [ { "_id" : ObjectId("542d864de797cae6bb9dc6a7") }, { "_id" : ObjectId("542d864de797cae6bb9dc6a6") } ], "requisitos" : [ "requisistos", "Tu mama", "Me mea", "\"registrar\"" ], "descripcion" : "Descripcion 1", "requisito" : [ "\"hola bebe\"" ] }
+
+
+
+

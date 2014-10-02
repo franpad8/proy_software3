@@ -3,13 +3,22 @@
 	<!--<li class=active>Modificar</li>-->
 </ol>
 
-<h1>Asociar Componentes a Proyecto</h1>
-{{proyecto.nombre}}
-<form role="form">
+<h1>Asociar Requisito a Proyecto</h1>
+{{proyecto["nombre"]}}
+<!--<form role="form">  
 	<div class="form-group">
 		<label for="fAsociar">Componente:</label>
 		<input type="text" class="form-control" id="fAsociar" name="componente" ng-model="fAsociar.componentes" required>
 	</div>
 	
 	<button type="submit" class="btn btn-default">Asociar</button>
+</form>
+-->
+
+<form name="fAsociarForm" ng-submit="AAsociar(fProyectoForm.$valid)" novalidate>
+	<div class="form-group">
+		<label for="fAsociar_nombre">Requisito</label>
+		<input type="text" class="form-control" id="fAsociar_nombre" name="nombre" ng-model="fAsociar.nombre" required>
+	</div>
+        <button type="submit" class="btn btn-default">Asociar</button>
 </form>
