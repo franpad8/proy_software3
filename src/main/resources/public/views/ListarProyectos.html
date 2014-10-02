@@ -13,7 +13,7 @@
                 <!--<th> Participantes </th>-->
 		<th> Acción </th>
 	</tr>
-	<tr ng-repeat='proyecto in proyectos' >
+	<tr ng-repeat='proyecto in filteredTodos' >
 		<td>  
 			<a ng-click="AProyecto(proyecto['_id'])"> 
 				{{proyecto.nombre}}
@@ -48,3 +48,25 @@
 		</td> 
 	</tr>
 </table>
+
+<!--INICIO DE PAGINACION-->
+	<div ng-show="proyectos.length" style="text-align: right">
+	    <b><span> Total de resultados: {{proyectos.length}}</span></b>
+	</div> 
+
+	<div ng-show="proyectos.length" style="text-align: center">
+
+	    <button type="button" class="btn btn-primary" 
+		ng-disabled="currentPage == 1"
+		ng-click="currentPage=currentPage-1">PREV &gt; </button>
+
+	    <b><span> Página {{currentPage}} / {{numPages()}} </span></b>
+		
+	    <button type="button" class="btn btn-primary"
+		ng-disabled="currentPage == numPaginas"
+		ng-click="currentPage = currentPage+1"> NEXT &gt;</button>
+	       
+	</div>
+	<!--FIN DE PAGINACION-->
+
+

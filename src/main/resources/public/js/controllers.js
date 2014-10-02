@@ -4,6 +4,24 @@
 myApp.controller('ListarProyectos', ['$scope', '$location', 'myApp.services', function($scope, $location, service) {
 	service.getAllProyectos().then(function(object) {
             $scope.proyectos = object.data.data;
+            /*INICIO DE PAGINACION*/
+            $scope.filteredTodos = []; //es el subset de proyectos a iterar
+            $scope.currentPage = 1;
+            $scope.numPerPage = 10;
+            $scope.maxSize = 5;
+            $scope.numPaginas = Math.ceil($scope.proyectos.length / $scope.numPerPage);
+
+            $scope.numPages = function () {
+              return Math.ceil($scope.proyectos.length / $scope.numPerPage);
+            };
+
+            $scope.$watch('currentPage + numPerPage', function() {
+              var begin = (($scope.currentPage - 1) * $scope.numPerPage)
+              , end = begin + $scope.numPerPage;
+
+                $scope.filteredTodos = $scope.proyectos.slice(begin, end);
+            });
+            
         });
         
         $scope.APreCrear = function() {
