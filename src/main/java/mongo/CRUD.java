@@ -90,15 +90,17 @@ public class CRUD {
         this.database = database;
     }
     
-    public void insertCollection(String collection, String nombre , String requisito) {
+    public void insertCollection(String collection, String nombre , String requisito, String prioridad) {
         //Esta es la coleccion proyectos
         DBCollection coll = database.getCollection(collection);
         //proyecto a modificar
-   
+        BasicDBObject elemento = new BasicDBObject().append("requisito", requisito).append("prioridad",prioridad);
         
         BasicDBObject newDocument = new BasicDBObject();
-	newDocument.append("$addToSet", new BasicDBObject().append("requisitos", requisito));
- 
+	newDocument.append("$addToSet", new BasicDBObject("requisitos",elemento));
+        System.out.println(elemento.toString());
+        System.out.println(newDocument.toString());
+//        newDocument.append("$addToSet", newDocument.append("prioridad", prioridad));
 	BasicDBObject searchQuery = new BasicDBObject().append("nombre", nombre);
 	coll.update(searchQuery, newDocument);
     }

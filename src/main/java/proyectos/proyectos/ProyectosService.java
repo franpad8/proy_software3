@@ -174,7 +174,7 @@ public class ProyectosService {
                     //ObjectId crit = (ObjectId)JSON.parse(request.queryParams("nombre"));
                     res = "{\"proyecto\": ";
                     CRUD crud = new CRUD("test", "localhost");
-                    crud.insertCollection("proyectos", request.queryParams("nombre"), request.queryParams("requisito")); 
+                    crud.insertCollection("proyectos", request.queryParams("nombre"), request.queryParams("requisito"),request.queryParams("prioridad")); 
 
                     /*res += mensaje.toString() 
                             + ", \"_id\": { \"$oid\" : \"" + mensaje.get("_id").toString()

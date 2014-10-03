@@ -133,7 +133,7 @@ myApp.controller('VerProyecto', ['$scope', '$location', '$routeParams', 'myApp.s
         $scope.AAsociar = function(isValid) {
             $scope.submitted = true;
             if (isValid) {
-                service.AAsociar({"nombre": ($scope.proyecto.nombre), "requisito": ($scope.fAsociar.nombre)}).then(function(object) {
+                service.AAsociar({"nombre": ($scope.proyecto.nombre), "requisito": ($scope.fAsociar.nombre), "prioridad": ($scope.fAsociar.prioridad)}).then(function(object) {
                 });
             }
         };
