@@ -4,7 +4,7 @@
 </ol>
 
 <ul class="nav nav-pills pull-right" >
-    <li><a href="#/AsociarComponente/{{proyecto._id}}">Asociar Requisito</a></li>
+<!--    <li><a href="#/AsociarComponente/{{proyecto._id}}">Asociar Requisito</a></li>-->
     <li><a ng-click="ABorrar(proyecto['_id'])" >Borrar</a> </li>
 </ul>
 
@@ -82,16 +82,8 @@
                         {{participante.email}}
                     </td>
                 </tr>
-
-
             </table>
-
-
-
         </div>
-
-
-</li>
 
 <form name="fAsociarForm" ng-submit="AAsociar(fAsociarForm.$valid)" >
     <div class="form-group">
@@ -100,6 +92,7 @@
     </div>
     <button type="submit" class="btn btn-default">Asociar</button>
 </form>
+</li>
 
 <!--<li class="list-group-item" ng-repeat='componente in proyecto["componentes"]'>
     {{componente}}
