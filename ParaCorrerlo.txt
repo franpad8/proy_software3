@@ -43,5 +43,9 @@ un par de los que usamos hoy..
 { "_id" : ObjectId("542d875937a7ab8a964851e8"), "nombre" : "Proyecto Prueba Con Requisitos", "autor" : "Seamus Colleman", "participantes" : [ { "_id" : ObjectId("542d864de797cae6bb9dc6a7") }, { "_id" : ObjectId("542d864de797cae6bb9dc6a6") } ], "requisitos" : [ "requisistos", "Tu mama", "Me mea", "\"registrar\"" ], "descripcion" : "Descripcion 1", "requisito" : [ "\"hola bebe\"" ] }
 
 
+NUEVA MANERA DE INSERTAR
+db.proyectos.insert({nombre : "Proyecto X", autor: "Seamus Colleman", participantes : [{_id: ObjectId("542def37fca1960c201ddf2b")}, {_id: ObjectId("542def52fca1960c201ddf2c")}], requisitos : [{"requisito" : "Nuevo", "prioridad": "1"}], descripcion: "Descripcion 1"})
+
+
 
 

@@ -1,24 +1,24 @@
 <ol class="breadcrumb">
-	<li><a href="./">Inicio</a></li>
-	<li class="active">Ver</li>
+    <li><a href="./">Inicio</a></li>
+    <li class="active">Ver</li>
 </ol>
 
 <ul class="nav nav-pills pull-right" >
-	<li><a href="#/AsociarComponente/{{proyecto._id}}">Asociar Requisito</a></li>
-        <li><a ng-click="ABorrar(proyecto['_id'])" >Borrar</a> </li>
+    <li><a href="#/AsociarComponente/{{proyecto._id}}">Asociar Requisito</a></li>
+    <li><a ng-click="ABorrar(proyecto['_id'])" >Borrar</a> </li>
 </ul>
 
 <h1>{{proyecto["nombre"]}}</h1>
 
 <ul class="list-group" id="datos">
-        <li class="list-group-item list-group-item-info"> Descripcion </li>
-        <li class="list-group-item">
-            <span> {{proyecto["descripcion"]}} </span>
-        </li>
-        
-        <li class="list-group-item list-group-item-info"> Participantes </li>
-        <li class="list-group-item">
-            
+    <li class="list-group-item list-group-item-info"> Descripcion </li>
+    <li class="list-group-item">
+        <span> {{proyecto["descripcion"]}} </span>
+    </li>
+
+    <li class="list-group-item list-group-item-info"> Participantes </li>
+    <li class="list-group-item">
+
         <div class="container-fluid">
             <table class="table table-condensed table-hover">
                 <tr>
@@ -30,43 +30,78 @@
 
                 <tr ng-repeat="participante in participantes" ng-show='participantes.length'>
                     <td>  
-                            {{participante.Nombre}}
+                        {{participante.Nombre}}
 
                     </td>
                     <td>  
-                            {{participante.tlf}}
+                        {{participante.tlf}}
 
                     </td>
                     <td>
-                            {{participante.email}}
+                        {{participante.email}}
                     </td>
                 </tr>
 
 
             </table>
-            
-   
-
-         </div>
-            
-        </li>
-	
 
 
-	<li class="list-group-item list-group-item-info"> Requisitos </li>
-	<li class="list-group-item" ng-repeat='requisito in proyecto["requisitos"] '>
-            {{requisito}} 
-        </li>
-        
-        <form name="fAsociarForm" ng-submit="AAsociar(fAsociarForm.$valid)" >
-	<div class="form-group">
-		<label for="fAsociar_nombre">Nuevo Requisito</label>
-		<input type="text" class="form-control" id="fAsociar_nombre" name="nombre" ng-model="fAsociar.nombre" required>
-	</div>
-        <button type="submit" class="btn btn-default">Asociar</button>
+
+        </div>
+
+    </li>
+
+
+
+    <li class="list-group-item list-group-item-info"> Requisitos </li>
+    <!--<li class="list-group-item" ng-repeat='requisito in proyecto["requisitos"]'>-->
+
+    <!--{{requisito.requisito}}--> 
+
+    <li class="list-group-item">
+
+        <div class="container-fluid">
+            <table class="table table-condensed table-hover">
+                <tr>
+                    <th> Requisito </th>
+                    <!--<th> Participantes </th>-->
+                    <th> Prioridad </th>
+                    <!--<th> Email </th>-->
+                </tr>
+
+                <tr ng-repeat='requisito in proyecto["requisitos"]' ng-show='proyecto["requisitos"].length'>
+                    <td>  
+                        {{requisito.requisito}}
+
+                    </td>
+                    <td>  
+                        {{requisito.prioridad}}
+
+                    </td>
+                    <td>
+                        {{participante.email}}
+                    </td>
+                </tr>
+
+
+            </table>
+
+
+
+        </div>
+
+
+</li>
+
+<form name="fAsociarForm" ng-submit="AAsociar(fAsociarForm.$valid)" >
+    <div class="form-group">
+        <label for="fAsociar_nombre">Nuevo Requisito</label>
+        <input type="text" class="form-control" id="fAsociar_nombre" name="nombre" ng-model="fAsociar.nombre" required>
+    </div>
+    <button type="submit" class="btn btn-default">Asociar</button>
 </form>
-        
-        <!--<li class="list-group-item" ng-repeat='componente in proyecto["componentes"]'>
-            {{componente}}
-        </li>-->
+
+<!--<li class="list-group-item" ng-repeat='componente in proyecto["componentes"]'>
+    {{componente}}
+</li>-->
 </ul>
