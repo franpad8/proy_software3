@@ -21,7 +21,7 @@
 
         <div class="container-fluid">
             <span class="glyphicon glyphicon-search"></span>
-                <input type="text" ng-model="searchText" class="input-medium search-query" placeholder="">
+            <input type="text" ng-model="searchText" class="input-medium search-query" placeholder="">
             <table class="table table-condensed table-hover">
                 <tr>
                     <th> Nombre </th>
@@ -30,7 +30,7 @@
                     <th> Email </th>
                 </tr>
 
-                <tr ng-repeat="participante in participantes | filter: searchText" ng-show='participantes.length'>
+                <tr ng-repeat="participante in participantes| filter: searchText" ng-show='participantes.length'>
                     <td>  
                         {{participante.Nombre}}
 
@@ -65,13 +65,15 @@
         <div class="container-fluid">
             <table class="table table-condensed table-hover">
                 <tr>
-                    <th> Requisito </th>
-                    <!--<th> Participantes </th>-->
-                    <th> Prioridad </th>
-                    <!--<th> Email </th>-->
+<!--                    <th> Requisito </th>
+                   
+                    <th> Prioridad </th>-->
+        <th><a href="" ng-click="predicate = 'requisito'; reverse=!reverse">Requisito</a></th>
+        <th><a href="" ng-click="predicate = 'prioridad'; reverse=!reverse">Prioridad</a></th>
+                 
                 </tr>
 
-                <tr ng-repeat='requisito in proyecto["requisitos"]' ng-show='proyecto["requisitos"].length'>
+                <tr ng-repeat='requisito in proyecto["requisitos"]| orderBy:predicate:reverse' ng-show='proyecto["requisitos"].length'>
                     <td>  
                         {{requisito.requisito}}
 
@@ -79,9 +81,6 @@
                     <td>  
                         {{requisito.prioridad}}
 
-                    </td>
-                    <td>
-                        {{participante.email}}
                     </td>
                 </tr>
             </table>
