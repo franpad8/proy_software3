@@ -90,7 +90,7 @@ public class ProyectosService {
                 ObjectId crit = (ObjectId)JSON.parse(request.queryParams("_id"));
                 try {
                     CRUD crud = new CRUD("test", "localhost");
-                    for(DBObject row:crud.list("proyectos")) {
+                    for(DBObject row:crud.list("proyecto")) {
                         res += row.toString() + ", ";
                     }
                     res = res.substring(0,res.length()-2) + "]}";
@@ -114,7 +114,7 @@ public class ProyectosService {
                 try {
                     ObjectId crit = (ObjectId)JSON.parse(request.queryParams("_id"));
                     CRUD crud = new CRUD("test", "localhost");
-                    crud.removeObject("proyectos", 
+                    crud.removeObject("proyecto", 
                             new BasicDBObject("_id", crit));
                     
 
@@ -151,7 +151,7 @@ public class ProyectosService {
                     ObjectId crit = (ObjectId)JSON.parse(request.queryParams("_id"));
                     res = "{\"proyecto\": ";
                     CRUD crud = new CRUD("test", "localhost");
-                    final DBObject mensaje = crud.findById("proyectos", crit); 
+                    final DBObject mensaje = crud.findById("proyecto", crit); 
                     res += mensaje.toString() 
                             + ", \"_id\": { \"$oid\" : \"" + mensaje.get("_id").toString()
                             + "\"}}";
@@ -174,7 +174,7 @@ public class ProyectosService {
                     //ObjectId crit = (ObjectId)JSON.parse(request.queryParams("nombre"));
                     res = "{\"proyecto\": ";
                     CRUD crud = new CRUD("test", "localhost");
-                    crud.insertCollection("proyectos", request.queryParams("nombre"), request.queryParams("requisito"),request.queryParams("prioridad")); 
+                    crud.insertCollection("proyecto", request.queryParams("nombre"), request.queryParams("requisito"),request.queryParams("prioridad")); 
 
                     /*res += mensaje.toString() 
                             + ", \"_id\": { \"$oid\" : \"" + mensaje.get("_id").toString()
@@ -214,7 +214,7 @@ public class ProyectosService {
                     ObjectId crit = (ObjectId)JSON.parse(request.queryParams("_id"));
                     res = "{\"proyecto\": ";
                     CRUD crud = new CRUD("test", "localhost");
-                    final DBObject mensaje = crud.findById("proyectos", crit); 
+                    final DBObject mensaje = crud.findById("proyecto", crit); 
                     res += mensaje.toString() 
                             + ", \"_id\": { \"$oid\" : \"" + mensaje.get("_id").toString()
                             + "\"}}";
@@ -322,7 +322,7 @@ public class ProyectosService {
                             .append("nombre", nombre)
                             .append("participantes", participantes)
                             .append("descripcion", descripcion);
-                    crud.updateObject("proyectos", value);
+                    crud.updateObject("proyecto", value);
                 } catch (IOException e) {
                    e.printStackTrace();
                 }

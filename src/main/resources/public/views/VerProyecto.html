@@ -32,11 +32,11 @@
 
                 <tr ng-repeat="participante in participantes | filter: searchText" ng-show='participantes.length'>
                     <td>  
-                        {{participante.Nombre}}
+                        {{participante.nombre}}
 
                     </td>
                     <td>  
-                        {{participante.tlf}}
+                        {{participante.telefono}}
 
                     </td>
                     <td>
@@ -73,32 +73,23 @@
 
                 <tr ng-repeat='requisito in proyecto["requisitos"]' ng-show='proyecto["requisitos"].length'>
                     <td>  
-                        {{requisito.requisito}}
+                        {{requisito.nombre}}
 
                     </td>
                     <td>  
                         {{requisito.prioridad}}
 
                     </td>
-                    <td>
-                        {{participante.email}}
-                    </td>
+                
                 </tr>
             </table>
         </div>
-
-
-        <script type="text/javascript">
-                    $(document).ready(function ()
-                    {
-                        $("#boton").click(function () {
-                            $('#target').toggle();
-                        });
-                    });
-        </script>
-
-        <input id="boton" type="button" value="Nuevo Requisito">
-        <div id="target">
+            
+        
+        <button type="button" class="btn btn-primary" data-toggle="button" 
+                ng-click="showAdd = ! showAdd"> Agregar Nuevo Requisito</button>
+        <div id="target" ng-show="showAdd">
+            
             <form name="fAsociarForm" ng-submit="AAsociar(fAsociarForm.$valid)" >
                 <div class="form-group">
                     <label for="fAsociar_nombre">Requisito</label>
@@ -107,7 +98,7 @@
                     <input type="text" class="form-control" id="fAsociar_nombre" name="prioridad" ng-model="fAsociar.prioridad" required>
                 </div>
                 <!--    <button type="submit" class="btn btn-default">Asociar</button>-->
-                <button type="submit" class="btn btn-default" onclick="Location.reload()" >Asociar</button>
+                <button type="submit" class="btn btn-success" onclick="Location.reload()" >Asociar</button>
             </form>
     </li>
 

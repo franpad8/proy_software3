@@ -94,7 +94,7 @@ public class CRUD {
         //Esta es la coleccion proyectos
         DBCollection coll = database.getCollection(collection);
         //proyecto a modificar
-        BasicDBObject elemento = new BasicDBObject().append("requisito", requisito).append("prioridad",prioridad);
+        BasicDBObject elemento = new BasicDBObject().append("nombre", requisito).append("prioridad",prioridad);
         
         BasicDBObject newDocument = new BasicDBObject();
 	newDocument.append("$addToSet", new BasicDBObject("requisitos",elemento));
