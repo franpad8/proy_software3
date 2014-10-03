@@ -97,11 +97,12 @@
                     });
         </script>
 
-        <input id="boton" type="button" value="Nuevo Requisito">
-        <div id="target">
-            <form name="fAsociarForm" ng-submit="AAsociar(fAsociarForm.$valid)" >
-                <div class="form-group">
-                    <label for="fAsociar_nombre">Requisito</label>
+        <!--<input id="boton" type="text" class="form-control"  value="Nuevo Requisito">-->
+        <button id="boton" type="button" class="btn btn-default" onclick="Location.reload()" >Nuevo Requisito</button>
+        <div id="target" style="display: none" >
+            <form name="fAsociarForm"  ng-submit="AAsociar(fAsociarForm.$valid)" >
+                <div class="form-group" >
+                    <label for="fAsociar_nombre" >Requisito</label>
                     <input type="text" class="form-control" id="fAsociar_nombre" name="nombre" ng-model="fAsociar.nombre" required>
                     <label for="fAsociar_prioridad">Prioridad</label>
                     <input type="text" class="form-control" id="fAsociar_nombre" name="prioridad" ng-model="fAsociar.prioridad" required>
