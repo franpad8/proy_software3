@@ -95,18 +95,36 @@ myApp.controller('VerProyecto', ['$scope', '$location', '$routeParams', 'myApp.s
 
         service.Proyecto({"_id": $routeParams._id}).then(function(object) {
             $scope.res = object.data;
+            $scope.lista_id = "";
+            $scope.participantes = [];
 
             for (var key in object.data) {
                 $scope[key] = object.data[key];
             }
-            for (var i = 0; i < object.data.proyecto['participantes'].length; i++) {
-                service.getObjeto({"_id": JSON.stringify(object.data.proyecto.participantes[i]._id),
-                                    "coleccion": "participante"}).then(function(object) {
+            $scope.num_participantes = object.data.proyecto['participantes'].length;
+            for (var i = 0; i < $scope.num_participantes; i++) {
+                $scope.lista_id = $scope.lista_id.concat("{$oid: '");       
+                $scope.lista_id = $scope.lista_id.concat(object.data.proyecto.participantes[i]._id.$oid);
+                $scope.lista_id = $scope.lista_id.concat("'");       
+                if (i !== $scope.num_participantes-1)
+                    $scope.lista_id = $scope.lista_id.concat("},");
+                else
+                    $scope.lista_id = $scope.lista_id.concat("}");
+                
+                /*
+                service.getObjeto({"lista_id": JSON.stringify(object.data.proyecto.participantes[i]._id),
+                                    "coleccion": "participante", "prueba": "{'_id': '1'}, {'_id': '2'}"}).then(function(object) {
                     $scope.participantes.push(object.data.data);
 
                 });
-
+                 */
             }
+            
+            //console.log($scope.lista_id);
+            service.getObjetosColeccion({"lista_id": $scope.lista_id, "coleccion": "participante" }).then(function(object){
+                $scope.participantes = object.data.data; 
+            
+            });
         });
 
         $scope.fAsociar = {};

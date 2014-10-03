@@ -7,12 +7,12 @@ myApp.service('myApp.services', ['$http', function($http) {
         return $http.get('proyectos/listar');
     };
     
-    this.getObjeto = function(args) {
+    this.getObjetosColeccion = function(args) {
         if(typeof args == 'undefined') {
-          return $http.get('proyecto/obtenerObjeto');
+          return $http.get('proyecto/obtenerObjetosColeccion');
         } else {
           return $http({
-            url: 'proyecto/obtenerObjeto',
+            url: 'proyecto/obtenerObjetosColeccion',
             method: 'GET',
             params: args
           });

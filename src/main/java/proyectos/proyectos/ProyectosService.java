@@ -38,20 +38,36 @@ public class ProyectosService {
 
         final DB database = client.getDB("test");
         
-        Spark.get(new Route("/proyecto/obtenerObjeto"){
+        Spark.get(new Route("/proyecto/obtenerObjetosColeccion"){
             @Override
             public Object handle(final Request request,
                     final Response response){
                 String res = "{}";
-                res = "{\"data\": ";
+                res = "{\"data\": [";
                 try{
                   
-                    ObjectId crit = (ObjectId)JSON.parse(request.queryParams("_id"));
+                    
+                    String ids = request.queryParams("lista_id");
                     String coleccion = request.queryParams("coleccion");
+                    String[] idsPartes = ids.split(",");
                     CRUD crud = new CRUD("test", "localhost");
-                    final DBObject mensaje = crud.findById(coleccion, crit);
-                    res += mensaje.toString();
-                    res +=  "}";
+                    for(int i=0; i < idsPartes.length; i++){
+                        ObjectId crit = (ObjectId)JSON.parse(idsPartes[i]);
+                        final DBObject mensaje = crud.findById(coleccion, crit);
+                        res += mensaje.toString();
+                        if (i != idsPartes.length - 1)
+                            res += ", ";
+                        
+                        
+                    }
+
+
+
+
+                    
+                    res +=  "]}";
+                    
+                    
                 
                 } catch(IOException e) {
                     e.printStackTrace();
