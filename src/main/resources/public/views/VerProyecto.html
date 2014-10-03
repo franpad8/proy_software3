@@ -20,6 +20,8 @@
     <li class="list-group-item">
 
         <div class="container-fluid">
+            <span class="glyphicon glyphicon-search"></span>
+                <input type="text" ng-model="searchText" class="input-medium search-query" placeholder="">
             <table class="table table-condensed table-hover">
                 <tr>
                     <th> Nombre </th>
@@ -28,7 +30,7 @@
                     <th> Email </th>
                 </tr>
 
-                <tr ng-repeat="participante in participantes" ng-show='participantes.length'>
+                <tr ng-repeat="participante in participantes | filter: searchText" ng-show='participantes.length'>
                     <td>  
                         {{participante.Nombre}}
 

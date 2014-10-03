@@ -7,13 +7,15 @@
 </ul> 
 
 <h1>Proyectos registrados</h1>
+
+<
 <table class="table table-hover">
 	<tr>
 		<th> Nombre </th>
                 <!--<th> Participantes </th>-->
 		<th> Acción </th>
 	</tr>
-	<tr ng-repeat='proyecto in filteredTodos' >
+	<tr ng-repeat='proyecto in filteredTodos | filter:searchText' >
 		<td>  
 			<a ng-click="AProyecto(proyecto['_id'])"> 
 				{{proyecto.nombre}}

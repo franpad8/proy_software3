@@ -38,7 +38,7 @@ public class ProyectosService {
 
         final DB database = client.getDB("test");
         
-        Spark.get(new Route("/proyecto/obtenerParticipante"){
+        Spark.get(new Route("/proyecto/obtenerObjeto"){
             @Override
             public Object handle(final Request request,
                     final Response response){
@@ -47,8 +47,9 @@ public class ProyectosService {
                 try{
                   
                     ObjectId crit = (ObjectId)JSON.parse(request.queryParams("_id"));
+                    String coleccion = request.queryParams("coleccion");
                     CRUD crud = new CRUD("test", "localhost");
-                    final DBObject mensaje = crud.findById("participante", crit);
+                    final DBObject mensaje = crud.findById(coleccion, crit);
                     res += mensaje.toString();
                     res +=  "}";
                 

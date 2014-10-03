@@ -7,7 +7,7 @@ myApp.controller('ListarProyectos', ['$scope', '$location', 'myApp.services', fu
             /*INICIO DE PAGINACION*/
             $scope.filteredTodos = []; //es el subset de proyectos a iterar
             $scope.currentPage = 1;
-            $scope.numPerPage = 10;
+            $scope.numPerPage = 3;
             $scope.maxSize = 5;
             $scope.numPaginas = Math.ceil($scope.proyectos.length / $scope.numPerPage);
 
@@ -100,7 +100,8 @@ myApp.controller('VerProyecto', ['$scope', '$location', '$routeParams', 'myApp.s
                 $scope[key] = object.data[key];
             }
             for (var i = 0; i < object.data.proyecto['participantes'].length; i++) {
-                service.getParticipante({"_id": JSON.stringify(object.data.proyecto.participantes[i]._id)}).then(function(object) {
+                service.getObjeto({"_id": JSON.stringify(object.data.proyecto.participantes[i]._id),
+                                    "coleccion": "participante"}).then(function(object) {
                     $scope.participantes.push(object.data.data);
 
                 });
