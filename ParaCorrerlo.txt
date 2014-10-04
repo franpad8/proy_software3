@@ -6,15 +6,15 @@ manualmente abrimos un shell y hacemos:
 
 DEBEN AGREGAR ALGUNOS PARTICIPANTES A LA BD.
 
-db.participante.insert({Nombre: "Jose Hernandez", tlf: "04144355853", email: "jh08@gmail.com"})
-db.participante.insert({Nombre: "Luis Mercado", tlf: "04123456788", email: "lm12@gmail.com"})
-db.participante.insert({Nombre: "Carlos Garcia", tlf: "04162345667", email: "sadfq234@gmail.com"})
-db.participante.insert({Nombre: "Alfonso Santos", tlf: "0416234123", email: "asant234@gmail.com"})
+db.participante.insert({nombre: "Jose Hernandez", telefono: "04144355853", email: "jh08@gmail.com"})
+db.participante.insert({nombre: "Luis Mercado", telefono: "04123456788", email: "lm12@gmail.com"})
+db.participante.insert({nombre: "Carlos Garcia", telefono: "04162345667", email: "sadfq234@gmail.com"})
+db.participante.insert({nombre: "Alfonso Santos", telefono: "0416234123", email: "asant234@gmail.com"})
 
 
 
 INSERTAR UN PROYECTO
-db.proyectos.insert({nombre : "Proyecto 10", autor: "Seamus Colleman", participantes : [{_id: ObjectId("542ec8dae85be1f28fb0e8e0")}, {_id: ObjectId("542ec8c9e85be1f28fb0e8de")}], requisitos : [{"requisito" : "Nuevo", "prioridad": "1"}], descripcion: "Descripcion 1", carreras: [{_id:1}]})
+db.proyecto.insert({nombre : "Proyecto 10", participantes : [{_id: ObjectId("542ec8dae85be1f28fb0e8e0")}, {_id: ObjectId("542ec8c9e85be1f28fb0e8de")}], requisitos : [{"nombre" : "Nuevo", "prioridad": "1"}], descripcion: "Descripcion 1", carreras: [{_id:1}]})
 
 Donde el {_id: ObjectId("542def37fca1960c201ddf2b")} debe corresponder con algun id de los usuarios en la base de datos
 
