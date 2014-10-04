@@ -1,6 +1,6 @@
-para ejecutarlo tienen que tener MongoDB..
-si lo corren sin crear nada en la BD obvio estara vacio.. para crear algo
-manualmente abrimos un shell y hacemos:
+Para ejecutar el proyecto tienen que tener MongoDB..
+Si lo corren sin crear nada en la BD obvio estara vacio.. para crear algo
+Manualmente abrimos un shell y hacemos:
 1) mongo
 2) copiamos esto:
 
@@ -11,11 +11,21 @@ db.participante.insert({nombre: "Luis Mercado", telefono: "04123456788", email: 
 db.participante.insert({nombre: "Carlos Garcia", telefono: "04162345667", email: "sadfq234@gmail.com"})
 db.participante.insert({nombre: "Alfonso Santos", telefono: "0416234123", email: "asant234@gmail.com"})
 
+SE DE INSERTAR AL MENOS UN PROYECTO
+db.proyecto.insert({nombre : "Proyecto 1", participantes : [{_id: ObjectId("542ec8dae85be1f28fb0e8e0")}, {_id: ObjectId("542ec8c9e85be1f28fb0e8de")}], requisitos : [{"nombre" : "Nuevo", "prioridad": "1"}], descripcion: "Descripcion 1", carreras: [{_id:1},{_id:2}]})
+
+Donde los objetos ids de participantes de la forma: 
+{_id: ObjectId("542def37fca1960c201ddf2b")} 
+deben corresponder con algun id de los usuarios en 
+la base de datos.
 
 
-INSERTAR UN PROYECTO
-db.proyecto.insert({nombre : "Proyecto 10", participantes : [{_id: ObjectId("542ec8dae85be1f28fb0e8e0")}, {_id: ObjectId("542ec8c9e85be1f28fb0e8de")}], requisitos : [{"nombre" : "Nuevo", "prioridad": "1"}], descripcion: "Descripcion 1", carreras: [{_id:1}]})
 
-Donde el {_id: ObjectId("542def37fca1960c201ddf2b")} debe corresponder con algun id de los usuarios en la base de datos
-
+Se ha de notar ademas que hay unos botones como 
+"Crear Proyecto"
+"Modificar"
+"Borrar"
+que no forman parte de esta entrega, sino de la 
+parte de la integracion, y por ende no estan
+funcionales todavia.
 
