@@ -21,7 +21,7 @@
 
         <div class="container-fluid">
             <span class="glyphicon glyphicon-search"></span>
-                <input type="text" ng-model="searchText" class="input-medium search-query" placeholder="">
+            <input type="text" ng-model="searchText" class="input-medium search-query" placeholder="Buscar">
             <table class="table table-condensed table-hover">
                 <tr>
                     <th> Nombre </th>
@@ -30,7 +30,7 @@
                     <th> Email </th>
                 </tr>
 
-                <tr ng-repeat="participante in participantes | filter: searchText" ng-show='participantes.length'>
+                <tr ng-repeat="participante in participantes| filter: searchText" ng-show='participantes.length'>
                     <td>  
                         {{participante.nombre}}
 
@@ -65,13 +65,17 @@
         <div class="container-fluid">
             <table class="table table-condensed table-hover">
                 <tr>
-                    <th> Requisito </th>
-                    <!--<th> Participantes </th>-->
-                    <th> Prioridad </th>
-                    <!--<th> Email </th>-->
+                    <!--                    <th> Requisito </th>
+                                       
+                                        <th> Prioridad </th>-->
+                    <th><a href="" ng-click="predicate = 'requisito';
+                    reverse = !reverse">Requisito</a></th>
+                    <th><a href="" ng-click="predicate = 'prioridad';
+                    reverse = !reverse">Prioridad</a></th>
+
                 </tr>
 
-                <tr ng-repeat='requisito in proyecto["requisitos"]' ng-show='proyecto["requisitos"].length'>
+                <tr ng-repeat='requisito in proyecto["requisitos"]| orderBy:predicate:reverse' ng-show='proyecto["requisitos"].length'>
                     <td>  
                         {{requisito.nombre}}
 
@@ -98,9 +102,33 @@
                     <input type="text" class="form-control" id="fAsociar_nombre" name="prioridad" ng-model="fAsociar.prioridad" required>
                 </div>
                 <!--    <button type="submit" class="btn btn-default">Asociar</button>-->
-                <button type="submit" class="btn btn-success" onclick="Location.reload()" >Asociar</button>
+                <button type="submit" class="btn btn-success" onclick="window.location.reload()">Asociar</button>
             </form>
     </li>
+    
+    
+    <li class="list-group-item list-group-item-info"> Carreras </li>
+    <li class="list-group-item">
+
+    <div class="container-fluid">
+        <table class="table table-condensed table-hover">
+            <tr>
+                <th> Nombre </th>
+            </tr>
+
+            <tr ng-repeat='carrera in proyecto["carreras"]' ng-show='proyecto["carreras"].length'>
+                <td>
+                    {{"Carrera "+ carrera._id}}
+                </td>
+
+            </tr>
+        </table>
+
+    </div>
+
+    </li>
+    
+    
 
     <!--<li class="list-group-item" ng-repeat='componente in proyecto["componentes"]'>
         {{componente}}
