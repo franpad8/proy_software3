@@ -1,0 +1,32 @@
+<ol class="breadcrumb">
+	<li><a href="#/">Inicio</a></li>
+</ol>
+
+
+<h1>Planificación de la Carrera</h1>
+
+
+<table class="table table-hover">
+	<tr>
+		<th> Usuario </th>
+                <!--<th> Participantes </th>-->
+		<th> Reporte </th>
+                
+                <th> Fecha </th>
+	</tr>
+	<tr ng-repeat='ceremonia in ceremonias' >
+		<td>  
+				{{ceremonia.usuario}}
+			 
+		</td>
+                <td>  
+				{{ceremonia.reporte}}
+			 
+		</td>
+                <td>  
+				{{ceremonia.fecha}}
+			 
+		</td>		            
+	</tr>
+</table>
+

@@ -44,9 +44,7 @@ public class ProyectosService {
                     final Response response){
                 String res = "{}";
                 res = "{\"data\": [";
-                try{
-                  
-                    
+                try{            
                     String ids = request.queryParams("lista_id");
                     String coleccion = request.queryParams("coleccion");
                     String[] idsPartes = ids.split(",");
@@ -59,25 +57,40 @@ public class ProyectosService {
                             res += ", ";
                         
                         
-                    }
-
-
-
-
-                    
-                    res +=  "]}";
-                    
-                    
-                
+                    }                    
+                    res +=  "]}";           
                 } catch(IOException e) {
-                    e.printStackTrace();
-                    
-                }
-                
+                    e.printStackTrace();               
+                }               
                 return res;
             }
     
         });
+        
+        Spark.get(new Route("/proyecto/obtenerCarrera") {
+            @Override
+            public Object handle(final Request request,
+                    final Response response) {
+                String res = "{}";
+                res = "{\"data\": [";
+                try {
+                    String id = request.queryParams("_id");
+                    String coleccion = request.queryParams("coleccion");
+                    CRUD crud = new CRUD("test", "localhost");
+                    ObjectId crit = (ObjectId) JSON.parse(id);
+                    final DBObject mensaje = crud.findById("carrera", crit);
+                    res += mensaje.toString();
+                    res += "]}";
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return res;
+            }
+
+        });
+        
+        
+        
 
 
         Spark.get(new Route("/proyectos/listar") {
@@ -200,6 +213,38 @@ public class ProyectosService {
                 res+="/"+request.queryParams("_id");
                 //Action code ends here
                 return res;
+            }
+        });
+        
+        Spark.get(new Route("/proyecto/ACarrera") {
+            @Override
+            public Object handle(final Request request,
+                    final Response response) {
+                String[] labels = {
+                  "/ACarrera", };
+                String res = labels[0];
+                //Action code goes here, change res accordingly
+                res+="/"+request.queryParams("_id");
+                //Action code ends here
+                System.out.println(""+res);
+                return res;
+                
+            }
+        });
+        
+        Spark.get(new Route("/proyecto/AReporte") {
+            @Override
+            public Object handle(final Request request,
+                    final Response response) {
+                String[] labels = {
+                  "/AReporte", };
+                String res = labels[0];
+                //Action code goes here, change res accordingly
+                res+="/"+request.queryParams("tipo");
+                //Action code ends here
+                System.out.println(""+res);
+                return res;
+                
             }
         });
 

@@ -118,7 +118,7 @@
 
             <tr ng-repeat='carrera in proyecto["carreras"]' ng-show='proyecto["carreras"].length'>
                 <td>
-                    {{"Carrera "+ carrera._id}}
+                    <a ng_click="ACarrera(carrera._id)"> {{"Carrera "+ carrera._id}}</a>
                 </td>
 
             </tr>

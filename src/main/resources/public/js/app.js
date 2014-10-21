@@ -22,6 +22,12 @@ myApp.config(['$routeProvider', function($routeProvider) {
             }).when('/BorrarProyecto/:proyectoId', {
                 controller: 'BorrarProyecto',
                 templateUrl: 'views/BorrarProyecto.html'
+            }).when('/ACarrera/:_id', {
+                controller: 'Carrera',
+                templateUrl: 'views/VerCarrera.html'
+            }).when('/AReporte/:tipo', {
+                controller: 'Carrera',
+                templateUrl: 'views/VerReporte.html'
             });
 }]);
 //});

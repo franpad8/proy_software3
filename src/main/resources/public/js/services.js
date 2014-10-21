@@ -19,6 +19,19 @@ myApp.service('myApp.services', ['$http', function($http) {
         }
     };
     
+    this.ObtenerCarrera = function(args) {
+        console.log(args);
+        if(typeof args == 'undefined') {
+          return $http.get('proyecto/obtenerCarrera');
+        } else {
+          return $http({
+            url: 'proyecto/obtenerCarrera',
+            method: 'GET',
+            params: args
+          });
+        }
+    };
+    
     this.ABorrar = function(args) {
         if(typeof args == 'undefined') {
           return $http.get('proyecto/ABorrar');
@@ -67,6 +80,31 @@ myApp.service('myApp.services', ['$http', function($http) {
           });
         }
     };
+    
+    this.ACarrera = function(args) {
+        if(typeof args == 'undefined') {
+          return $http.get('proyecto/ACarrera');
+        } else {
+          return $http({
+            url: 'proyecto/ACarrera',
+            method: 'GET',
+            params: args
+          });
+        }
+    };
+    
+    this.AReporte = function(args) {
+        if(typeof args == 'undefined') {
+          return $http.get('proyecto/AReporte');
+        } else {
+          return $http({
+            url: 'proyecto/AReporte',
+            method: 'GET',
+            params: args
+          });
+        }
+    };
+    
     
     this.Proyecto = function(args) {
         if(typeof args == 'undefined') {

@@ -111,13 +111,6 @@ myApp.controller('VerProyecto', ['$scope', '$location', '$routeParams', 'myApp.s
                 else
                     $scope.lista_id = $scope.lista_id.concat("}");
                 
-                /*
-                service.getObjeto({"lista_id": JSON.stringify(object.data.proyecto.participantes[i]._id),
-                                    "coleccion": "participante", "prueba": "{'_id': '1'}, {'_id': '2'}"}).then(function(object) {
-                    $scope.participantes.push(object.data.data);
-
-                });
-                 */
             }
             
             //console.log($scope.lista_id);
@@ -126,6 +119,16 @@ myApp.controller('VerProyecto', ['$scope', '$location', '$routeParams', 'myApp.s
             
             });
         });
+        
+         $scope.ACarrera = function(id) {
+            var label = '_id, nombre, participantes, descripcion'.split(/, */)[0];
+            var arg = {};
+            arg[label] = JSON.stringify(id);
+            service.ACarrera(arg).then(function(object) {
+                console.log(object.data);
+                $location.path(object.data);
+            });
+        };
 
         $scope.fAsociar = {};
         $scope.submitted = false;
@@ -174,6 +177,21 @@ myApp.controller('ModificarProyecto', ['$scope', '$location', '$routeParams', 'm
 myApp.controller('BorrarProyecto', function($scope, $routeParams) {
     $scope.proyecto = getProyect($routeParams.proyectoId);
 });
+
+
+myApp.controller('Carrera', ['$scope', '$location', '$routeParams', 'myApp.services', function($scope, $location, $routeParams, service) {
+   $scope.nombre = $routeParams._id;
+   $scope.AReporte = function(id, tipo){
+       var label = '_id, tipo'.split(/, */);
+            var arg = {};
+            arg[label[0]] = id;
+            service.ObtenerCarrera(arg).then(function(object) {
+                console.log(object.data);
+            });
+   };
+}]);
+
+
 myApp.controller('AsociarComponente', function($scope, $routeParams) {
     $scope.proyecto = getProyect($routeParams.proyectoId);
 });
