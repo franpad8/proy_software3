@@ -8,6 +8,7 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
+import com.mongodb.util.JSON;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -103,6 +104,22 @@ public class CRUD {
         System.out.println(newDocument.toString());
 //        newDocument.append("$addToSet", newDocument.append("prioridad", prioridad));
 	BasicDBObject searchQuery = new BasicDBObject().append("nombre", nombre);
+	coll.update(searchQuery, newDocument);
+    }
+    
+     public void insertCollectionCeremonia(String collection, String id,  String usuario , String tipo, String reporte, String fecha) {
+        //Esta es la coleccion proyectos
+        DBCollection coll = database.getCollection(collection);
+        //proyecto a modificar
+        BasicDBObject elemento = new BasicDBObject().append("tipo", tipo).append("usuario", usuario).append("reporte",reporte).append("fecha", fecha);
+        
+        BasicDBObject newDocument = new BasicDBObject();
+	newDocument.append("$addToSet", new BasicDBObject("ceremonias",elemento));
+        System.out.println(elemento.toString());
+        System.out.println(newDocument.toString());
+//        newDocument.append("$addToSet", newDocument.append("prioridad", prioridad));
+        ObjectId crit = (ObjectId)JSON.parse(id);
+	BasicDBObject searchQuery = new BasicDBObject().append("_id", crit);
 	coll.update(searchQuery, newDocument);
     }
     

@@ -3,7 +3,7 @@
 </ol>
 
 
-<h1>Planificación de la Carrera</h1>
+<h1>{{nombre}}</h1>
 
 
 <table class="table table-hover">
@@ -14,19 +14,38 @@
                 
                 <th> Fecha </th>
 	</tr>
-	<tr ng-repeat='ceremonia in ceremonias' >
+	<tr ng-repeat='ceremonia in ceremonias | filter: {tipo: tipo}' >
 		<td>  
-				{{ceremonia.usuario}}
-			 
+                    {{ceremonia.usuario}}
 		</td>
                 <td>  
-				{{ceremonia.reporte}}
-			 
+                    {{ceremonia.reporte}}
 		</td>
                 <td>  
-				{{ceremonia.fecha}}
-			 
+                    {{ceremonia.fecha}}
 		</td>		            
 	</tr>
+        
 </table>
+
+
+<form name="fAsociarCeremoniaForm" ng-submit="AAsociarCeremonia(fAsociarCeremoniaForm.$valid)" >
+                <div class="form-group">
+                    <label for="fAsociarCeremonia_usuario">Usuario</label>
+                    <input type="text" class="form-control" id="fAsociarCeremonia_usuario" name="usuario" ng-model="fAsociarCeremonia.usuario" required>
+                    <label for="fAsociarCeremonia_reporte">Indique Comentario de la Ceremonia</label>
+                    <textarea rows="10" class="form-control" id="fAsociarCeremonia_reporte" name="reporte" ng-model="fAsociarCeremonia.reporte" required></textarea>
+                </div>
+                <!--    <button type="submit" class="btn btn-default">Asociar</button>-->
+                <button type="submit" class="btn btn-success" onclick="window.location.reload()">Enviar</button>
+</form>
+
+
+
+
+
+
+
+
+
 

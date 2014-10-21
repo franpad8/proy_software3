@@ -67,20 +67,20 @@ public class ProyectosService {
     
         });
         
-        Spark.get(new Route("/proyecto/obtenerCarrera") {
+        Spark.get(new Route("/proyecto/obtenerObjetoColeccion") {
             @Override
             public Object handle(final Request request,
                     final Response response) {
                 String res = "{}";
-                res = "{\"data\": [";
+                res = "{\"data\":";
                 try {
                     String id = request.queryParams("_id");
                     String coleccion = request.queryParams("coleccion");
                     CRUD crud = new CRUD("test", "localhost");
                     ObjectId crit = (ObjectId) JSON.parse(id);
-                    final DBObject mensaje = crud.findById("carrera", crit);
+                    final DBObject mensaje = crud.findById(coleccion, crit);
                     res += mensaje.toString();
-                    res += "]}";
+                    res += "}";
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -188,6 +188,32 @@ public class ProyectosService {
                     res = "{\"proyecto\": ";
                     CRUD crud = new CRUD("test", "localhost");
                     crud.insertCollection("proyecto", request.queryParams("nombre"), request.queryParams("requisito"),request.queryParams("prioridad")); 
+
+                    /*res += mensaje.toString() 
+                            + ", \"_id\": { \"$oid\" : \"" + mensaje.get("_id").toString()
+                            + "\"}}";*/
+                } catch (Throwable e) {
+                   e.printStackTrace();
+                }
+
+                //Action code ends here
+                return res;
+            }
+        });
+        
+        
+        Spark.get(new Route("/proyecto/AAsociarCeremonia") {
+            @Override
+            public Object handle(final Request request,
+                    final Response response) {
+                String res = "{}";
+                //Action code goes here, change res accordingly
+                try {
+                    //ObjectId crit = (ObjectId)JSON.parse(request.queryParams("nombre"));
+                    res = "{\"proyecto\": ";
+                    CRUD crud = new CRUD("test", "localhost");
+                    crud.insertCollectionCeremonia("carrera", request.queryParams("_id"), request.queryParams("usuario"),
+                                                request.queryParams("tipo"), request.queryParams("reporte"), request.queryParams("fecha")); 
 
                     /*res += mensaje.toString() 
                             + ", \"_id\": { \"$oid\" : \"" + mensaje.get("_id").toString()

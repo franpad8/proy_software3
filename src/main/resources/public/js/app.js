@@ -25,8 +25,8 @@ myApp.config(['$routeProvider', function($routeProvider) {
             }).when('/ACarrera/:_id', {
                 controller: 'Carrera',
                 templateUrl: 'views/VerCarrera.html'
-            }).when('/AReporte/:tipo', {
-                controller: 'Carrera',
+            }).when('/AReporte/:_id/:tipo', {
+                controller: 'VerReporte',
                 templateUrl: 'views/VerReporte.html'
             });
 }]);

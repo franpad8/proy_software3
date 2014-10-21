@@ -19,13 +19,12 @@ myApp.service('myApp.services', ['$http', function($http) {
         }
     };
     
-    this.ObtenerCarrera = function(args) {
-        console.log(args);
+    this.getObjetoColeccion = function(args) {
         if(typeof args == 'undefined') {
-          return $http.get('proyecto/obtenerCarrera');
+          return $http.get('/proyecto/obtenerObjetoColeccion');
         } else {
           return $http({
-            url: 'proyecto/obtenerCarrera',
+            url: '/proyecto/obtenerObjetoColeccion',
             method: 'GET',
             params: args
           });
@@ -154,6 +153,16 @@ myApp.service('myApp.services', ['$http', function($http) {
     this.AAsociar = function(args) {
         return  $http({
           url: "proyecto/AAsociar",
+          method: 'GET',
+          params: args
+         
+        });
+    };
+    
+    this.AAsociarCeremonia = function(args) {
+        console.log(args);
+        return  $http({
+          url: "proyecto/AAsociarCeremonia",
           method: 'GET',
           params: args
          

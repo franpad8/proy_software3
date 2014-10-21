@@ -125,7 +125,6 @@ myApp.controller('VerProyecto', ['$scope', '$location', '$routeParams', 'myApp.s
             var arg = {};
             arg[label] = JSON.stringify(id);
             service.ACarrera(arg).then(function(object) {
-                console.log(object.data);
                 $location.path(object.data);
             });
         };
@@ -178,17 +177,41 @@ myApp.controller('BorrarProyecto', function($scope, $routeParams) {
     $scope.proyecto = getProyect($routeParams.proyectoId);
 });
 
+myApp.controller('VerReporte', ['$scope', '$location', '$routeParams', 'myApp.services', function ($scope, $location, $routeParams, service) {
+        $scope.tipo = $routeParams.tipo;
+        $scope.aux = {'1':"Planificacion de Carrera", '2':"Careos Diarios", '3':"Evaluacion de Carrera", '4':"Retrospectiva"}
+        $scope.nombre = $scope.aux[$scope.tipo];
+        
+        var label = '_id, coleccion'.split(/, */);
+        var arg = {};
+        arg[label[0]] = $routeParams._id;
+        console.log($routeParams._id);
+        arg[label[1]] = 'carrera';
+        service.getObjetoColeccion(arg).then(function (object) {
+            console.log(object);
+            $scope.ceremonias = object.data.data.ceremonias;
+        });
+        
+        
+        $scope.AAsociarCeremonia = function(isValid) {
+            $scope.submitted = true;
+            if (isValid) {
+                service.AAsociarCeremonia({"_id": $routeParams._id, "tipo": $scope.tipo, "usuario": $scope.fAsociarCeremonia.usuario,
+                                            "reporte":$scope.fAsociarCeremonia.reporte, "fecha": new Date()}).then(function(object) {
+                });
+            }
+        };
+
+    }]);
+
 
 myApp.controller('Carrera', ['$scope', '$location', '$routeParams', 'myApp.services', function($scope, $location, $routeParams, service) {
    $scope.nombre = $routeParams._id;
-   $scope.AReporte = function(id, tipo){
-       var label = '_id, tipo'.split(/, */);
-            var arg = {};
-            arg[label[0]] = id;
-            service.ObtenerCarrera(arg).then(function(object) {
-                console.log(object.data);
-            });
-   };
+   $scope.ruta='';
+        $scope.AReporte = function (id, tipo) {    
+            $location.path('/AReporte/' + id + '/' + tipo);
+            
+        };
 }]);
 
 
