@@ -4,7 +4,6 @@
 </ol>
 
 <ul class="nav nav-pills pull-right" >
-    <!--    <li><a href="#/AsociarComponente/{{proyecto._id}}">Asociar Requisito</a></li>-->
     <li><a ng-click="ABorrar(proyecto['_id'])" >Borrar</a> </li>
 </ul>
 
@@ -25,7 +24,6 @@
             <table class="table table-condensed table-hover">
                 <tr>
                     <th> Nombre </th>
-                    <!--<th> Participantes </th>-->
                     <th> Teléfono </th>
                     <th> Email </th>
                 </tr>
@@ -43,94 +41,129 @@
                         {{participante.email}}
                     </td>
                 </tr>
-
-
             </table>
+        </div>
+    </li>
 
+    <li class="list-group-item list-group-item-info"> Requisitos </li>
+    <li class="list-group-item">
 
+        <div class="container-fluid">
+            <table class="table table-condensed table-hover">
+                <thead>
+                    <tr>
+                        <th><a href="" ng-click="predicate = 'requisito';
+                                reverse = !reverse">Requisito</a></th>
+                        <th><a href="" ng-click="predicate = 'prioridad';
+                                reverse = !reverse">Prioridad</a></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="requisito in proyecto.requisitos | orderBy:predicate:reverse">
+                        <td>  
+                            {{requisito.nombre}}
 
+                        </td>
+                        <td>  
+                            {{requisito.prioridad}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
+
+        <button type="button" class="btn btn-primary" data-toggle="button" 
+                ng-click="showAdd = !showAdd"> Agregar Nuevo Requisito</button>
+        <div id="target" ng-show="showAdd">
+
+            <form name="fAsociarForm" ng-submit="AAsociar(fAsociarForm.$valid)" >
+                <div class="form-group">
+                    <br>
+                    <label for="fAsociar_nombre">Requisito</label>
+                    <input type="text" id="fAsociar_nombre" ng-model="fAsociar.nombre" required> <span id='estadoNombre' style='color:red'>El nombre no puede estar vacio</span></br>
+                    <label for="fAsociar_prioridad">Prioridad</label>
+                    <input type="text" id="fAsociar_prioridad" ng-model="fAsociar.prioridad" required> <span id='estadoPrioridad' style='color:red'>La prioridad no puede estar vacia</span></br>
+
+                </div>
+                <input type='submit' class="btn btn-success" id='boton' value='Asociar' onclick="window.location.reload()" disabled/> 
+
+            </form>
+
+            <script type='text/javascript'>
+
+
+                        var txtNombre = document.getElementById('fAsociar_nombre');
+                        var txtPrioridad = document.getElementById('fAsociar_prioridad');
+
+
+                        var estadoNombre = document.getElementById('estadoNombre');
+                        var estadoPrioridad = document.getElementById('estadoPrioridad');
+
+
+
+                        txtNombre.onkeyup = function () {
+                            if (txtNombre.value == "") {
+                                estadoNombre.innerHTML = "El nombre no puede estar en blanco";
+                                estadoNombre.style.color = "red";
+                            }
+                            else {
+                                estadoNombre.innerHTML = "El nombre es válido";
+                                estadoNombre.style.color = "green";
+                            }
+                            verificarCampos();
+                        }
+
+                        txtPrioridad.onkeyup = function () {
+                            var re = /^[0-9]*$/;
+                            if (txtPrioridad.value == "") {
+                                estadoPrioridad.innerHTML = "La prioridad no puede estar en blanco";
+                                estadoPrioridad.style.color = "red";
+                            }
+                            else if (!re.test(txtPrioridad.value)) {
+                                estadoPrioridad.innerHTML = "La prioridad debe ser un número entero";
+                                estadoPrioridad.style.color = "red";
+                            }
+                            else {
+                                estadoPrioridad.innerHTML = "La prioridad es válido";
+                                estadoPrioridad.style.color = "green";
+                            }
+                            verificarCampos();
+                        }
+
+
+
+                        function verificarCampos() {
+                            var botonEnviar = document.getElementById('boton');
+                            var re = /^[0-9]*$/;
+                            if (txtNombre.value != "" && txtPrioridad.value != "" && re.test(txtPrioridad.value)) {
+                                botonEnviar.disabled = false;
+                            }
+                            else {
+                                botonEnviar.disabled = true;
+                            }
+                        }
+            </script>
     </li>
 
 
-
-    <li class="list-group-item list-group-item-info"> Requisitos </li>
-    <!--<li class="list-group-item" ng-repeat='requisito in proyecto["requisitos"]'>-->
-
-    <!--{{requisito.requisito}}--> 
-
+    <li class="list-group-item list-group-item-info"> Carreras </li>
     <li class="list-group-item">
 
         <div class="container-fluid">
             <table class="table table-condensed table-hover">
                 <tr>
-                    <!--                    <th> Requisito </th>
-                                       
-                                        <th> Prioridad </th>-->
-                    <th><a href="" ng-click="predicate = 'requisito';
-                    reverse = !reverse">Requisito</a></th>
-                    <th><a href="" ng-click="predicate = 'prioridad';
-                    reverse = !reverse">Prioridad</a></th>
-
+                    <th> Nombre </th>
                 </tr>
 
-                <tr ng-repeat='requisito in proyecto["requisitos"]| orderBy:predicate:reverse' ng-show='proyecto["requisitos"].length'>
-                    <td>  
-                        {{requisito.nombre}}
-
+                <tr ng-repeat='carrera in carreras' ng-show='carreras.length'>
+                    <td>
+                        <a ng_click="ACarrera(carrera._id,carrera.numero)"> {{"Carrera " + carrera.numero}}</a>
                     </td>
-                    <td>  
-                        {{requisito.prioridad}}
-
-                    </td>
-                
                 </tr>
             </table>
+
         </div>
-            
-        
-        <button type="button" class="btn btn-primary" data-toggle="button" 
-                ng-click="showAdd = ! showAdd"> Agregar Nuevo Requisito</button>
-        <div id="target" ng-show="showAdd">
-            
-            <form name="fAsociarForm" ng-submit="AAsociar(fAsociarForm.$valid)" >
-                <div class="form-group">
-                    <label for="fAsociar_nombre">Requisito</label>
-                    <input type="text" class="form-control" id="fAsociar_nombre" name="nombre" ng-model="fAsociar.nombre" required>
-                    <label for="fAsociar_prioridad">Prioridad</label>
-                    <input type="text" class="form-control" id="fAsociar_nombre" name="prioridad" ng-model="fAsociar.prioridad" required>
-                </div>
-                <!--    <button type="submit" class="btn btn-default">Asociar</button>-->
-                <button type="submit" class="btn btn-success" onclick="window.location.reload()">Asociar</button>
-            </form>
-    </li>
-    
-    
-    <li class="list-group-item list-group-item-info"> Carreras </li>
-    <li class="list-group-item">
-
-    <div class="container-fluid">
-        <table class="table table-condensed table-hover">
-            <tr>
-                <th> Nombre </th>
-            </tr>
-
-            <tr ng-repeat='carrera in carreras' ng-show='carreras.length'>
-                <td>
-                    <a ng_click="ACarrera(carrera._id,carrera.numero)"> {{"Carrera " + carrera.numero}}</a>
-                </td>
-
-            </tr>
-        </table>
-
-    </div>
 
     </li>
-    
-    
-
-    <!--<li class="list-group-item" ng-repeat='componente in proyecto["componentes"]'>
-        {{componente}}
-    </li>-->
 </ul>
