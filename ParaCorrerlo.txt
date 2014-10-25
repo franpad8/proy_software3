@@ -11,8 +11,15 @@ db.participante.insert({nombre: "Luis Mercado", telefono: "04123456788", email: 
 db.participante.insert({nombre: "Carlos Garcia", telefono: "04162345667", email: "sadfq234@gmail.com"})
 db.participante.insert({nombre: "Alfonso Santos", telefono: "0416234123", email: "asant234@gmail.com"})
 
+SE DEBEN INSERTAR carreras:
+db.carreras.insert({numero: "1"})
+db.carreras.insert({numero: "2"})
+db.carreras.insert({numero: "42"})
+
+
 SE DE INSERTAR AL MENOS UN PROYECTO
-db.proyecto.insert({nombre : "Proyecto 1", participantes : [{_id: ObjectId("542ec8dae85be1f28fb0e8e0")}, {_id: ObjectId("542ec8c9e85be1f28fb0e8de")}], requisitos : [{"nombre" : "Nuevo", "prioridad": "1"}], descripcion: "Descripcion 1", carreras: [{_id:1},{_id:2}]})
+db.proyecto.insert({nombre : "Proyecto 1", participantes : [{_id: ObjectId("542ec8dae85be1f28fb0e8e0")}, {_id: ObjectId("542ec8c9e85be1f28fb0e8de")}], requisitos : [{"nombre" : "Nuevo", "prioridad": "1"}], descripcion: "Descripcion 1", carreras: [{_id: ObjectId("542ec8dae85be1f28fb0e8e0")},{_id: ObjectId("542ec8dae85be1f28fb0e8e0")}]})
+
 
 Donde los objetos ids de participantes de la forma: 
 {_id: ObjectId("542def37fca1960c201ddf2b")} 
@@ -28,4 +35,8 @@ Se ha de notar ademas que hay unos botones como
 que no forman parte de esta entrega, sino de la 
 parte de la integracion, y por ende no estan
 funcionales todavia.
+
+
+
+
 

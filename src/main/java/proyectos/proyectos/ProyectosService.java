@@ -89,7 +89,36 @@ public class ProyectosService {
 
         });
         
-        
+        Spark.get(new Route("/proyecto/obtenerObjColec") {
+            @Override
+            public Object handle(final Request request,
+                    final Response response) {
+                String res = "{}";
+                
+                res = "{\"data\":[";
+                try {
+                    
+                    String id = request.queryParams("lista_id");
+                    String[] idsPartes = id.split(",");
+                    String coleccion = request.queryParams("coleccion");
+                    CRUD crud = new CRUD("test", "localhost");
+                    for(int i=0; i < idsPartes.length; i++){
+                        ObjectId crit = (ObjectId)JSON.parse(idsPartes[i]);
+                        final DBObject mensaje = crud.findById(coleccion, crit);
+                        res += mensaje.toString();
+                        if (i != idsPartes.length - 1)
+                            res += ", ";
+                        
+                    }
+                    res += "]}";
+                                                           
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return res;
+            }
+
+        });
         
 
 
@@ -252,7 +281,7 @@ public class ProyectosService {
                 //Action code goes here, change res accordingly
                 res+="/"+request.queryParams("_id");
                 //Action code ends here
-                System.out.println(""+res);
+                
                 return res;
                 
             }
@@ -268,7 +297,6 @@ public class ProyectosService {
                 //Action code goes here, change res accordingly
                 res+="/"+request.queryParams("tipo");
                 //Action code ends here
-                System.out.println(""+res);
                 return res;
                 
             }
@@ -298,6 +326,31 @@ public class ProyectosService {
                 return res;
             }
         });
+        
+        Spark.get(new Route("/proyecto/Proyecto1") {
+            @Override
+            public Object handle(final Request request,
+                    final Response response) {
+                String res = "{}";
+                //Action code goes here, change res accordingly
+                try {
+                    ObjectId crit = (ObjectId)JSON.parse(request.queryParams("_id"));
+                    res = "{\"proyecto\": ";
+                    CRUD crud = new CRUD("test", "localhost");
+                    final DBObject mensaje = crud.findById("proyecto", crit); 
+                    res += mensaje.toString() 
+                            + ", \"_id\": { \"$oid\" : \"" + mensaje.get("_id").toString()
+                            + "\"}}";
+                } catch (Throwable e) {
+                   e.printStackTrace();
+                }
+
+
+                //Action code ends here
+                return res;
+            }
+        });
+        
 
         Spark.get(new Route("/proyecto/Crear") {
             @Override

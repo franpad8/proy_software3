@@ -31,6 +31,19 @@ myApp.service('myApp.services', ['$http', function($http) {
         }
     };
     
+    this.getObjColec = function(args) {
+        
+        if(typeof args == 'undefined') {
+          return $http.get('proyecto/obtenerObjColec');
+        } else {
+          return $http({            
+            url: 'proyecto/obtenerObjColec',
+            method: 'GET',
+            params: args
+          });
+        }
+    };
+    
     this.ABorrar = function(args) {
         if(typeof args == 'undefined') {
           return $http.get('proyecto/ABorrar');
@@ -116,6 +129,21 @@ myApp.service('myApp.services', ['$http', function($http) {
           });
         }
     };
+    
+    this.Proyecto1 = function(args) {
+        
+        if(typeof args == 'undefined') {
+          return $http.get('proyecto/Proyecto');
+        } else {
+          return $http({
+            
+            url: 'proyecto/Proyecto',
+            method: 'GET',
+            params: args
+          });
+        }
+    };
+    
     
     this.Crear = function(args) {
         if(typeof args == 'undefined') {

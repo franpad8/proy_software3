@@ -7,7 +7,7 @@ myApp.controller('ListarProyectos', ['$scope', '$location', 'myApp.services', fu
             /*INICIO DE PAGINACION*/
             $scope.filteredTodos = []; //es el subset de proyectos a iterar
             $scope.currentPage = 1;
-            $scope.numPerPage = 3;
+            $scope.numPerPage = 7;
             $scope.maxSize = 5;
             $scope.numPaginas = Math.ceil($scope.proyectos.length / $scope.numPerPage);
 
@@ -113,20 +113,63 @@ myApp.controller('VerProyecto', ['$scope', '$location', '$routeParams', 'myApp.s
                 
             }
             
-            //console.log($scope.lista_id);
+            //console.log("Participantes <- "+ $scope.lista_id);
             service.getObjetosColeccion({"lista_id": $scope.lista_id, "coleccion": "participante" }).then(function(object){
                 $scope.participantes = object.data.data; 
-            
+                    
             });
+            
         });
         
-         $scope.ACarrera = function(id) {
+        service.Proyecto1({"_id": $routeParams._id}).then(function(object) {
+            $scope.res = object.data;
+            $scope.carreras = [];
+            $scope.lista_id = "";
+            for (var key in object.data) {
+                $scope[key] = object.data[key];
+            }
+            $scope.num_carreras = object.data.proyecto['carreras'].length;
+            
+            for (var i = 0; i < $scope.num_carreras; i++) {
+                $scope.lista_id = $scope.lista_id.concat("{$oid: '");       
+                $scope.lista_id = $scope.lista_id.concat(object.data.proyecto.carreras[i]._id.$oid);
+                $scope.lista_id = $scope.lista_id.concat("'");       
+                if (i !== $scope.num_carreras-1)
+                    $scope.lista_id = $scope.lista_id.concat("},");
+                else
+                    $scope.lista_id = $scope.lista_id.concat("}");
+                
+                               
+            }
+            
+            
+            service.getObjColec({"lista_id": $scope.lista_id, "coleccion": "carrera"}).then(function (object) {
+
+                $scope.carreras = object.data.data;
+            });
+        });     
+        
+        
+        
+        //var label = '_id,colleccion'.split(/, */);
+        //var arg = {};
+        //arg[label[0]] = $routeParams._id;
+        //arg[label[1]] = 'carrera';
+        //console.log("Holaaa -> " + arg[label[0]] + arg[label[1]]);
+        //service.getObjColec(arg[label[0]],arg[label[1]]).then(function (object) {
+        //    console.log("Holaaa " + object);
+        //    $scope.carreras = object.data.data.carreras;
+        //});
+        
+        
+        
+         $scope.ACarrera = function(id,numero) {
+            
             var label = '_id, nombre, participantes, descripcion'.split(/, */)[0];
             var arg = {};
             arg[label] = JSON.stringify(id);
-            service.ACarrera(arg).then(function(object) {
-                $location.path(object.data);
-            });
+            $location.path('/ACarrera/' + JSON.stringify(id) + '/' + numero);
+            
         };
 
         $scope.fAsociar = {};
@@ -207,6 +250,7 @@ myApp.controller('VerReporte', ['$scope', '$location', '$routeParams', 'myApp.se
 
 myApp.controller('Carrera', ['$scope', '$location', '$routeParams', 'myApp.services', function($scope, $location, $routeParams, service) {
    $scope.nombre = $routeParams._id;
+   $scope.numero = $routeParams.numero;
    $scope.ruta='';
         $scope.AReporte = function (id, tipo) {    
             $location.path('/AReporte/' + id + '/' + tipo);

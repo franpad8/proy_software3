@@ -116,9 +116,9 @@
                 <th> Nombre </th>
             </tr>
 
-            <tr ng-repeat='carrera in proyecto["carreras"]' ng-show='proyecto["carreras"].length'>
+            <tr ng-repeat='carrera in carreras' ng-show='carreras.length'>
                 <td>
-                    <a ng_click="ACarrera(carrera._id)"> {{"Carrera "+ carrera._id.$oid}}</a>
+                    <a ng_click="ACarrera(carrera._id,carrera.numero)"> {{"Carrera " + carrera.numero}}</a>
                 </td>
 
             </tr>
