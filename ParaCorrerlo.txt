@@ -12,9 +12,9 @@ db.participante.insert({nombre: "Carlos Garcia", telefono: "04162345667", email:
 db.participante.insert({nombre: "Alfonso Santos", telefono: "0416234123", email: "asant234@gmail.com"})
 
 SE DEBEN INSERTAR carreras:
-db.carreras.insert({numero: "1"})
-db.carreras.insert({numero: "2"})
-db.carreras.insert({numero: "42"})
+db.carrera.insert({numero: "1"})
+db.carrera.insert({numero: "2"})
+db.carrera.insert({numero: "42"})
 
 
 SE DE INSERTAR AL MENOS UN PROYECTO

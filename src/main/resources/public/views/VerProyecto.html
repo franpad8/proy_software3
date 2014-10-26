@@ -103,8 +103,8 @@
 
 
                         txtNombre.onkeyup = function () {
-                            txtNombre.value = $.trim(txtNombre.value);
-                            if (txtNombre.value == "") {
+//                            txtNombre.value = $.trim(txtNombre.value);
+                            if ($.trim(txtNombre.value) == "") {
                                 estadoNombre.innerHTML = "El nombre no puede estar en blanco";
                                 estadoNombre.style.color = "red";
                             }
@@ -117,8 +117,8 @@
 
                         txtPrioridad.onkeyup = function () {
                             var re = /^[0-9]*$/;
-                            txtPrioridad.value = $.trim(txtPrioridad.value)
-                            if (txtPrioridad.value == "") {
+//                            txtPrioridad.value = $.trim(txtPrioridad.value)
+                            if ($.trim(txtPrioridad.value) == "") {
                                 estadoPrioridad.innerHTML = "La prioridad no puede estar en blanco";
                                 estadoPrioridad.style.color = "red";
                             }
@@ -138,7 +138,7 @@
                         function verificarCampos() {
                             var botonEnviar = document.getElementById('boton');
                             var re = /^[0-9]*$/;
-                            if (txtNombre.value != "" && txtPrioridad.value != "" && re.test(txtPrioridad.value)) {
+                            if ($.trim(txtNombre.value) != "" && $.trim(txtPrioridad.value) != "" && re.test(txtPrioridad.value)) {
                                 botonEnviar.disabled = false;
                             }
                             else {
