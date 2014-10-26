@@ -95,6 +95,18 @@ public class CRUD {
     public void insertCollection(String collection, String nombre , String requisito, String prioridad) {
         //Esta es la coleccion proyectos
         DBCollection coll = database.getCollection(collection);
+        
+        requisito = requisito.toLowerCase();
+        prioridad = prioridad.toLowerCase();
+        //Borrar ocurrencia si existe
+        BasicDBObject temp = new BasicDBObject().append("nombre", requisito);
+        BasicDBObject aux = new BasicDBObject().append("$pull", new BasicDBObject("requisitos",temp));
+        BasicDBObject search = new BasicDBObject().append("nombre", nombre);
+        coll.update(search, aux);
+
+        coll= database.getCollection(collection);
+        
+        
         //proyecto a modificar
         BasicDBObject elemento = new BasicDBObject().append("nombre", requisito).append("prioridad",prioridad);
         
