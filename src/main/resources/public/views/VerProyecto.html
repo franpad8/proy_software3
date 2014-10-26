@@ -103,6 +103,7 @@
 
 
                         txtNombre.onkeyup = function () {
+                            txtNombre.value = $.trim(txtNombre.value);
                             if (txtNombre.value == "") {
                                 estadoNombre.innerHTML = "El nombre no puede estar en blanco";
                                 estadoNombre.style.color = "red";
@@ -116,6 +117,7 @@
 
                         txtPrioridad.onkeyup = function () {
                             var re = /^[0-9]*$/;
+                            txtPrioridad.value = $.trim(txtPrioridad.value)
                             if (txtPrioridad.value == "") {
                                 estadoPrioridad.innerHTML = "La prioridad no puede estar en blanco";
                                 estadoPrioridad.style.color = "red";
