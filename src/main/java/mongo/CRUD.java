@@ -96,22 +96,22 @@ public class CRUD {
         requisito = capitalize(requisito.trim());
         prioridad = capitalize(prioridad.trim());
         //Borrar ocurrencia si existe
-        BasicDBObject temp = new BasicDBObject().append("nombre", requisito);
-        BasicDBObject aux = new BasicDBObject().append("$pull", new BasicDBObject("requisitos", temp));
-        BasicDBObject search = new BasicDBObject().append("nombre", nombre);
-        coll.update(search, aux);
+        BasicDBObject elemento = new BasicDBObject().append("nombre", requisito);
+        BasicDBObject newDocument = new BasicDBObject().append("$pull", new BasicDBObject("requisitos", elemento));
+        BasicDBObject searchQuery = new BasicDBObject().append("nombre", nombre);
+        coll.update(searchQuery, newDocument);
 
         coll = database.getCollection(collection);
 
         //proyecto a modificar
-        BasicDBObject elemento = new BasicDBObject().append("nombre", requisito).append("prioridad", prioridad);
+        elemento = new BasicDBObject().append("nombre", requisito).append("prioridad", prioridad);
 
-        BasicDBObject newDocument = new BasicDBObject();
+        newDocument = new BasicDBObject();
         newDocument.append("$addToSet", new BasicDBObject("requisitos", elemento));
         System.out.println(elemento.toString());
         System.out.println(newDocument.toString());
 //        newDocument.append("$addToSet", newDocument.append("prioridad", prioridad));
-        BasicDBObject searchQuery = new BasicDBObject().append("nombre", nombre);
+        searchQuery = new BasicDBObject().append("nombre", nombre);
         coll.update(searchQuery, newDocument);
     }
 
@@ -137,7 +137,7 @@ public class CRUD {
         }
         char first = s.charAt(0);
         char capitalized = Character.toUpperCase(first);
-        return (first == capitalized)? s : capitalized + s.substring(1);
+        return (first == capitalized) ? s : capitalized + s.substring(1);
     }
 
 }
