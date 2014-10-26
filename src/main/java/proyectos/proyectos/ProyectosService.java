@@ -242,7 +242,7 @@ public class ProyectosService {
                     res = "{\"proyecto\": ";
                     CRUD crud = new CRUD("test", "localhost");
                     crud.insertCollectionCeremonia("carrera", request.queryParams("_id"), request.queryParams("usuario"),
-                                                request.queryParams("tipo"), request.queryParams("reporte"), request.queryParams("fecha")); 
+                                                request.queryParams("tipo"), request.queryParams("reporte"), request.queryParams("fecha").replaceAll("\"", "")); 
 
                     /*res += mensaje.toString() 
                             + ", \"_id\": { \"$oid\" : \"" + mensaje.get("_id").toString()

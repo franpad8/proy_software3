@@ -228,11 +228,20 @@ myApp.controller('VerReporte', ['$scope', '$location', '$routeParams', 'myApp.se
         var label = '_id, coleccion'.split(/, */);
         var arg = {};
         arg[label[0]] = $routeParams._id;
-        console.log($routeParams._id);
         arg[label[1]] = 'carrera';
+        
+        /* Obtenemos la ceremonia de la carrera */
         service.getObjetoColeccion(arg).then(function (object) {
-            console.log(object);
+
             $scope.ceremonias = object.data.data.ceremonias;
+      
+            /* parseamos todas las fechas de texto plano al formato para mostrarlas en el template*/
+            for (var i=0; i < $scope.ceremonias.length; i++){
+                $scope.ceremonias[i].fecha = Date.parse($scope.ceremonias[i].fecha);
+                
+            };
+            
+           
         });
         
         
