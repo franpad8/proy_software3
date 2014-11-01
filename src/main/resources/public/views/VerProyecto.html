@@ -49,6 +49,8 @@
     <li class="list-group-item">
 
         <div class="container-fluid">
+            <span class="glyphicon glyphicon-search"></span>
+            <input type="text" ng-model="searchRequisito" class="input-medium search-query" placeholder="Buscar">
             <table class="table table-condensed table-hover">
                 <thead>
                     <tr>
@@ -59,7 +61,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="requisito in proyecto.requisitos | orderBy:predicate:reverse">
+                    <tr ng-repeat="requisito in proyecto.requisitos | filter: searchRequisito" | orderBy:predicate:reverse">
                         <td>  
                             {{requisito.nombre}}
 
