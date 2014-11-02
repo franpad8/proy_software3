@@ -26,8 +26,8 @@
                     <th><a href="" ng-click="nombrePart = 'nombre';
                     reversePart = !reversePart">Nombre</a></th>
                     <!--<th> Nombre </th>-->
-                    <th> Teléfono </th>
-                    <th> Email </th>
+                    <th><a> Teléfono </a></th>
+                    <th><a> Email </a></th>
                 </tr>
 
                 <tr ng-repeat="participante in participantes| filter: searchText | orderBy:nombrePart:reversePart" ng-show='participantes.length'>
@@ -157,12 +157,14 @@
     <li class="list-group-item">
 
         <div class="container-fluid">
+            <span class="glyphicon glyphicon-search"></span>
+            <input type="text" ng-model="searchCarrera" class="input-medium search-query" placeholder="Buscar numero de carrera">
             <table class="table table-condensed table-hover">
                 <tr>
                     <th> Nombre </th>
                 </tr>
 
-                <tr ng-repeat='carrera in carreras' ng-show='carreras.length'>
+                <tr ng-repeat="carrera in carreras | filter: searchCarrera" ng-show='carreras.length'>
                     <td>
                         <a ng_click="ACarrera(carrera._id,carrera.numero)"> {{"Carrera " + carrera.numero}}</a>
                     </td>
