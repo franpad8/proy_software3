@@ -61,7 +61,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="requisito in proyecto.requisitos | filter: searchRequisito" | orderBy:predicate:reverse">
+                    <tr ng-repeat="requisito in proyecto.requisitos | filter: searchRequisito | orderBy:predicate:reverse">
                         <td>  
                             {{requisito.nombre}}
 
