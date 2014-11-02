@@ -24,13 +24,13 @@
             <table class="table table-condensed table-hover">
                 <tr>
                     <th><a href="" ng-click="nombrePart = 'nombre';
-                    reverse = !reverse">Nombre</a></th>
+                    reversePart = !reversePart">Nombre</a></th>
                     <!--<th> Nombre </th>-->
                     <th> Teléfono </th>
                     <th> Email </th>
                 </tr>
 
-                <tr ng-repeat="participante in participantes| filter: searchText | orderBy:nombrePart:reverse" ng-show='participantes.length'>
+                <tr ng-repeat="participante in participantes| filter: searchText | orderBy:nombrePart:reversePart" ng-show='participantes.length'>
                     <td>  
                         {{participante.nombre}}
 
