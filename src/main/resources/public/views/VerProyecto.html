@@ -23,12 +23,14 @@
             <input type="text" ng-model="searchText" class="input-medium search-query" placeholder="Buscar">
             <table class="table table-condensed table-hover">
                 <tr>
-                    <th> Nombre </th>
-                    <th> Teléfono </th>
-                    <th> Email </th>
+                    <th><a href="" ng-click="nombrePart = 'nombre';
+                    reversePart = !reversePart">Nombre</a></th>
+                    <!--<th> Nombre </th>-->
+                    <th><a> Teléfono </a></th>
+                    <th><a> Email </a></th>
                 </tr>
 
-                <tr ng-repeat="participante in participantes| filter: searchText" ng-show='participantes.length'>
+                <tr ng-repeat="participante in participantes| filter: searchText | orderBy:nombrePart:reversePart" ng-show='participantes.length'>
                     <td>  
                         {{participante.nombre}}
 
@@ -49,17 +51,19 @@
     <li class="list-group-item">
 
         <div class="container-fluid">
+            <span class="glyphicon glyphicon-search"></span>
+            <input type="text" ng-model="searchRequisito" class="input-medium search-query" placeholder="Buscar">
             <table class="table table-condensed table-hover">
                 <thead>
                     <tr>
-                        <th><a href="" ng-click="predicate = 'requisito';
+                        <th><a href="" ng-click="predicate = 'nombre';
                                 reverse = !reverse">Requisito</a></th>
                         <th><a href="" ng-click="predicate = 'prioridad';
                                 reverse = !reverse">Prioridad</a></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="requisito in proyecto.requisitos | orderBy:predicate:reverse">
+                    <tr ng-repeat="requisito in proyecto.requisitos | filter: searchRequisito | orderBy:predicate:reverse">
                         <td>  
                             {{requisito.nombre}}
 
@@ -81,7 +85,7 @@
                 <div class="form-group">
                     <br>
                     <label for="fAsociar_nombre">Requisito</label>
-                    <input type="text" id="fAsociar_nombre" ng-model="fAsociar.nombre" required> <span id='estadoNombre' style='color:red'>El nombre no puede estar vacio</span></br>
+                    <input type="text" id="fAsociar_nombre" ng-model="fAsociar.nombre" autocomplete="on" required> <span id='estadoNombre' style='color:red'>El nombre no puede estar vacio</span></br>
                     <label for="fAsociar_prioridad">Prioridad</label>
                     <input type="text" id="fAsociar_prioridad" ng-model="fAsociar.prioridad" required> <span id='estadoPrioridad' style='color:red'>La prioridad no puede estar vacia</span></br>
 
@@ -153,12 +157,14 @@
     <li class="list-group-item">
 
         <div class="container-fluid">
+            <span class="glyphicon glyphicon-search"></span>
+            <input type="text" ng-model="searchCarrera" class="input-medium search-query" placeholder="Buscar numero de carrera">
             <table class="table table-condensed table-hover">
                 <tr>
                     <th> Nombre </th>
                 </tr>
 
-                <tr ng-repeat='carrera in carreras' ng-show='carreras.length'>
+                <tr ng-repeat="carrera in carreras | filter: searchCarrera" ng-show='carreras.length'>
                     <td>
                         <a ng_click="ACarrera(carrera._id,carrera.numero)"> {{"Carrera " + carrera.numero}}</a>
                     </td>
