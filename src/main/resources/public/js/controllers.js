@@ -224,16 +224,33 @@ myApp.controller('VerReporte', ['$scope', '$location', '$routeParams', 'myApp.se
         $scope.tipo = $routeParams.tipo;
         $scope.aux = {'1':"Planificacion de Carrera", '2':"Careos Diarios", '3':"Evaluacion de Carrera", '4':"Retrospectiva"}
         $scope.nombre = $scope.aux[$scope.tipo];
+        $scope.lista = [];
+        $scope.nroMostradosPorPagina = 2;
+        $scope.nroMostrados = $scope.nroMostradosPorPagina;
+        $scope.tamanioListaReportes = 0;
+        $scope.necesitaPaginacion = false;
+        $scope.quedan = true;
         
         var label = '_id, coleccion'.split(/, */);
         var arg = {};
         arg[label[0]] = $routeParams._id;
         arg[label[1]] = 'carrera';
         
-        /* Obtenemos la ceremonia de la carrera */
+        /* Obtenemos las ceremonias de la carrera */
         service.getObjetoColeccion(arg).then(function (object) {
 
+            //Obtenemos el resultado del servicio con todas las ceremonias de la carrera 
             $scope.ceremonias = object.data.data.ceremonias;
+            
+            //Filtramos por tipo de ceremonia
+            $scope.ceremonias = $scope.ceremonias.filter(function(x){return x.tipo===$scope.tipo;});
+            
+            //Almacenamos el numero de reportes
+            $scope.tamanioListaReportes = $scope.ceremonias.length;
+            
+            //Determinamos si se necesita paginación
+            $scope.necesitaPaginacion = $scope.ceremonias.length > $scope.nroMostradosPorPagina;
+            
       
             /* parseamos todas las fechas de texto plano al formato para mostrarlas en el template*/
             for (var i=0; i < $scope.ceremonias.length; i++){
@@ -241,8 +258,30 @@ myApp.controller('VerReporte', ['$scope', '$location', '$routeParams', 'myApp.se
                 
             };
             
+            // Ordenamos las ceremonias por fechas 
+            $scope.ceremonias.sort(function(a,b){
+                // Turn your strings into dates, and then subtract them
+                // to get a value that is either negative, positive, or zero.
+            return b.fecha - a.fecha;
+            });
+            
+            $scope.lista = $scope.ceremonias.slice(0, $scope.nroMostrados);
+            
            
         });
+        
+        $scope.cargarMas = function(e){
+          $scope.nroMostrados += $scope.nroMostradosPorPagina;
+          $scope.lista = $scope.ceremonias.slice(0, $scope.nroMostrados);
+          if($scope.nroMostrados >= $scope.tamanioListaReportes)
+              $scope.quedan = false;
+        };
+        $scope.cargarMenos = function(e){       
+          $scope.nroMostrados = $scope.nroMostradosPorPagina;
+          $scope.lista = $scope.ceremonias.slice(0, $scope.nroMostrados);
+          $scope.quedan = true;
+          document.body.scrollTop = document.documentElement.scrollTop = 0;
+        };
         
         
         $scope.AAsociarCeremonia = function(isValid) {
