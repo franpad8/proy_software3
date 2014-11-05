@@ -3,6 +3,7 @@
 myApp.run(function($rootScope) {
     $rootScope.autenticado = false;
     $rootScope._id = null;
+    $rootScope.nombre = "";
 });
 
 
@@ -68,12 +69,8 @@ myApp.controller('ListarProyectos', ['$scope','$route', '$window', '$timeout','$
                         $rootScope.autenticado = true;
                         $rootScope._id = participanteObtenido['_id'];
                         $scope.logueado = true;
-                        
+                        $rootScope.nombre = $scope.usuario.nombre;
                         $route.reload();
-                        
-
-
-
                     }
                     ;
                 });
@@ -294,7 +291,8 @@ myApp.controller('BorrarProyecto', function($scope, $routeParams) {
     $scope.proyecto = getProyect($routeParams.proyectoId);
 });
 
-myApp.controller('VerReporte', ['$scope', '$location', '$routeParams', 'myApp.services', function ($scope, $location, $routeParams, service) {
+
+myApp.controller('VerReporte', ['$rootScope', '$route','$scope', '$location', '$routeParams', 'myApp.services', function ($rootScope,$route,$scope, $location, $routeParams, service) {
         $scope.tipo = $routeParams.tipo;
         $scope.aux = {'1':"Planificacion de Carrera", '2':"Careos Diarios", '3':"Evaluacion de Carrera", '4':"Retrospectiva"}
         $scope.nombre = $scope.aux[$scope.tipo];
@@ -357,12 +355,13 @@ myApp.controller('VerReporte', ['$scope', '$location', '$routeParams', 'myApp.se
           document.body.scrollTop = document.documentElement.scrollTop = 0;
         };
         
-        
+        console.log($rootScope.nombre);
         $scope.AAsociarCeremonia = function(isValid) {
             $scope.submitted = true;
             if (isValid) {
-                service.AAsociarCeremonia({"_id": $routeParams._id, "tipo": $scope.tipo, "usuario": $scope.fAsociarCeremonia.usuario,
+                service.AAsociarCeremonia({"_id": $routeParams._id, "tipo": $scope.tipo, "usuario": $rootScope.nombre,
                                             "reporte":$scope.fAsociarCeremonia.reporte, "fecha": new Date()}).then(function(object) {
+                                            $route.reload();
                 });
             }
         };
