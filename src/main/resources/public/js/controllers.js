@@ -13,7 +13,8 @@ myApp.controller('ListarProyectos', ['$scope','$route', '$window', '$timeout','$
             
         $scope.proyectos = [];
         $scope.logueado = $rootScope.autenticado;
-
+        //$scope.ejemplo = $cookieStore.get('myFavorite');
+        
         if ($scope.logueado) {
             service.getAllProyectos().then(function (object) {
                 /* Se extraen todos los proyectos del usuario logueado */
@@ -159,7 +160,7 @@ myApp.controller('AsociarComponente', ['$scope', '$location', 'myApp.services', 
             }
         };
     }]);
-myApp.controller('VerProyecto', ['$scope', '$location', '$routeParams', 'myApp.services', function($scope, $location, $routeParams, service) {
+myApp.controller('VerProyecto', ['$route','$scope', '$location', '$routeParams', 'myApp.services', function($route, $scope, $location, $routeParams, service) {
         $scope.proy = '';
         $scope.participantes = [];
 
@@ -252,9 +253,15 @@ myApp.controller('VerProyecto', ['$scope', '$location', '$routeParams', 'myApp.s
                 service.AAsociar({"nombre": ($scope.proyecto.nombre), "requisito": ($scope.fAsociar.nombre), "prioridad": ($scope.fAsociar.prioridad)}).then(function(object) {
                 });
             }
+            $route.reload();
         };
 
-        
+        $scope.modificarRequisito = function(requisito_nombre,requisito_prioridad){
+            $scope.fAsociar.nombre = requisito_nombre;
+            $scope.fAsociar.prioridad = requisito_prioridad;           
+            $scope.showAdd = true;
+            
+        };
 
 
 
