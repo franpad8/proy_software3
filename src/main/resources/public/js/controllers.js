@@ -1,49 +1,123 @@
 'use strict';
 
-/* Controllers */
-myApp.controller('ListarProyectos', ['$scope', '$location', 'myApp.services', function($scope, $location, service) {
-        service.getAllProyectos().then(function(object) {
-            $scope.proyectos = object.data.data;
-            /*INICIO DE PAGINACION*/
-            $scope.filteredTodos = []; //es el subset de proyectos a iterar
-            $scope.currentPage = 1;
-            $scope.numPerPage = 7;
-            $scope.maxSize = 5;
-            $scope.numPaginas = Math.ceil($scope.proyectos.length / $scope.numPerPage);
+myApp.run(function($rootScope) {
+    $rootScope.autenticado = false;
+    $rootScope._id = null;
+});
 
-            $scope.numPages = function() {
-                return Math.ceil($scope.proyectos.length / $scope.numPerPage);
+
+/* Controllers */
+myApp.controller('ListarProyectos', ['$scope','$route', '$window', '$timeout','$rootScope', '$location', 'myApp.services', function($scope, $route, $window, $timeout, $rootScope, $location, service) {
+        
+            
+        $scope.proyectos = [];
+        $scope.logueado = $rootScope.autenticado;
+
+        if ($scope.logueado) {
+            service.getAllProyectos().then(function (object) {
+                /* Se extraen todos los proyectos del usuario logueado */
+                $scope.proyectos = object.data.data;
+                
+                /* Se Filtra solo los proyectos en los cuales el usuario participa */
+                $scope.proyectos = $scope.proyectos.filter(
+                        function (x)
+                        {
+                            var lista_ids = x.participantes.map(
+                                    function (y) {
+                                        return y._id.$oid;
+                                    });
+                            return lista_ids.indexOf($rootScope._id.$oid)>-1; 
+                        });
+                        
+                
+                $scope.filteredTodos = []; //es el subset de proyectos a iterar
+                $scope.currentPage = 1;
+                $scope.numPerPage = 7;
+                $scope.maxSize = 5;
+                $scope.numPaginas = Math.ceil($scope.proyectos.length / $scope.numPerPage);
+
+                $scope.numPages = function () {
+                    return Math.ceil($scope.proyectos.length / $scope.numPerPage);
+                };
+
+                $scope.$watch('currentPage + numPerPage', function () {
+                    var begin = (($scope.currentPage - 1) * $scope.numPerPage)
+                            , end = begin + $scope.numPerPage;
+
+                    $scope.filteredTodos = $scope.proyectos.slice(begin, end);
+                });
+
+            });
+
+            
+
+        } else {
+
+            /* LOGUEO */
+            $scope.usuario = {};
+            $scope.AIngresar = function (e) {
+                var label = "email";
+                var arg = {};
+                arg[label] = $scope.fIngresarForm.email;
+                $scope.fIngresarForm = {};
+                service.getParticipanteByEmail(arg).then(function (object) {
+                    var participanteObtenido = object.data.data;
+                    if (participanteObtenido !== null) {
+                        $scope.usuario.nombre = participanteObtenido['nombre'];
+                        $scope.usuario.telefono = participanteObtenido['telefono'];
+                        $rootScope.autenticado = true;
+                        $rootScope._id = participanteObtenido['_id'];
+                        $scope.logueado = true;
+                        
+                        $route.reload();
+                        
+
+
+
+                    }
+                    ;
+                });
+
             };
 
-            $scope.$watch('currentPage + numPerPage', function() {
-                var begin = (($scope.currentPage - 1) * $scope.numPerPage)
-                        , end = begin + $scope.numPerPage;
+            $scope.ASalir = function (e) {
+                $scope.logueado = false;
+                $rootScope.autenticado = false;
+                $rootScope._id = null;
+                $location.path('/');
+                $route.reload();
+            };
 
-                $scope.filteredTodos = $scope.proyectos.slice(begin, end);
-            });
+        }
+        ;
 
-        });
 
-        $scope.APreCrear = function() {
-            service.APreCrear().then(function(object) {
+        
+
+
+
+
+
+        $scope.APreCrear = function () {
+            service.APreCrear().then(function (object) {
                 $location.path(object.data);
             });
         };
 
-        $scope.AProyecto = function(id) {
+        $scope.AProyecto = function (id) {
             var label = '_id, nombre, participantes, descripcion'.split(/, */)[0];
             var arg = {};
             arg[label] = JSON.stringify(id);
-            service.AProyecto(arg).then(function(object) {
+            service.AProyecto(arg).then(function (object) {
                 $location.path(object.data);
             });
         };
 
-        $scope.AModificar = function(id) {
+        $scope.AModificar = function (id) {
             var label = '_id, nombre, participantes, descripcion'.split(/, */)[0];
             var arg = {};
             arg[label] = JSON.stringify(id);
-            service.AModificar(arg).then(function(object) {
+            service.AModificar(arg).then(function (object) {
                 $location.path(object.data);
             });
         };

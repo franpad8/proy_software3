@@ -31,6 +31,18 @@ myApp.service('myApp.services', ['$http', function($http) {
         }
     };
     
+    this.getParticipanteByEmail = function(args) {
+        if(typeof args == 'undefined') {
+          return $http.get('/proyecto/obtenerParticipantePorEmail');
+        } else {
+          return $http({
+            url: '/proyecto/obtenerParticipantePorEmail',
+            method: 'GET',
+            params: args
+          });
+        }
+    };
+    
     this.getObjColec = function(args) {
         
         if(typeof args == 'undefined') {

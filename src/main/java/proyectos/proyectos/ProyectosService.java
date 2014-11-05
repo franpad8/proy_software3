@@ -89,6 +89,29 @@ public class ProyectosService {
 
         });
         
+        Spark.get(new Route("/proyecto/obtenerParticipantePorEmail") {
+            @Override
+            public Object handle(final Request request,
+                    final Response response) {
+                String res = "{}";
+                res = "{\"data\":";
+                try {
+                    String email = request.queryParams("email");
+                    CRUD crud = new CRUD("test", "localhost");
+                    final DBObject mensaje = crud.findByEmail(email);
+                    if (mensaje!=null)
+                        res += mensaje.toString();
+                    else
+                        res += "null";
+                    res += "}";
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return res;
+            }
+
+        });
+        
         Spark.get(new Route("/proyecto/obtenerObjColec") {
             @Override
             public Object handle(final Request request,

@@ -49,6 +49,12 @@ public class CRUD {
         DBObject crit = new BasicDBObject("_id", id);
         return coll.findOne(crit);
     }
+    
+    public DBObject findByEmail(String email) {
+        DBCollection coll = database.getCollection("participante");
+        DBObject crit = new BasicDBObject("email", email);
+        return coll.findOne(crit);
+    }
 
     public void updateObject(String collection, DBObject value) {
         DBCollection coll = database.getCollection(collection);
