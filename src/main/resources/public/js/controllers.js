@@ -1,25 +1,39 @@
 'use strict';
 
-myApp.run(function($rootScope) {
-    $rootScope.autenticado = false;
-    $rootScope._id = null;
-    $rootScope.nombre = "";
-});
-
-
 /* Controllers */
-myApp.controller('ListarProyectos', ['$scope','$route', '$window', '$timeout','$rootScope', '$location', 'myApp.services', function($scope, $route, $window, $timeout, $rootScope, $location, service) {
+myApp.controller('ListarProyectos', ['$scope','$route', '$cookieStore', '$window', '$timeout','$rootScope', '$location', 'myApp.services', function($scope, $route, $cookieStore, $window, $timeout, $rootScope, $location, service) {
         
-            
+          
+        
         $scope.proyectos = [];
-        $scope.logueado = $rootScope.autenticado;
-        //$scope.ejemplo = $cookieStore.get('myFavorite');
-        
+        $scope.logueado = $cookieStore.get('autenticado_usuario');
+
+
+        //Si entra en el condicional es que es la primera vez que entramos al sistema
+        if (typeof $scope.logueado === 'undefined') {
+            $cookieStore.put('autenticado_usuario', false);
+            $scope.logueado = false;
+        }
+
+
+
+
         if ($scope.logueado) {
+            
+
             service.getAllProyectos().then(function (object) {
                 /* Se extraen todos los proyectos del usuario logueado */
-                $scope.proyectos = object.data.data;
+                $scope.nombre_usuario = $cookieStore.get('nombre_usuario');
+                 
+ 
+          
                 
+
+                $scope.id = $cookieStore.get('id_usuario');
+                
+
+                $scope.proyectos = object.data.data;
+
                 /* Se Filtra solo los proyectos en los cuales el usuario participa */
                 $scope.proyectos = $scope.proyectos.filter(
                         function (x)
@@ -28,10 +42,10 @@ myApp.controller('ListarProyectos', ['$scope','$route', '$window', '$timeout','$
                                     function (y) {
                                         return y._id.$oid;
                                     });
-                            return lista_ids.indexOf($rootScope._id.$oid)>-1; 
+                            return lista_ids.indexOf($scope.id) > -1;
                         });
-                        
-                
+
+
                 $scope.filteredTodos = []; //es el subset de proyectos a iterar
                 $scope.currentPage = 1;
                 $scope.numPerPage = 7;
@@ -49,45 +63,45 @@ myApp.controller('ListarProyectos', ['$scope','$route', '$window', '$timeout','$
                     $scope.filteredTodos = $scope.proyectos.slice(begin, end);
                 });
 
+
             });
 
-            
 
-        } else {
-
-            /* LOGUEO */
-            $scope.usuario = {};
-            $scope.AIngresar = function (e) {
-                var label = "email";
-                var arg = {};
-                arg[label] = $scope.fIngresarForm.email;
-                $scope.fIngresarForm = {};
-                service.getParticipanteByEmail(arg).then(function (object) {
-                    var participanteObtenido = object.data.data;
-                    if (participanteObtenido !== null) {
-                        $scope.usuario.nombre = participanteObtenido['nombre'];
-                        $scope.usuario.telefono = participanteObtenido['telefono'];
-                        $rootScope.autenticado = true;
-                        $rootScope._id = participanteObtenido['_id'];
-                        $scope.logueado = true;
-                        $rootScope.nombre = $scope.usuario.nombre;
-                        $route.reload();
-                    }
-                    ;
-                });
-
-            };
-
-            $scope.ASalir = function (e) {
-                $scope.logueado = false;
-                $rootScope.autenticado = false;
-                $rootScope._id = null;
-                $location.path('/');
-                $route.reload();
-            };
 
         }
-        ;
+
+        /* LOGUEO */
+
+        $scope.AIngresar = function (e) {
+            var label = "email";
+            var arg = {};
+            arg[label] = $scope.fIngresarForm.email;
+            $scope.fIngresarForm = {};
+
+            service.getParticipanteByEmail(arg).then(function (object) {
+                var participanteObtenido = object.data.data;
+                if (participanteObtenido !== null) {
+                    $cookieStore.put('nombre_usuario', participanteObtenido['nombre']);
+                    $cookieStore.put('autenticado_usuario', true);
+                    $cookieStore.put('id_usuario', participanteObtenido['_id'].$oid);
+                    $scope.logueado = true;
+
+                    $window.location.reload();
+                }
+                ;
+            });
+
+        };
+
+        $scope.ASalir = function (e) {
+            $scope.logueado = false;
+            $cookieStore.put('autenticado_usuario', false);
+            $cookieStore.put('nombre_usuario', undefined);
+            $cookieStore.put('id_usuario', undefined);
+            $window.location.href= '/';
+        };
+
+        
 
 
         
@@ -315,7 +329,7 @@ myApp.controller('BorrarProyecto', function($scope, $routeParams) {
 });
 
 
-myApp.controller('VerReporte', ['$rootScope', '$route','$scope', '$location', '$routeParams', 'myApp.services', function ($rootScope,$route,$scope, $location, $routeParams, service) {
+myApp.controller('VerReporte', ['$rootScope', '$route','$scope', '$cookieStore', '$location', '$routeParams', 'myApp.services', function ($rootScope,$route,$scope, $cookieStore, $location, $routeParams, service) {
         $scope.tipo = $routeParams.tipo;
         $scope.aux = {'1':"Planificacion de Carrera", '2':"Careos Diarios", '3':"Evaluacion de Carrera", '4':"Retrospectiva"}
         $scope.nombre = $scope.aux[$scope.tipo];
@@ -378,11 +392,10 @@ myApp.controller('VerReporte', ['$rootScope', '$route','$scope', '$location', '$
           document.body.scrollTop = document.documentElement.scrollTop = 0;
         };
         
-        console.log($rootScope.nombre);
         $scope.AAsociarCeremonia = function(isValid) {
             $scope.submitted = true;
             if (isValid) {
-                service.AAsociarCeremonia({"_id": $routeParams._id, "tipo": $scope.tipo, "usuario": $rootScope.nombre,
+                service.AAsociarCeremonia({"_id": $routeParams._id, "tipo": $scope.tipo, "usuario": $cookieStore.get('nombre_usuario'),
                                             "reporte":$scope.fAsociarCeremonia.reporte, "fecha": new Date()}).then(function(object) {
                                             $route.reload();
                 });
