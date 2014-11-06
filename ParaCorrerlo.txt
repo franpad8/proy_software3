@@ -16,14 +16,21 @@ db.carrera.insert({numero: "1"})
 db.carrera.insert({numero: "2"})
 db.carrera.insert({numero: "42"})
 
+SE DEBEN INSERTAR requisitos:
+db.requisito.insert({nombre: "Realizar diseno de BD", prioridad:"1"})
+db.requisito.insert({nombre: "Realizar vistas principales", prioridad:"2"})
+
+{ "_id" : ObjectId("545ab95dcf7b8d17fbd08fd0")}, "nombre" : "Realizar diseno de BD", "prioridad" : "1" }
+{ "_id" : ObjectId("545ab95dcf7b8d17fbd08fd1")}, "nombre" : "Realizar vistas principales", "prioridad" : "2" }
+
 
 SE DE INSERTAR AL MENOS UN PROYECTO
-db.proyecto.insert({nombre : "Proyecto Erick", participantes : [{ "_id" : ObjectId("5455521824f736735b1bbbb9")}, { "_id" : ObjectId("5455521824f736735b1bbbba")}], requisitos : [{"nombre" : "Nuevo", "prioridad": "1"}], descripcion: "Descripcion 1", carreras: [{ "_id" : ObjectId("5455522924f736735b1bbbbd")},{ "_id" : ObjectId("5455522a24f736735b1bbbbf")}]})
+db.proyecto.insert({nombre : "Proyecto ", participantes : [{ "_id" : ObjectId("5455521824f736735b1bbbb9")}, { "_id" : ObjectId("5455521824f736735b1bbbba")}], requisitos : [{ "_id" : ObjectId("545ab95dcf7b8d17fbd08fd0")}, { "_id" : ObjectId("545ab95dcf7b8d17fbd08fd1")}], descripcion: "Descripcion 1", carreras: [{ "_id" : ObjectId("5455522924f736735b1bbbbd")},{ "_id" : ObjectId("5455522a24f736735b1bbbbf")}]})
 
 
-Donde los objetos ids de participantes de la forma: 
+Donde los objetos ids de participantes(o requisitos) de la forma: 
 {_id: ObjectId("542def37fca1960c201ddf2b")} 
-deben corresponder con algun id de los usuarios en 
+deben corresponder con algun id de los usuarios(o requisito) en 
 la base de datos.
 
 
