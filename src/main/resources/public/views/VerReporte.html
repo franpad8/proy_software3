@@ -47,13 +47,14 @@
 
         <form name="fAsociarCeremoniaForm" ng-submit="AAsociarCeremonia(fAsociarCeremoniaForm.$valid)" >
             <div class="form-group">
-                <label for="fAsociarCeremonia_usuario">Usuario</label>
+                <!-- <label for="fAsociarCeremonia_usuario">Usuario</label>
                 <input type="text" class="form-control" id="fAsociarCeremonia_usuario" name="usuario" ng-model="fAsociarCeremonia.usuario" required>
+                -->
                 <label for="fAsociarCeremonia_reporte">Comentario</label>
                 <textarea rows="5" class="form-control" id="fAsociarCeremonia_reporte" name="reporte" ng-model="fAsociarCeremonia.reporte" required></textarea>
             </div>
             <!--    <button type="submit" class="btn btn-default">Asociar</button>-->
-            <button type="submit" class="btn btn-success" onclick="window.location.reload()">Enviar</button>
+            <button type="submit" class="btn btn-success">Enviar</button>
         </form>
 
     </div>
