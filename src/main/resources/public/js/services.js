@@ -55,6 +55,20 @@ myApp.service('myApp.services', ['$http', function($http) {
           });
         }
     };
+        
+    this.getObjColReq = function(args) {
+        
+        if(typeof args == 'undefined') {
+          return $http.get('proyecto/obtenerObjColecReq');
+        } else {
+          return $http({            
+            url: 'proyecto/obtenerObjColecReq',
+            method: 'GET',
+            params: args
+          });
+        }
+    };
+    
     
     this.ABorrar = function(args) {
         if(typeof args == 'undefined') {
@@ -135,20 +149,6 @@ myApp.service('myApp.services', ['$http', function($http) {
           return $http.get('proyecto/Proyecto');
         } else {
           return $http({
-            url: 'proyecto/Proyecto',
-            method: 'GET',
-            params: args
-          });
-        }
-    };
-    
-    this.Proyecto1 = function(args) {
-        
-        if(typeof args == 'undefined') {
-          return $http.get('proyecto/Proyecto');
-        } else {
-          return $http({
-            
             url: 'proyecto/Proyecto',
             method: 'GET',
             params: args

@@ -7,6 +7,8 @@
     <li><a ng-click="ABorrar(proyecto['_id'])" >Borrar</a> </li>
 </ul>
 
+<h1>{{proyecto["_id"]}}</h1>
+
 <h1>{{proyecto["nombre"]}}</h1>
 
 <ul class="list-group" id="datos">
@@ -63,7 +65,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="requisito in proyecto.requisitos | filter: searchRequisito | orderBy:predicate:reverse">
+                    <tr ng-repeat="requisito in requisitos | filter: searchRequisito | orderBy:predicate:reverse">
                         <td>  
                             {{requisito.nombre}}
 
@@ -81,10 +83,12 @@
                 ng-click="showAdd = !showAdd"> Agregar Nuevo Requisito</button>
         <div id="target" ng-show="showAdd">
 
-            <form name="fAsociarForm" ng-submit="AAsociar(fAsociarForm.$valid)" >
+            <form name="fAsociarForm" ng-submit="AAsociar(fAsociarForm.$valid, proyecto._id)" >
+                
+
                 <div class="form-group">
                     <br>
-                    <label for="fAsociar_nombre">Requisito</label>
+                    <label for="fAsociar_nombre">Requisito </label>
                     <input type="text" id="fAsociar_nombre" ng-model="fAsociar.nombre" autocomplete="on" required> <span id='estadoNombre' style='color:red'>El nombre no puede estar vacio</span></br>
                     <label for="fAsociar_prioridad">Prioridad</label>
                     <input type="text" id="fAsociar_prioridad" ng-model="fAsociar.prioridad" required> <span id='estadoPrioridad' style='color:red'>La prioridad no puede estar vacia</span></br>

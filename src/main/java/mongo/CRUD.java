@@ -95,30 +95,39 @@ public class CRUD {
         this.database = database;
     }
 
-    public void insertCollection(String collection, String nombre, String requisito, String prioridad) {
+    public void insertCollectionReq(String collection, String id_proy, String nombre, String prioridad) {
         //Esta es la coleccion proyectos
-        DBCollection coll = database.getCollection(collection);
-
-        requisito = capitalize(requisito.trim());
-        prioridad = capitalize(prioridad.trim());
+        DBCollection collReq = database.getCollection(collection);
+        DBCollection collProy = database.getCollection("proyecto");
+        
         //Borrar ocurrencia si existe
-        BasicDBObject elemento = new BasicDBObject().append("nombre", requisito);
-        BasicDBObject newDocument = new BasicDBObject().append("$pull", new BasicDBObject("requisitos", elemento));
-        BasicDBObject searchQuery = new BasicDBObject().append("nombre", nombre);
-        coll.update(searchQuery, newDocument);
+        BasicDBObject elemento = new BasicDBObject().append("nombre", nombre).append("prioridad", prioridad);
+        System.out.println("INSERTANDO "+elemento);
+        insertObject(collection,elemento);
+        
+        BasicDBObject condicion = new BasicDBObject().append("_id", 1);
+        BasicDBObject reqInsertado = (BasicDBObject) collReq.findOne(elemento,condicion);
+//        ObjectId id_proyecto = (ObjectId) JSON.parse(id_proy);
+        
+//        BasicDBObject searchQuery = new BasicDBObject().append("nombre", nombre);
+//        coll.update(searchQuery, newDocument);
+//
+//        coll = database.getCollection(collection);
+//
+//        //proyecto a modificar
+//        elemento = new BasicDBObject().append("nombre", requisito).append("prioridad", prioridad);
+        System.out.println("Id del proy" + id_proy);
+        ObjectId id_proyecto = (ObjectId) JSON.parse(id_proy);
+        BasicDBObject newDocument = new BasicDBObject();
+        newDocument.append("$addToSet", new BasicDBObject("requisitos", reqInsertado));
+        System.out.println("Id del proyectoooo" + id_proyecto);
+//        System.out.println(newDocument.toString());
+////        newDocument.append("$addToSet", newDocument.append("prioridad", prioridad));
+        BasicDBObject searchQuery;
+        searchQuery = new BasicDBObject().append("_id", id_proyecto);
+                System.out.println("cearcheCuery" + searchQuery);
 
-        coll = database.getCollection(collection);
-
-        //proyecto a modificar
-        elemento = new BasicDBObject().append("nombre", requisito).append("prioridad", prioridad);
-
-        newDocument = new BasicDBObject();
-        newDocument.append("$addToSet", new BasicDBObject("requisitos", elemento));
-        System.out.println(elemento.toString());
-        System.out.println(newDocument.toString());
-//        newDocument.append("$addToSet", newDocument.append("prioridad", prioridad));
-        searchQuery = new BasicDBObject().append("nombre", nombre);
-        coll.update(searchQuery, newDocument);
+        collProy.update(searchQuery, newDocument);
     }
 
     public void insertCollectionCeremonia(String collection, String id, String usuario, String tipo, String reporte, String fecha) {

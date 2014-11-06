@@ -193,9 +193,7 @@ myApp.controller('VerProyecto', ['$scope', '$location', '$routeParams', 'myApp.s
                     
             });
             
-        });
-        
-        service.Proyecto1({"_id": $routeParams._id}).then(function(object) {
+            //Esto es de carreras 
             $scope.res = object.data;
             $scope.carreras = [];
             $scope.lista_id = "";
@@ -221,22 +219,39 @@ myApp.controller('VerProyecto', ['$scope', '$location', '$routeParams', 'myApp.s
 
                 $scope.carreras = object.data.data;
             });
-        });     
+            
+            //Esto es de requisitos 
+            $scope.res = object.data;
+            $scope.requisitos = [];
+            $scope.req_id = "";
+            for (var key in object.data) {
+                $scope[key] = object.data[key];
+            }
+            $scope.num_req = object.data.proyecto['requisitos'].length;
+            
+            for (var i = 0; i < $scope.num_req; i++) {
+                $scope.req_id = $scope.req_id.concat("{$oid: '");       
+                $scope.req_id = $scope.req_id.concat(object.data.proyecto.requisitos[i]._id.$oid);
+                $scope.req_id = $scope.req_id.concat("'");       
+                if (i !== $scope.num_req-1)
+                    $scope.req_id = $scope.req_id.concat("},");
+                else
+                    $scope.req_id = $scope.req_id.concat("}");
+                
+                               
+            }
+            
+            
+                service.getObjColReq({"lista_id": $scope.req_id, "coleccion": "requisito"}).then(function (object) {
+
+                $scope.requisitos = object.data.data;
+            });
+            
+        });
         
+          
         
-        
-        //var label = '_id,colleccion'.split(/, */);
-        //var arg = {};
-        //arg[label[0]] = $routeParams._id;
-        //arg[label[1]] = 'carrera';
-        //console.log("Holaaa -> " + arg[label[0]] + arg[label[1]]);
-        //service.getObjColec(arg[label[0]],arg[label[1]]).then(function (object) {
-        //    console.log("Holaaa " + object);
-        //    $scope.carreras = object.data.data.carreras;
-        //});
-        
-        
-        
+
          $scope.ACarrera = function(id,numero) {
             
             var label = '_id, nombre, participantes, descripcion'.split(/, */)[0];
@@ -249,10 +264,11 @@ myApp.controller('VerProyecto', ['$scope', '$location', '$routeParams', 'myApp.s
         $scope.fAsociar = {};
         $scope.submitted = false;
         
-        $scope.AAsociar = function(isValid) {
+        $scope.AAsociar = function(isValid, id) {
             $scope.submitted = true;
+            console.log("ID en controladorProy"+JSON.stringify(id));
             if (isValid) {
-                service.AAsociar({"nombre": ($scope.proyecto.nombre), "requisito": ($scope.fAsociar.nombre), "prioridad": ($scope.fAsociar.prioridad)}).then(function(object) {
+                service.AAsociar({"id_proy": JSON.stringify(id), "nombre": ($scope.fAsociar.nombre), "prioridad": ($scope.fAsociar.prioridad)}).then(function(object) {
                 });
             }
         };
