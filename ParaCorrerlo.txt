@@ -20,8 +20,6 @@ SE DEBEN INSERTAR requisitos:
 db.requisito.insert({nombre: "Realizar diseno de BD", prioridad:"1"})
 db.requisito.insert({nombre: "Realizar vistas principales", prioridad:"2"})
 
-{ "_id" : ObjectId("545ab95dcf7b8d17fbd08fd0")}, "nombre" : "Realizar diseno de BD", "prioridad" : "1" }
-{ "_id" : ObjectId("545ab95dcf7b8d17fbd08fd1")}, "nombre" : "Realizar vistas principales", "prioridad" : "2" }
 
 
 SE DE INSERTAR AL MENOS UN PROYECTO
