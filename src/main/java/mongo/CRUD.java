@@ -127,6 +127,8 @@ public class CRUD {
         searchQuery = new BasicDBObject().append("_id", id_proyecto);
                 System.out.println("cearcheCuery" + searchQuery);
 
+                System.out.println("NEW"+newDocument);
+                
         collProy.update(searchQuery, newDocument);
     }
 
