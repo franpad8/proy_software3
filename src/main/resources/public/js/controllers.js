@@ -174,7 +174,7 @@ myApp.controller('AsociarComponente', ['$scope', '$location', 'myApp.services', 
             }
         };
     }]);
-myApp.controller('VerProyecto', ['$route','$scope', '$location', '$routeParams', 'myApp.services', function($route, $scope, $location, $routeParams, service) {
+myApp.controller('VerProyecto', ['$window','$route','$scope', '$location', '$routeParams', 'myApp.services', function($window, $route, $scope, $location, $routeParams, service) {
         $scope.proy = '';
         $scope.participantes = [];
 
@@ -283,7 +283,7 @@ myApp.controller('VerProyecto', ['$route','$scope', '$location', '$routeParams',
                 service.AAsociar({"id_proy": JSON.stringify(id), "nombre": ($scope.fAsociar.nombre), "prioridad": ($scope.fAsociar.prioridad)}).then(function(object) {
                 });
             }
-            $route.reload();
+            $window.location.reload();
         };
 
         $scope.modificarRequisito = function(requisito_nombre,requisito_prioridad){
