@@ -174,7 +174,7 @@ myApp.controller('AsociarComponente', ['$scope', '$location', 'myApp.services', 
             }
         };
     }]);
-myApp.controller('VerProyecto', ['$route','$scope', '$location', '$routeParams', 'myApp.services', function($route, $scope, $location, $routeParams, service) {
+myApp.controller('VerProyecto', ['$route','$scope', '$window','$location', '$routeParams', 'myApp.services', function($route, $scope, $window, $location, $routeParams, service) {
         $scope.proy = '';
         $scope.participantes = [];
 
@@ -187,6 +187,7 @@ myApp.controller('VerProyecto', ['$route','$scope', '$location', '$routeParams',
             for (var key in object.data) {
                 $scope[key] = object.data[key];
             }
+            
             $scope.num_participantes = object.data.proyecto['participantes'].length;
             for (var i = 0; i < $scope.num_participantes; i++) {
                 $scope.lista_id = $scope.lista_id.concat("{$oid: '");       
@@ -199,7 +200,7 @@ myApp.controller('VerProyecto', ['$route','$scope', '$location', '$routeParams',
                 
             }
             
-            //console.log("Participantes <- "+ $scope.lista_id);
+            console.log("Participantes <- "+ $scope.lista_id);
             service.getObjetosColeccion({"lista_id": $scope.lista_id, "coleccion": "participante" }).then(function(object){
                 $scope.participantes = object.data.data; 
                     
@@ -283,7 +284,7 @@ myApp.controller('VerProyecto', ['$route','$scope', '$location', '$routeParams',
                 service.AAsociar({"id_proy": JSON.stringify(id), "nombre": ($scope.fAsociar.nombre), "prioridad": ($scope.fAsociar.prioridad)}).then(function(object) {
                 });
             }
-            $route.reload();
+            $window.location.reload();
         };
 
         $scope.modificarRequisito = function(requisito_nombre,requisito_prioridad){
