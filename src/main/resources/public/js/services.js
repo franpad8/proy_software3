@@ -19,6 +19,18 @@ myApp.service('myApp.services', ['$http', function($http) {
         }
     };
     
+    this.actualizarEstado = function(args) {
+        if(typeof args == 'undefined') {
+          return $http.get('proyecto/actualizarEstadoTarea');
+        } else {
+          return $http({
+            url: 'proyecto/actualizarEstadoTarea',
+            method: 'GET',
+            params: args
+          });
+        }
+    };
+    
     this.getObjetoColeccion = function(args) {
         if(typeof args == 'undefined') {
           return $http.get('/proyecto/obtenerObjetoColeccion');

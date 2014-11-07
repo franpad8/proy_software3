@@ -95,6 +95,19 @@ public class CRUD {
         this.database = database;
     }
 
+    public void insertCollectionTarea(String collection, String id_tarea, String estado) {
+        //Esta es la coleccion proyectos
+        //nombre=capitalize(nombre);
+        DBCollection collTar = database.getCollection(collection);
+        //DBCollection collProy = database.getCollection("proyecto");
+        BasicDBObject newDocument = new BasicDBObject();
+    	newDocument.append("$set", new BasicDBObject().append("estado", estado));
+        ObjectId id_tarea1 = (ObjectId) JSON.parse(id_tarea);
+        BasicDBObject searchQuery = new BasicDBObject().append("_id", id_tarea1);
+        collTar.update(searchQuery, newDocument);
+    }
+
+    
     public void insertCollectionReq(String collection, String id_proy, String nombre, String prioridad) {
         //Esta es la coleccion proyectos
         nombre=capitalize(nombre);
