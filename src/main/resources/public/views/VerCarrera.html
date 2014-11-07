@@ -66,14 +66,17 @@
                         {{tarea.fechaFin}}
                     </td>
                     <td>
-                        <select>
-                            <option value="Completada">Completada</option>
-                            <option value="Pendiente">Pendiente</option>
-                            <option value="Atrasada">Atrasada</option>
+                        <select class="btn btn-default dropdown-toggle" ng-model='nuevoEstado'>
+                            <option>Completado</option>
+                            <option>Pendiente</option>
+                            <option>Atrasado</option>
                         </select>
+                        
+                        {{nuevoEstado}}
+                        
                     </td>
                     <td>
-                        <img src="/views/image/Update.png">
+                        <a ng-click="AActualizarEstado(nuevoEstado)"><img src="/views/image/Update.png"></a>
                     </td>
                 </tr>
             </table>
