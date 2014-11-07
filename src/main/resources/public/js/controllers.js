@@ -459,14 +459,6 @@ myApp.controller('Carrera', ['$window', '$scope', '$location', '$routeParams', '
             $location.path('/AReporte/' + id + '/' + tipo);
         };
         
-        $scope.AActualizarEstado = function(nuevoEstado) {
-        $scope.submitted = true;
-        //console.log("ID en Actualizar Estado"+JSON.stringify(id));
-        console.log("estado nvo " + nuevoEstado);
-            //$window.location.reload();
-        };
-        
-        
 }]);
 
 
