@@ -202,7 +202,7 @@ myApp.controller('VerProyecto', ['$route','$scope', '$window','$location', '$rou
                 
             }
             
-            console.log("Participantes <- "+ $scope.lista_id);
+            //console.log("Participantes <- "+ $scope.lista_id);
             service.getObjetosColeccion({"lista_id": $scope.lista_id, "coleccion": "participante" }).then(function(object){
                 $scope.participantes = object.data.data; 
                     
@@ -282,7 +282,7 @@ myApp.controller('VerProyecto', ['$route','$scope', '$window','$location', '$rou
         
         $scope.AAsociar = function(isValid, id) {
             $scope.submitted = true;
-            console.log("ID en controladorProy"+JSON.stringify(id));
+            //console.log("ID en controladorProy"+JSON.stringify(id));
             if (isValid) {
                 service.AAsociar({"id_proy": JSON.stringify(id), "nombre": ($scope.fAsociar.nombre), "prioridad": ($scope.fAsociar.prioridad)}).then(function(object) {
                 });
@@ -409,7 +409,7 @@ myApp.controller('VerReporte', ['$rootScope', '$route','$scope', '$cookieStore',
     }]);
 
 
-myApp.controller('Carrera', ['$scope', '$location', '$routeParams', 'myApp.services', function($scope, $location, $routeParams, service) {
+myApp.controller('Carrera', ['$window', '$scope', '$location', '$routeParams', 'myApp.services', function($window, $scope, $location, $routeParams, service) {
    $scope.nombre = $routeParams._id;
    $scope.numero = $routeParams.numero;
    $scope.ruta='';
@@ -439,7 +439,7 @@ myApp.controller('Carrera', ['$scope', '$location', '$routeParams', 'myApp.servi
                 //console.log("tareas <- "+ $scope.lista_id);
                 service.getObjetosColeccion({"lista_id": $scope.lista_id, "coleccion": "tarea" }).then(function(object){
                     $scope.tareas = object.data.data; 
-                    console.log($scope.tareas);
+                    //console.log($scope.tareas);
 
                 });
              
@@ -448,11 +448,15 @@ myApp.controller('Carrera', ['$scope', '$location', '$routeParams', 'myApp.servi
             
             });
    
-   
+        $scope.AActualizarEstado = function(id, nuevoEstado) {
+            $scope.submitted = true;
+            service.actualizarEstado({"_id": JSON.stringify(id), "estado": nuevoEstado }).then(function(object){                
+            });
+            $window.location.reload();
+        };
         
         $scope.AReporte = function (id, tipo) {    
             $location.path('/AReporte/' + id + '/' + tipo);
-            
         };
         
         $scope.AActualizarEstado = function(nuevoEstado) {

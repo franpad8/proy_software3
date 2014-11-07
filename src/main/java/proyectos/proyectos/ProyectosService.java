@@ -49,11 +49,9 @@ public class ProyectosService {
                     String coleccion = request.queryParams("coleccion");
                     String[] idsPartes = ids.split(",");
                     CRUD crud = new CRUD("test", "localhost");
-                    System.out.println("idsPartes.length = " + idsPartes.length);
                     for(int i=0; i < idsPartes.length; i++){
                         ObjectId crit = (ObjectId)JSON.parse(idsPartes[i]);
                         final DBObject mensaje = crud.findById(coleccion, crit);
-                        System.out.println("mensaje = " + mensaje);
                         if (mensaje!=null)
                             res += mensaje.toString();
                         else
@@ -274,6 +272,30 @@ public class ProyectosService {
                     res = "{\"proyecto\": ";
                     CRUD crud = new CRUD("test", "localhost");
                     crud.insertCollectionReq("requisito", request.queryParams("id_proy"), request.queryParams("nombre"),request.queryParams("prioridad")); 
+
+                    /*res += mensaje.toString() 
+                            + ", \"_id\": { \"$oid\" : \"" + mensaje.get("_id").toString()
+                            + "\"}}";*/
+                } catch (Throwable e) {
+                   e.printStackTrace();
+                }
+
+                //Action code ends here
+                return res;
+            }
+        });
+        
+        Spark.get(new Route("/proyecto/actualizarEstadoTarea") {
+            @Override
+            public Object handle(final Request request,
+                    final Response response) {
+                String res = "{}";
+                //Action code goes here, change res accordingly
+                try {
+                    //ObjectId crit = (ObjectId)JSON.parse(request.queryParams("nombre"));
+                    res = "{\"proyecto\": ";
+                    CRUD crud = new CRUD("test", "localhost");
+                    crud.insertCollectionTarea("tarea", request.queryParams("_id"), request.queryParams("estado")); 
 
                     /*res += mensaje.toString() 
                             + ", \"_id\": { \"$oid\" : \"" + mensaje.get("_id").toString()

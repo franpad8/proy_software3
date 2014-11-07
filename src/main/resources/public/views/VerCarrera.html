@@ -27,7 +27,7 @@
             Retrospectiva
         </a>
     </li>
-    </li>
+
 
 
 
@@ -55,6 +55,7 @@
 
                 <tr ng-repeat="tarea in tareas| filter: searchText | orderBy:nombrePart:reversePart" ng-show='tareas.length'>
                     <td>  
+                        
                         {{tarea.peso}}
 
                     </td>
@@ -66,17 +67,15 @@
                         {{tarea.fechaFin}}
                     </td>
                     <td>
-                        <select class="btn btn-default dropdown-toggle" ng-model='nuevoEstado'>
-                            <option>Completado</option>
-                            <option>Pendiente</option>
-                            <option>Atrasado</option>
-                        </select>
-                        
-                        {{nuevoEstado}}
-                        
+
+                        <select ng-model='nuevoEstado'>
+                                <option value="Completada">Completada</option>
+                                <option value="Pendiente">Pendiente</option>
+                                <option value="Atrasada">Atrasada</option>
+                        </select>                        
                     </td>
                     <td>
-                        <a ng-click="AActualizarEstado(nuevoEstado)"><img src="/views/image/Update.png"></a>
+                        <a ng_click="AActualizarEstado(tarea._id, nuevoEstado)" > <img src="/views/image/Update.png"> </a>
                     </td>
                 </tr>
             </table>
