@@ -264,13 +264,44 @@ myApp.controller('VerProyecto', ['$window','$route','$scope', '$location', '$rou
           
         
 
-         $scope.ACarrera = function(id,numero) {
+        $scope.ACarrera = function(id,numero) {
             
             var label = '_id, nombre, participantes, descripcion'.split(/, */)[0];
             var arg = {};
-            arg[label] = JSON.stringify(id);
-            $location.path('/ACarrera/' + JSON.stringify(id) + '/' + numero);
+            arg[label] = JSON.stringify(id);        
             
+            service.Carrera({"_id": JSON.stringify(id)}).then(function(object) {
+                
+                
+                $scope.res = object.data;
+                $scope.lista_id = "";
+                $scope.tareas = [];
+
+                for (var key in object.data) {
+                    $scope[key] = object.data[key];
+                }
+                
+                $scope.num_tareas = object.data.carrera['tareas'].length;
+                for (var i = 0; i < $scope.num_tareas; i++) {
+                    $scope.lista_id = $scope.lista_id.concat("{$oid: '");       
+                    $scope.lista_id = $scope.lista_id.concat(object.data.carrera.tareas[i]._id.$oid);
+                    $scope.lista_id = $scope.lista_id.concat("'");       
+                    if (i !== $scope.num_tareas-1)
+                        $scope.lista_id = $scope.lista_id.concat("},");
+                    else
+                        $scope.lista_id = $scope.lista_id.concat("}");
+                }
+
+                //console.log("tareas <- "+ $scope.lista_id);
+                service.getObjetosColeccion({"lista_id": $scope.lista_id, "coleccion": "tarea" }).then(function(object){
+                    $scope.tareas = object.data.data; 
+
+                });
+             
+            $location.path('/ACarrera/' + JSON.stringify(id) + '/' + numero);
+              
+            
+            });
         };
 
         $scope.fAsociar = {};
@@ -409,10 +440,12 @@ myApp.controller('Carrera', ['$scope', '$location', '$routeParams', 'myApp.servi
    $scope.nombre = $routeParams._id;
    $scope.numero = $routeParams.numero;
    $scope.ruta='';
+        
         $scope.AReporte = function (id, tipo) {    
             $location.path('/AReporte/' + id + '/' + tipo);
             
         };
+        
 }]);
 
 
