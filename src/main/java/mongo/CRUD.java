@@ -97,37 +97,28 @@ public class CRUD {
 
     public void insertCollectionReq(String collection, String id_proy, String nombre, String prioridad) {
         //Esta es la coleccion proyectos
+        nombre=capitalize(nombre);
+        
         DBCollection collReq = database.getCollection(collection);
         DBCollection collProy = database.getCollection("proyecto");
         
-        //Borrar ocurrencia si existe
         BasicDBObject elemento = new BasicDBObject().append("nombre", nombre).append("prioridad", prioridad);
-        System.out.println("INSERTANDO "+elemento);
-        insertObject(collection,elemento);
+        BasicDBObject AUX = new BasicDBObject();
+        AUX.append("$set", elemento);
+        BasicDBObject searchQuery = new BasicDBObject().append("nombre", nombre);
+        collReq.update(searchQuery, AUX, true, false);
+
         
         BasicDBObject condicion = new BasicDBObject().append("_id", 1);
         BasicDBObject reqInsertado = (BasicDBObject) collReq.findOne(elemento,condicion);
-//        ObjectId id_proyecto = (ObjectId) JSON.parse(id_proy);
+
         
-//        BasicDBObject searchQuery = new BasicDBObject().append("nombre", nombre);
-//        coll.update(searchQuery, newDocument);
-//
-//        coll = database.getCollection(collection);
-//
-//        //proyecto a modificar
-//        elemento = new BasicDBObject().append("nombre", requisito).append("prioridad", prioridad);
-        System.out.println("Id del proy" + id_proy);
         ObjectId id_proyecto = (ObjectId) JSON.parse(id_proy);
         BasicDBObject newDocument = new BasicDBObject();
         newDocument.append("$addToSet", new BasicDBObject("requisitos", reqInsertado));
-        System.out.println("Id del proyectoooo" + id_proyecto);
-//        System.out.println(newDocument.toString());
-////        newDocument.append("$addToSet", newDocument.append("prioridad", prioridad));
-        BasicDBObject searchQuery;
-        searchQuery = new BasicDBObject().append("_id", id_proyecto);
-                System.out.println("cearcheCuery" + searchQuery);
 
-                System.out.println("NEW"+newDocument);
+
+        searchQuery = new BasicDBObject().append("_id", id_proyecto);
                 
         collProy.update(searchQuery, newDocument);
     }

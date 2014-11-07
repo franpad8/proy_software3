@@ -49,19 +49,24 @@ public class ProyectosService {
                     String coleccion = request.queryParams("coleccion");
                     String[] idsPartes = ids.split(",");
                     CRUD crud = new CRUD("test", "localhost");
+                    System.out.println("idsPartes.length = " + idsPartes.length);
                     for(int i=0; i < idsPartes.length; i++){
                         ObjectId crit = (ObjectId)JSON.parse(idsPartes[i]);
                         final DBObject mensaje = crud.findById(coleccion, crit);
-                        res += mensaje.toString();
+                        System.out.println("mensaje = " + mensaje);
+                        if (mensaje!=null)
+                            res += mensaje.toString();
+                        else
+                            res += "null";                  
                         if (i != idsPartes.length - 1)
                             res += ", ";
                         
                         
-                    }                    
+                    }                   
                     res +=  "]}";           
-                } catch(IOException e) {
+                } catch(IOException e) {                  
                     e.printStackTrace();               
-                }               
+                }
                 return res;
             }
     
@@ -366,6 +371,30 @@ public class ProyectosService {
                     res = "{\"proyecto\": ";
                     CRUD crud = new CRUD("test", "localhost");
                     final DBObject mensaje = crud.findById("proyecto", crit); 
+                    res += mensaje.toString() 
+                            + ", \"_id\": { \"$oid\" : \"" + mensaje.get("_id").toString()
+                            + "\"}}";
+                } catch (Throwable e) {
+                   e.printStackTrace();
+                }
+
+
+                //Action code ends here
+                return res;
+            }
+        });
+        
+        Spark.get(new Route("/proyecto/carrera") {
+            @Override
+            public Object handle(final Request request,
+                    final Response response) {
+                String res = "{}";
+                //Action code goes here, change res accordingly
+                try {
+                    ObjectId crit = (ObjectId)JSON.parse(request.queryParams("_id"));
+                    res = "{\"carrera\": ";
+                    CRUD crud = new CRUD("test", "localhost");
+                    final DBObject mensaje = crud.findById("carrera", crit); 
                     res += mensaje.toString() 
                             + ", \"_id\": { \"$oid\" : \"" + mensaje.get("_id").toString()
                             + "\"}}";

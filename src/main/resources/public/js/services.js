@@ -156,6 +156,17 @@ myApp.service('myApp.services', ['$http', function($http) {
         }
     };
     
+    this.Carrera = function(args) {
+        if(typeof args == 'undefined') {
+          return $http.get('proyecto/carrera');
+        } else {
+          return $http({
+            url: 'proyecto/carrera',
+            method: 'GET',
+            params: args
+          });
+        }
+    };
     
     this.Crear = function(args) {
         if(typeof args == 'undefined') {

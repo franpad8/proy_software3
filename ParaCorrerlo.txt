@@ -15,10 +15,16 @@ SE DEBEN INSERTAR carreras:
 db.carrera.insert({numero: "1"})
 db.carrera.insert({numero: "2"})
 db.carrera.insert({numero: "42"})
+db.carrera.insert({"numero": "9", "tareas" : [{"_id" : ObjectId("545d0d8cdca2d8dccb2b080d")}, { "_id" : ObjectId("545d0d8cdca2d8dccb2b080e")}, { "_id" : ObjectId("545d0d8cdca2d8dccb2b080f")}]})
+
+db.tarea.insert({"_id" : ObjectId("545d0d8cdca2d8dccb2b080d", "peso" : "1", "estado" : "Completado", "fechaFin" : "22/10/2014" })
+db.tarea.insert({ "_id" : ObjectId("545d0d8cdca2d8dccb2b080e"), "peso" : "4", "estado" : "Completado", "fechaFin" : "22/10/2014" })
+db.tarea.insert( "_id" : ObjectId("545d0d8cdca2d8dccb2b080f"), {"peso" : "7", "estado" : "Pendiente", "fechaFin" : "22/10/2014" })
 
 SE DEBEN INSERTAR requisitos:
 db.requisito.insert({nombre: "Realizar diseno de BD", prioridad:"1"})
 db.requisito.insert({nombre: "Realizar vistas principales", prioridad:"2"})
+
 
 
 
