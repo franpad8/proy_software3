@@ -418,8 +418,10 @@ myApp.controller('Carrera', ['$window', '$scope', '$location', '$routeParams', '
                 
                 
                 $scope.res = object.data;
-                $scope.lista_id = "";
+                $scope.lista_id_tareas = "";
+                $scope.lista_id_responsable="";
                 $scope.tareas = [];
+                $scope.responsables = [];
 
                 for (var key in object.data) {
                     $scope[key] = object.data[key];
@@ -427,20 +429,39 @@ myApp.controller('Carrera', ['$window', '$scope', '$location', '$routeParams', '
                 
                 $scope.num_tareas = object.data.carrera['tareas'].length;
                 for (var i = 0; i < $scope.num_tareas; i++) {
-                    $scope.lista_id = $scope.lista_id.concat("{$oid: '");       
-                    $scope.lista_id = $scope.lista_id.concat(object.data.carrera.tareas[i]._id.$oid);
-                    $scope.lista_id = $scope.lista_id.concat("'");       
+                    $scope.lista_id_tareas = $scope.lista_id_tareas.concat("{$oid: '");       
+                    $scope.lista_id_tareas = $scope.lista_id_tareas.concat(object.data.carrera.tareas[i]._id.$oid);
+                    $scope.lista_id_tareas = $scope.lista_id_tareas.concat("'");       
                     if (i !== $scope.num_tareas-1)
-                        $scope.lista_id = $scope.lista_id.concat("},");
+                        $scope.lista_id_tareas = $scope.lista_id_tareas.concat("},");
                     else
-                        $scope.lista_id = $scope.lista_id.concat("}");
+                        $scope.lista_id_tareas = $scope.lista_id_tareas.concat("}");
                 }
-
+                
                 //console.log("tareas <- "+ $scope.lista_id);
-                service.getObjetosColeccion({"lista_id": $scope.lista_id, "coleccion": "tarea" }).then(function(object){
-                    $scope.tareas = object.data.data; 
-                    //console.log($scope.tareas);
-
+                service.getObjetosColeccion({"lista_id": $scope.lista_id_tareas, "coleccion": "tarea" }).then(function(object){
+                    $scope.tareas = object.data.data;                   
+                    
+                    for (var i = 0; i < $scope.num_tareas; i++) {
+                    $scope.lista_id_responsable = $scope.lista_id_responsable.concat("{$oid: '");       
+                    $scope.lista_id_responsable = $scope.lista_id_responsable.concat($scope.tareas[i].responsable.$oid);
+                    $scope.lista_id_responsable = $scope.lista_id_responsable.concat("'");       
+                    if (i !== $scope.num_tareas-1)
+                        $scope.lista_id_responsable = $scope.lista_id_responsable.concat("},");
+                    else
+                        $scope.lista_id_responsable = $scope.lista_id_responsable.concat("}");
+                    }
+                    
+                    
+                    service.getObjetosColeccion({"lista_id": $scope.lista_id_responsable, "coleccion": "participante" }).then(function(object){
+                        $scope.responsables = object.data.data;
+                        
+                    });
+                    /*for (var i = 0; i < $scope.num_tareas; i++) {
+                        service.getObjetosColeccion({"lista_id":$scope.tareas.responsable, "coleccion": "participante"}).then(function(object){
+                            console.log(object.data.data);
+                        });
+                    }*/
                 });
              
             

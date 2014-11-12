@@ -12,14 +12,11 @@ db.participante.insert({nombre: "Carlos Garcia", telefono: "04162345667", email:
 db.participante.insert({nombre: "Alfonso Santos", telefono: "0416234123", email: "asant234@gmail.com"})
 
 SE DEBEN INSERTAR carreras:
-db.carrera.insert({numero: "1"})
-db.carrera.insert({numero: "2"})
-db.carrera.insert({numero: "42"})
-db.carrera.insert({"numero": "9", "tareas" : [{"_id" : ObjectId("545d0d8cdca2d8dccb2b080d")}, { "_id" : ObjectId("545d0d8cdca2d8dccb2b080e")}, { "_id" : ObjectId("545d0d8cdca2d8dccb2b080f")}]})
+db.carrera.insert({numero: "1", "tareas" : [{"_id" : ObjectId("5463df60a3f56071e0812837")}, { "_id" : ObjectId("5463df60a3f56071e0812838")}, { "_id" : ObjectId("5463df60a3f56071e0812839")}]})
 
-db.tarea.insert({"_id" : ObjectId("545d0d8cdca2d8dccb2b080d", "peso" : "1", "estado" : "Completado", "fechaFin" : "22/10/2014" })
-db.tarea.insert({ "_id" : ObjectId("545d0d8cdca2d8dccb2b080e"), "peso" : "4", "estado" : "Completado", "fechaFin" : "22/10/2014" })
-db.tarea.insert( "_id" : ObjectId("545d0d8cdca2d8dccb2b080f"), {"peso" : "7", "estado" : "Pendiente", "fechaFin" : "22/10/2014" })
+db.tarea.insert({"peso" : "1", "estado" : "Atrasada", "responsable" : ObjectId("5463dedca3f56071e0812830") })
+db.tarea.insert({"peso" : "4", "estado" : "Pendiente", "responsable" : ObjectId("5463dedca3f56071e0812831") })
+db.tarea.insert({"peso" : "7", "estado" : "Pendiente", "responsable" :  ObjectId("5463dedca3f56071e0812833")})
 
 SE DEBEN INSERTAR requisitos:
 db.requisito.insert({nombre: "Realizar diseno de BD", prioridad:"1"})
@@ -29,7 +26,7 @@ db.requisito.insert({nombre: "Realizar vistas principales", prioridad:"2"})
 
 
 SE DE INSERTAR AL MENOS UN PROYECTO
-db.proyecto.insert({nombre : "Proyecto ", participantes : [{ "_id" : ObjectId("5455521824f736735b1bbbb9")}, { "_id" : ObjectId("5455521824f736735b1bbbba")}], requisitos : [{ "_id" : ObjectId("545ab95dcf7b8d17fbd08fd0")}, { "_id" : ObjectId("545ab95dcf7b8d17fbd08fd1")}], descripcion: "Descripcion 1", carreras: [{ "_id" : ObjectId("5455522924f736735b1bbbbd")},{ "_id" : ObjectId("5455522a24f736735b1bbbbf")}]})
+db.proyecto.insert({nombre : "Proyecto ", participantes : [{ "_id" : ObjectId("5463dedca3f56071e0812831")}, { "_id" : ObjectId("5463dedca3f56071e0812830")}], requisitos : [{ "_id" : ObjectId("5463e04da3f56071e081283f")}], descripcion: "Descripcion 1", carreras: [{ "_id" : ObjectId("5463dfb9a3f56071e081283a")}]})
 
 
 Donde los objetos ids de participantes(o requisitos) de la forma: 
