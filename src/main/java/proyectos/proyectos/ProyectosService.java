@@ -295,7 +295,7 @@ public class ProyectosService {
                     //ObjectId crit = (ObjectId)JSON.parse(request.queryParams("nombre"));
                     res = "{\"proyecto\": ";
                     CRUD crud = new CRUD("test", "localhost");
-                    crud.insertCollectionTarea("tarea", request.queryParams("_id"), request.queryParams("estado")); 
+                    crud.insertCollectionTarea("tarea", request.queryParams("_id"), request.queryParams("estado"), request.queryParams("fecha").replaceAll("\"", "")); 
 
                     /*res += mensaje.toString() 
                             + ", \"_id\": { \"$oid\" : \"" + mensaje.get("_id").toString()
@@ -429,6 +429,25 @@ public class ProyectosService {
                 return res;
             }
         });
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         Spark.get(new Route("/proyecto/Crear") {
             @Override
