@@ -49,6 +49,7 @@
                     <!--<th> Nombre </th>-->
                     <th><a> Estado </a></th>
                     <th><a> Fecha de culminacion (DD/MM/YY)</a></th>
+                    <th><a> Responsable</a></th>
                     <th><a> nvo estado </a></th>
                     <th><a> Actualizar</a> </th>
                 </tr>
@@ -65,7 +66,11 @@
                     </td>
                     <td>
                         {{tarea.fechaFin | date : "dd-MM-yyyy"}}
+                    </td>                   
+                    <td>
+                        Responsable
                     </td>
+                    
                     <td>
                         <select ng-model='nuevoEstado'>
                                 <option value="Completada">Completada</option>
