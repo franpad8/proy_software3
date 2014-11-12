@@ -450,7 +450,12 @@ myApp.controller('Carrera', ['$window', '$scope', '$location', '$routeParams', '
    
         $scope.AActualizarEstado = function(id, nuevoEstado) {
             $scope.submitted = true;
-            service.actualizarEstado({"_id": JSON.stringify(id), "estado": nuevoEstado }).then(function(object){                
+            var fecha = "";
+            if (nuevoEstado == "Completada") {
+                fecha = new Date();
+            } 
+            
+            service.actualizarEstado({"_id": JSON.stringify(id), "estado": nuevoEstado, "fecha":fecha }).then(function(object){                
             });
             $window.location.reload();
         };

@@ -48,7 +48,7 @@
                     reversePart = !reversePart">Peso</a></th>
                     <!--<th> Nombre </th>-->
                     <th><a> Estado </a></th>
-                    <th><a> Fecha de culminacion </a></th>
+                    <th><a> Fecha de culminacion (DD/MM/YY)</a></th>
                     <th><a> nvo estado </a></th>
                     <th><a> Actualizar</a> </th>
                 </tr>
@@ -64,7 +64,7 @@
 
                     </td>
                     <td>
-                        {{tarea.fechaFin}}
+                        {{tarea.fechaFin | date : "dd-MM-yyyy"}}
                     </td>
                     <td>
                         <select ng-model='nuevoEstado'>
