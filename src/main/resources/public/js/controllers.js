@@ -3,6 +3,11 @@
 /* Controllers */
 myApp.controller('ListarProyectos', ['$scope', '$location', 'myApp.services', function($scope, $location, service) {
         service.getAllProyectos().then(function(object) {
+            
+            
+            
+            
+            
             $scope.proyectos = object.data.data;
             /*INICIO DE PAGINACION*/
             $scope.filteredTodos = []; //es el subset de proyectos a iterar

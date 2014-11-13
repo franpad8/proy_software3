@@ -18,8 +18,9 @@ db.carrera.insert({numero: "42"})
 
 
 SE DE INSERTAR AL MENOS UN PROYECTO
-db.proyecto.insert({nombre : "Proyecto 1", participantes : [{_id: ObjectId("542ec8dae85be1f28fb0e8e0")}, {_id: ObjectId("542ec8c9e85be1f28fb0e8de")}], requisitos : [{"nombre" : "Nuevo", "prioridad": "1"}], descripcion: "Descripcion 1", carreras: [{_id: ObjectId("542ec8dae85be1f28fb0e8e0")},{_id: ObjectId("542ec8dae85be1f28fb0e8e0")}]})
+db.proyecto.insert({nombre : "Proyecto 2", participantes : [{_id: ObjectId("5457e1c366171e806e2ae41e")}, {_id: ObjectId("5457e1c366171e806e2ae41f")}], requisitos : [{"nombre" : "Nuevo", "prioridad": "1"}], descripcion: "Descripcion 1", carreras: [{_id: ObjectId("5457e1e066171e806e2ae422")},{_id: ObjectId("5457e1e066171e806e2ae423")}]})
 
+db.participantes.insert({_id: ObjectId("542ec8dae85be1f28fb0e8e0")})
 
 Donde los objetos ids de participantes de la forma: 
 {_id: ObjectId("542def37fca1960c201ddf2b")} 
