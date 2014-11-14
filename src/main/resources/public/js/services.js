@@ -19,12 +19,36 @@ myApp.service('myApp.services', ['$http', function($http) {
         }
     };
     
+    this.actualizarEstado = function(args) {
+        if(typeof args == 'undefined') {
+          return $http.get('proyecto/actualizarEstadoTarea');
+        } else {
+          return $http({
+            url: 'proyecto/actualizarEstadoTarea',
+            method: 'GET',
+            params: args
+          });
+        }
+    };
+    
     this.getObjetoColeccion = function(args) {
         if(typeof args == 'undefined') {
           return $http.get('/proyecto/obtenerObjetoColeccion');
         } else {
           return $http({
             url: '/proyecto/obtenerObjetoColeccion',
+            method: 'GET',
+            params: args
+          });
+        }
+    };
+    
+    this.getParticipanteByEmail = function(args) {
+        if(typeof args == 'undefined') {
+          return $http.get('/proyecto/obtenerParticipantePorEmail');
+        } else {
+          return $http({
+            url: '/proyecto/obtenerParticipantePorEmail',
             method: 'GET',
             params: args
           });
@@ -43,6 +67,20 @@ myApp.service('myApp.services', ['$http', function($http) {
           });
         }
     };
+        
+    this.getObjColReq = function(args) {
+        
+        if(typeof args == 'undefined') {
+          return $http.get('proyecto/obtenerObjColecReq');
+        } else {
+          return $http({            
+            url: 'proyecto/obtenerObjColecReq',
+            method: 'GET',
+            params: args
+          });
+        }
+    };
+    
     
     this.ABorrar = function(args) {
         if(typeof args == 'undefined') {
@@ -130,20 +168,17 @@ myApp.service('myApp.services', ['$http', function($http) {
         }
     };
     
-    this.Proyecto1 = function(args) {
-        
+    this.Carrera = function(args) {
         if(typeof args == 'undefined') {
-          return $http.get('proyecto/Proyecto');
+          return $http.get('proyecto/carrera');
         } else {
           return $http({
-            
-            url: 'proyecto/Proyecto',
+            url: 'proyecto/carrera',
             method: 'GET',
             params: args
           });
         }
     };
-    
     
     this.Crear = function(args) {
         if(typeof args == 'undefined') {

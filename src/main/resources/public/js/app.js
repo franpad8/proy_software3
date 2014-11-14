@@ -1,7 +1,7 @@
 'use strict';
 
 // Declare app level module which depends on filters, and services
-var myApp = angular.module('myApp', ['ngRoute']);
+var myApp = angular.module('myApp', ['ngRoute', 'ngCookies']);
 
 myApp.config(['$routeProvider', function($routeProvider) {
     $routeProvider.when('/', {

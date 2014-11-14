@@ -2,6 +2,7 @@
 	<li><a href="#/">Inicio</a></li>
 </ol>
 
+<div id="titulo1"  class="container" ng-show="logueado" >  
 <ul class="nav nav-pills pull-right" >
      
         <li><a class="btn btn-default" 
@@ -12,8 +13,9 @@
     <!-- <li><a ng-click="APreCrear()">Crear Nuevo</a></li> -->
 </ul> 
 
-<h1>Proyectos registrados</h1>
+<p>{{favoriteCookie}}</p>
 
+<h1 >Proyectos registrados</h1>
 
 <table class="table table-hover">
 	<tr>
@@ -66,7 +68,7 @@
 
 	    <button type="button" class="btn btn-primary" 
 		ng-disabled="currentPage == 1"
-		ng-click="currentPage=currentPage-1">PREV &gt; </button>
+		ng-click="currentPage=currentPage-1">&lt PREV</button>
 
 	    <b><span> Página {{currentPage}} / {{numPages()}} </span></b>
 		
@@ -75,6 +77,8 @@
 		ng-click="currentPage = currentPage+1"> NEXT &gt;</button>
 	       
 	</div>
-	<!--FIN DE PAGINACION-->
+        <!--FIN DE PAGINACION-->
+</div>      
+	
 
 

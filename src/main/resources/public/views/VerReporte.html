@@ -3,45 +3,62 @@
 </ol>
 
 <h1>{{nombre}}</h1>
+
+<p>{{favoriteCookie}}</p>
     
+<hr>
 
 <div class="container">
-
-    <div ng-repeat='ceremonia in ceremonias| filter: {tipo: tipo}' >
-        <hr>
-        <p>
-        <span class="glyphicon glyphicon-time"></span>
-        {{ceremonia.fecha | date : "'Enviado el' dd-MM-yyyy 'a las' H:MM:ss " }} por {{ceremonia.usuario}}
-        </p>
-
-        <p class="lead">
-            {{ceremonia.reporte}}
-        </p>
-        
-        <hr>
-        
-        
-        
+    
+    <div class="action-bar">
+        <a class="btn btn-default disabled" href="#">
+            <i class="glyphicon glyphicon-envelope"></i> 
+            <strong>{{tamanioListaReportes}} </strong> Reportes
+        </a>
     </div>
+   
+    <div class="well" ng-repeat='ceremonia in lista '>
+        <div class="media">
+            <h4 class="pull-left media-heading"><i class="glyphicon glyphicon-user"></i> {{ceremonia.usuario}}</h4>
+            
+            <div class="media-body">
+            
+              <p class="text-right">
+                    <span><i class="glyphicon glyphicon-calendar"></i>
+                        {{ceremonia.fecha | date : "dd-MM-yyyy | H:mm:ss " }}
+                    </span>
+              </p>
+              <br>
+                <p>{{ceremonia.reporte}}</p>
+                
+               
+            </div>
 
 
+        </div>
+    </div>
+    <button class="more btn btn-primary btn-block" data-ng-show="necesitaPaginacion && quedan" data-ng-click="cargarMas($event)">Mostrar Más</button>
+    <button class="less btn btn-danger btn-block" data-ng-show="necesitaPaginacion && !quedan" data-ng-click="cargarMenos($event)">Mostrar Menos</button>
+
+    <hr>
 
     <div class="well">
         <h4>
             Nuevo Mensaje:
         </h4>
 
-    <form name="fAsociarCeremoniaForm" ng-submit="AAsociarCeremonia(fAsociarCeremoniaForm.$valid)" >
-        <div class="form-group">
-            <label for="fAsociarCeremonia_usuario">Usuario</label>
-            <input type="text" class="form-control" id="fAsociarCeremonia_usuario" name="usuario" ng-model="fAsociarCeremonia.usuario" required>
-            <label for="fAsociarCeremonia_reporte">Comentario</label>
-            <textarea rows="10" class="form-control" id="fAsociarCeremonia_reporte" name="reporte" ng-model="fAsociarCeremonia.reporte" required></textarea>
-        </div>
-        <!--    <button type="submit" class="btn btn-default">Asociar</button>-->
-        <button type="submit" class="btn btn-success" onclick="window.location.reload()">Enviar</button>
-    </form>
-        
+        <form name="fAsociarCeremoniaForm" ng-submit="AAsociarCeremonia(fAsociarCeremoniaForm.$valid)" >
+            <div class="form-group">
+                <!-- <label for="fAsociarCeremonia_usuario">Usuario</label>
+                <input type="text" class="form-control" id="fAsociarCeremonia_usuario" name="usuario" ng-model="fAsociarCeremonia.usuario" required>
+                -->
+                <label for="fAsociarCeremonia_reporte">Comentario</label>
+                <textarea rows="5" class="form-control" id="fAsociarCeremonia_reporte" name="reporte" ng-model="fAsociarCeremonia.reporte" required></textarea>
+            </div>
+            <!--    <button type="submit" class="btn btn-default">Asociar</button>-->
+            <button type="submit" class="btn btn-success">Enviar</button>
+        </form>
+
     </div>
     <hr>
 

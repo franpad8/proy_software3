@@ -49,6 +49,12 @@ public class CRUD {
         DBObject crit = new BasicDBObject("_id", id);
         return coll.findOne(crit);
     }
+    
+    public DBObject findByEmail(String email) {
+        DBCollection coll = database.getCollection("participante");
+        DBObject crit = new BasicDBObject("email", email);
+        return coll.findOne(crit);
+    }
 
     public void updateObject(String collection, DBObject value) {
         DBCollection coll = database.getCollection(collection);
@@ -89,30 +95,49 @@ public class CRUD {
         this.database = database;
     }
 
-    public void insertCollection(String collection, String nombre, String requisito, String prioridad) {
+    public void insertCollectionTarea(String collection, String id_tarea, String estado, String fecha) {
         //Esta es la coleccion proyectos
-        DBCollection coll = database.getCollection(collection);
+        //nombre=capitalize(nombre);
+        DBCollection collTar = database.getCollection(collection);
+        //DBCollection collProy = database.getCollection("proyecto");
+        BasicDBObject newDocument = new BasicDBObject();
+    	newDocument.append("$set", new BasicDBObject().append("estado", estado));
+        ObjectId id_tarea1 = (ObjectId) JSON.parse(id_tarea);
+        BasicDBObject searchQuery = new BasicDBObject().append("_id", id_tarea1);
+        collTar.update(searchQuery, newDocument);
+        if (estado.equals("Completada")){
+            BasicDBObject newDocument_aux = new BasicDBObject();
+            newDocument_aux.append("$set", new BasicDBObject().append("fechaFin", fecha));
+            collTar.update(searchQuery, newDocument_aux);
+        }
+    }
 
-        requisito = capitalize(requisito.trim());
-        prioridad = capitalize(prioridad.trim());
-        //Borrar ocurrencia si existe
-        BasicDBObject elemento = new BasicDBObject().append("nombre", requisito);
-        BasicDBObject newDocument = new BasicDBObject().append("$pull", new BasicDBObject("requisitos", elemento));
+    
+    public void insertCollectionReq(String collection, String id_proy, String nombre, String prioridad) {
+        //Esta es la coleccion proyectos
+        nombre=capitalize(nombre);
+        
+        DBCollection collReq = database.getCollection(collection);
+        DBCollection collProy = database.getCollection("proyecto");
+        
+        BasicDBObject elemento = new BasicDBObject().append("nombre", nombre).append("prioridad", prioridad);
+        BasicDBObject AUX = new BasicDBObject();
+        AUX.append("$set", elemento);
         BasicDBObject searchQuery = new BasicDBObject().append("nombre", nombre);
-        coll.update(searchQuery, newDocument);
+        collReq.update(searchQuery, AUX, true, false);
 
-        coll = database.getCollection(collection);
+        
+        BasicDBObject condicion = new BasicDBObject().append("_id", 1);
+        BasicDBObject reqInsertado = (BasicDBObject) collReq.findOne(elemento,condicion);
 
-        //proyecto a modificar
-        elemento = new BasicDBObject().append("nombre", requisito).append("prioridad", prioridad);
-
-        newDocument = new BasicDBObject();
-        newDocument.append("$addToSet", new BasicDBObject("requisitos", elemento));
-        System.out.println(elemento.toString());
-        System.out.println(newDocument.toString());
-//        newDocument.append("$addToSet", newDocument.append("prioridad", prioridad));
-        searchQuery = new BasicDBObject().append("nombre", nombre);
-        coll.update(searchQuery, newDocument);
+        Object value = reqInsertado.get("_id");
+        ObjectId id_proyecto = (ObjectId) JSON.parse(id_proy);
+        //BasicDBObject newDocument = new BasicDBObject();
+        //newDocument.append("$addToSet", new BasicDBObject("requisitos", reqInsertado));
+        
+        BasicDBObject newDocument = new BasicDBObject("$addToSet", new BasicDBObject("requisitos", value));
+        searchQuery = new BasicDBObject().append("_id", id_proyecto);               
+        collProy.update(searchQuery, newDocument);
     }
 
     public void insertCollectionCeremonia(String collection, String id, String usuario, String tipo, String reporte, String fecha) {
