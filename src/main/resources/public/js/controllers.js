@@ -412,6 +412,8 @@ myApp.controller('Carrera', ['$window', '$scope', '$location', '$routeParams', '
    $scope.numero = $routeParams.numero;
    $scope.ruta='';
    
+   
+   
    service.Carrera({"_id": $routeParams._id}).then(function(object) {
                 
                 
@@ -420,6 +422,21 @@ myApp.controller('Carrera', ['$window', '$scope', '$location', '$routeParams', '
                 $scope.lista_id_responsable="";
                 $scope.tareas = [];
                 $scope.responsables = [];
+
+                $scope.options = {width: 500, height: 0, 'bar': 'aaa'};
+                $scope.totalPeso = 0;
+//                $scope.data = [];
+                
+                
+                
+//                $scope.data.sort().reverse();
+    //            $scope.data = $scope.data1.;
+                    $scope.hovered = function(d){
+                    $scope.barValue = d;
+                    $scope.$apply();
+                };
+                $scope.barValue = 'None';
+
 
                 for (var key in object.data) {
                     $scope[key] = object.data[key];
@@ -439,6 +456,33 @@ myApp.controller('Carrera', ['$window', '$scope', '$location', '$routeParams', '
                 //console.log("tareas <- "+ $scope.lista_id);
                 service.getObjetosColeccion({"lista_id": $scope.lista_id_tareas, "coleccion": "tarea" }).then(function(object){
                     $scope.tareas = object.data.data;                   
+                    
+                    var estado = "[{estado: ";
+                    var peso = ", peso:";
+                    var fin = "}]";
+                    $scope.data=[];
+                    var i=0;
+                    for (var j = 0; j < $scope.num_tareas; j++) {
+                        
+                        if($scope.tareas[j].estado == "Pendiente"){
+                           //$scope.data[i] = estado.concat($scope.tareas[j].estado).concat(peso).concat($scope.tareas[j].peso).concat(fin);
+                           $scope.data[i] = $scope.tareas[j];
+                           $scope.totalPeso = $scope.totalPeso + $scope.tareas[j].peso;
+                           i++;
+                        }
+                        if($scope.tareas[j].estado == "Atrasada"){
+                           //$scope.data[i] = estado.concat($scope.tareas[j].estado).concat(peso).concat($scope.tareas[j].peso).concat(fin);
+                           $scope.data[i] = $scope.tareas[j];
+                           $scope.totalPeso = $scope.totalPeso + $scope.tareas[j].peso;
+                           i++;
+                        }
+                    }
+                    
+                    //$scope.data = [{fecha: 2006, peso: 4},{fecha: 2010, peso: 5},{fecha: 2011, peso: 2}];
+                    
+//                    document.write('Hola: ' + $scope.tareas);
+//                    document.write('Hola: ' + $scope.data);
+                    
                     
                     for (var i = 0; i < $scope.num_tareas; i++) {
                     $scope.lista_id_responsable = $scope.lista_id_responsable.concat("{$oid: '");       
@@ -466,7 +510,7 @@ myApp.controller('Carrera', ['$window', '$scope', '$location', '$routeParams', '
               
             
             });
-   
+       
         $scope.AActualizarEstado = function(id, nuevoEstado) {
             $scope.submitted = true;
             var fecha = "";

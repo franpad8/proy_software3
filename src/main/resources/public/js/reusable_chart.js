@@ -16,11 +16,11 @@ d3.custom.barChart = function module() {
                 chartH = height - margin.top - margin.bottom;
 
             var x1 = d3.scale.ordinal()
-                .domain(_data.map(function(d, i){ return i; }))
+                .domain( _data.map(function(d, i){ return i; }))
                 .rangeRoundBands([0, chartW], .1);
 
             var y1 = d3.scale.linear()
-                .domain([0, d3.max(_data, function(d, i){ return d; })])
+                .domain([0, d3.max(_data, function(d){ return d.peso; })])
                 .range([chartH, 0]);
 
             var xAxis = d3.svg.axis()
@@ -47,19 +47,20 @@ d3.custom.barChart = function module() {
             svg.select('.container-group')
                 .attr({transform: 'translate(' + margin.left + ',' + margin.top + ')'});
 
-            svg.select('.x-axis-group.axis')
-                .transition()
-                .duration(duration)
-                .ease(ease)
-                .attr({transform: 'translate(0,' + (chartH) + ')'})
-                .call(xAxis);
+//            svg.select('.x-axis-group.axis')
+//                .transition()
+//                .duration(duration)
+//                .ease(ease)
+//                .attr({transform: 'translate(0,' + (chartW) + ')'})
+//                .call(xAxis);
         
-        svg.append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 400)
-      .attr("dy", "1.71em")
-      .style("text-anchor", "end")
-      .text("Tarea");
+//        svg.append("text")
+//      .attr("transform", "rotate(-0)")
+//      .attr("y", 6)
+//      .attr("dy", ".30em")
+//      .attr("dx", "2.70em")
+//      .style("text-anchor", "end")
+//      .text("Peso");
            
 
             svg.select('.y-axis-group.axis')
@@ -75,27 +76,40 @@ d3.custom.barChart = function module() {
 //      .style("text-anchor", "end")
 //      .text("Peso");
 
-            var gapSize = x1.rangeBand() / 100 * gap;
+            var gapSize = x1.rangeBand() / 2 ;
             var barW = x1.rangeBand() - gapSize;
             var bars = svg.select('.chart-group')
                 .selectAll('.bar')
                 .data(_data);
             bars.enter().append('rect')
                 .classed('bar', true)
-                .attr({x: chartW,
+                .attr({
                     width: barW,
-                    y: function(d, i) { return y1(d); },
-                    height: function(d, i) { return chartH - y1(d); }
+                    y: function(d) { return chartH - y1(d.peso); },
+                    height: function(d) { return y1(d.peso); }
                 })
                 .on('mouseover', dispatch.customHover);
+        
+//                bars.enter().
+//                append('svg:text').
+//                attr("dx", barW/2).
+//                attr("dy", "7.0em").
+//                attr("text-anchor", "middle").
+//                text(function(datum) { return datum.peso;}).
+//                attr("fill", "black");
+       
+        
+        
+        
+        
             bars.transition()
                 .duration(duration)
                 .ease(ease)
                 .attr({
                     width: barW,
-                    x: function(d, i) { return x1(i) + gapSize/2; },
-                    y: function(d, i) { return y1(d); },
-                    height: function(d, i) { return chartH - y1(d); }
+                    x:  function(d, i) { return 21+i*140;},
+                    y: function(d) { return y1(d.peso); },
+                    height: function(d) { return chartH - y1(d.peso); }
                 });
             bars.exit().transition().style({opacity: 0}).remove();
 
