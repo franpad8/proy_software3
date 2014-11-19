@@ -105,7 +105,7 @@ public class CRUD {
         ObjectId id_tarea1 = (ObjectId) JSON.parse(id_tarea);
         BasicDBObject searchQuery = new BasicDBObject().append("_id", id_tarea1);
         collTar.update(searchQuery, newDocument);
-        if (estado.equals("Completada")){
+        if (estado.equals("finalizada")){
             BasicDBObject newDocument_aux = new BasicDBObject();
             newDocument_aux.append("$set", new BasicDBObject().append("fechaFin", fecha));
             collTar.update(searchQuery, newDocument_aux);

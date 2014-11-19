@@ -514,13 +514,16 @@ myApp.controller('Carrera', ['$window', '$scope', '$location', '$routeParams', '
         $scope.AActualizarEstado = function(id, nuevoEstado) {
             $scope.submitted = true;
             var fecha = "";
-            if (nuevoEstado == "Completada") {
-                fecha = new Date();
-            } 
+            if (nuevoEstado) {
+                if (nuevoEstado == "finalizada") {
+                    fecha = new Date();
+                } 
             
-            service.actualizarEstado({"_id": JSON.stringify(id), "estado": nuevoEstado, "fecha":fecha }).then(function(object){                
-            });
-            $window.location.reload();
+                service.actualizarEstado({"_id": JSON.stringify(id), "estado": nuevoEstado, "fecha":fecha }).then(function(object){                
+                });
+                $window.location.reload();
+            }
+            
         };
         
         $scope.AReporte = function (id, tipo) {    
