@@ -11,9 +11,9 @@ db.participante.insert({ "_id" : ObjectId("5463dedca3f56071e0812832"), "nombre" 
 db.participante.insert({ "_id" : ObjectId("5463dedca3f56071e0812833"), "nombre" : "Alfonso Santos", "clave":"1234", "telefono" : "0416234123", "email" : "asant234@gmail.com" })
 
 SE DEBEN INSERTAR tareas:
-db.tarea.insert({ "_id" : ObjectId("5463df60a3f56071e0812838"), "peso" : "4", "estado" : "Pendiente", "responsable" : ObjectId("5463dedca3f56071e0812831") })
-db.tarea.insert({ "_id" : ObjectId("5463df60a3f56071e0812839"), "peso" : "7", "estado" : "Pendiente", "responsable" : ObjectId("5463dedca3f56071e0812833") })
-db.tarea.insert({ "_id" : ObjectId("5463df60a3f56071e0812837"), "peso" : "1", "estado" : "Completada", "responsable" : ObjectId("5463dedca3f56071e0812830"), "fechaFin" : "2014-11-13T21:35:42.804Z" })
+db.tarea.insert({ "_id" : ObjectId("5463df60a3f56071e0812838"), "peso" : "4", "estado" : "pendiente", "responsable" : ObjectId("5463dedca3f56071e0812831") })
+db.tarea.insert({ "_id" : ObjectId("5463df60a3f56071e0812839"), "peso" : "7", "estado" : "pendiente", "responsable" : ObjectId("5463dedca3f56071e0812833") })
+db.tarea.insert({ "_id" : ObjectId("5463df60a3f56071e0812837"), "peso" : "1", "estado" : "finalizada", "responsable" : ObjectId("5463dedca3f56071e0812830"), "fechaFin" : "2014-11-13T21:35:42.804Z" })
 
 SE DEBEN INSERTAR carreras:
 db.carrera.insert({ "_id" : ObjectId("54652308262704b6a9919cc7"), "numero" : "178954", "tareas" : [ ObjectId("5463df60a3f56071e0812837"), ObjectId("5463df60a3f56071e0812838"), ObjectId("5463df60a3f56071e0812839") ], "ceremonias" : [ { "tipo" : "1", "usuario" : "Carlos Garcia", "reporte" : "Juajajaja", "fecha" : "2014-11-13T21:41:26.124Z" } ] })
