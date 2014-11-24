@@ -105,7 +105,7 @@ public class CRUD {
         ObjectId id_tarea1 = (ObjectId) JSON.parse(id_tarea);
         BasicDBObject searchQuery = new BasicDBObject().append("_id", id_tarea1);
         collTar.update(searchQuery, newDocument);
-        if (estado.equals("Completada")){
+        if (estado.equals("finalizada")){
             BasicDBObject newDocument_aux = new BasicDBObject();
             newDocument_aux.append("$set", new BasicDBObject().append("fechaFin", fecha));
             collTar.update(searchQuery, newDocument_aux);
@@ -130,14 +130,13 @@ public class CRUD {
         BasicDBObject condicion = new BasicDBObject().append("_id", 1);
         BasicDBObject reqInsertado = (BasicDBObject) collReq.findOne(elemento,condicion);
 
-        
+        Object value = reqInsertado.get("_id");
         ObjectId id_proyecto = (ObjectId) JSON.parse(id_proy);
-        BasicDBObject newDocument = new BasicDBObject();
-        newDocument.append("$addToSet", new BasicDBObject("requisitos", reqInsertado));
-
-
-        searchQuery = new BasicDBObject().append("_id", id_proyecto);
-                
+        //BasicDBObject newDocument = new BasicDBObject();
+        //newDocument.append("$addToSet", new BasicDBObject("requisitos", reqInsertado));
+        
+        BasicDBObject newDocument = new BasicDBObject("$addToSet", new BasicDBObject("requisitos", value));
+        searchQuery = new BasicDBObject().append("_id", id_proyecto);               
         collProy.update(searchQuery, newDocument);
     }
 

@@ -40,7 +40,7 @@ myApp.controller('ListarProyectos', ['$scope','$route', '$cookieStore', '$window
                         {
                             var lista_ids = x.participantes.map(
                                     function (y) {
-                                        return y._id.$oid;
+                                        return y.$oid;
                                     });
                             return lista_ids.indexOf($scope.id) > -1;
                         });
@@ -191,9 +191,10 @@ myApp.controller('VerProyecto', ['$route','$scope', '$window','$location', '$rou
             }
             
             $scope.num_participantes = object.data.proyecto['participantes'].length;
+            
             for (var i = 0; i < $scope.num_participantes; i++) {
                 $scope.lista_id = $scope.lista_id.concat("{$oid: '");       
-                $scope.lista_id = $scope.lista_id.concat(object.data.proyecto.participantes[i]._id.$oid);
+                $scope.lista_id = $scope.lista_id.concat(object.data.proyecto.participantes[i].$oid);
                 $scope.lista_id = $scope.lista_id.concat("'");       
                 if (i !== $scope.num_participantes-1)
                     $scope.lista_id = $scope.lista_id.concat("},");
@@ -219,7 +220,7 @@ myApp.controller('VerProyecto', ['$route','$scope', '$window','$location', '$rou
             
             for (var i = 0; i < $scope.num_carreras; i++) {
                 $scope.lista_id = $scope.lista_id.concat("{$oid: '");       
-                $scope.lista_id = $scope.lista_id.concat(object.data.proyecto.carreras[i]._id.$oid);
+                $scope.lista_id = $scope.lista_id.concat(object.data.proyecto.carreras[i].$oid);
                 $scope.lista_id = $scope.lista_id.concat("'");       
                 if (i !== $scope.num_carreras-1)
                     $scope.lista_id = $scope.lista_id.concat("},");
@@ -246,7 +247,7 @@ myApp.controller('VerProyecto', ['$route','$scope', '$window','$location', '$rou
             
             for (var i = 0; i < $scope.num_req; i++) {
                 $scope.req_id = $scope.req_id.concat("{$oid: '");       
-                $scope.req_id = $scope.req_id.concat(object.data.proyecto.requisitos[i]._id.$oid);
+                $scope.req_id = $scope.req_id.concat(object.data.proyecto.requisitos[i].$oid);
                 $scope.req_id = $scope.req_id.concat("'");       
                 if (i !== $scope.num_req-1)
                     $scope.req_id = $scope.req_id.concat("},");
@@ -257,7 +258,7 @@ myApp.controller('VerProyecto', ['$route','$scope', '$window','$location', '$rou
             }
             
             
-                service.getObjColReq({"lista_id": $scope.req_id, "coleccion": "requisito"}).then(function (object) {
+                service.getObjetosColeccion({"lista_id": $scope.req_id, "coleccion": "requisito"}).then(function (object) {
 
                 $scope.requisitos = object.data.data;
             });
@@ -296,9 +297,6 @@ myApp.controller('VerProyecto', ['$route','$scope', '$window','$location', '$rou
             $scope.showAdd = true;
             
         };
-
-
-
 
         $scope.ABorrar = function(_id) {
             service.ABorrar({"_id": JSON.stringify(_id)}).then(function(object) {
@@ -414,12 +412,31 @@ myApp.controller('Carrera', ['$window', '$scope', '$location', '$routeParams', '
    $scope.numero = $routeParams.numero;
    $scope.ruta='';
    
+   
+   
    service.Carrera({"_id": $routeParams._id}).then(function(object) {
                 
                 
                 $scope.res = object.data;
-                $scope.lista_id = "";
+                $scope.lista_id_tareas = "";
+                $scope.lista_id_responsable="";
                 $scope.tareas = [];
+                $scope.responsables = [];
+
+                $scope.options = {width: 500, height: 0, 'bar': 'aaa'};
+                $scope.totalPeso = 0;
+//                $scope.data = [];
+                
+                
+                
+//                $scope.data.sort().reverse();
+    //            $scope.data = $scope.data1.;
+                    $scope.hovered = function(d){
+                    $scope.barValue = d;
+                    $scope.$apply();
+                };
+                $scope.barValue = 'None';
+
 
                 for (var key in object.data) {
                     $scope[key] = object.data[key];
@@ -427,37 +444,86 @@ myApp.controller('Carrera', ['$window', '$scope', '$location', '$routeParams', '
                 
                 $scope.num_tareas = object.data.carrera['tareas'].length;
                 for (var i = 0; i < $scope.num_tareas; i++) {
-                    $scope.lista_id = $scope.lista_id.concat("{$oid: '");       
-                    $scope.lista_id = $scope.lista_id.concat(object.data.carrera.tareas[i]._id.$oid);
-                    $scope.lista_id = $scope.lista_id.concat("'");       
+                    $scope.lista_id_tareas = $scope.lista_id_tareas.concat("{$oid: '");       
+                    $scope.lista_id_tareas = $scope.lista_id_tareas.concat(object.data.carrera.tareas[i].$oid);
+                    $scope.lista_id_tareas = $scope.lista_id_tareas.concat("'");       
                     if (i !== $scope.num_tareas-1)
-                        $scope.lista_id = $scope.lista_id.concat("},");
+                        $scope.lista_id_tareas = $scope.lista_id_tareas.concat("},");
                     else
-                        $scope.lista_id = $scope.lista_id.concat("}");
+                        $scope.lista_id_tareas = $scope.lista_id_tareas.concat("}");
                 }
-
+                
                 //console.log("tareas <- "+ $scope.lista_id);
-                service.getObjetosColeccion({"lista_id": $scope.lista_id, "coleccion": "tarea" }).then(function(object){
-                    $scope.tareas = object.data.data; 
-                    //console.log($scope.tareas);
-
+                service.getObjetosColeccion({"lista_id": $scope.lista_id_tareas, "coleccion": "tarea" }).then(function(object){
+                    $scope.tareas = object.data.data;                   
+                    
+                    var estado = "[{estado: ";
+                    var peso = ", peso:";
+                    var fin = "}]";
+                    $scope.data=[];
+                    var i=0;
+                    for (var j = 0; j < $scope.num_tareas; j++) {
+                        
+                        if($scope.tareas[j].estado == "Pendiente"){
+                           //$scope.data[i] = estado.concat($scope.tareas[j].estado).concat(peso).concat($scope.tareas[j].peso).concat(fin);
+                           $scope.data[i] = $scope.tareas[j];
+                           $scope.totalPeso = $scope.totalPeso + $scope.tareas[j].peso;
+                           i++;
+                        }
+                        if($scope.tareas[j].estado == "Atrasada"){
+                           //$scope.data[i] = estado.concat($scope.tareas[j].estado).concat(peso).concat($scope.tareas[j].peso).concat(fin);
+                           $scope.data[i] = $scope.tareas[j];
+                           $scope.totalPeso = $scope.totalPeso + $scope.tareas[j].peso;
+                           i++;
+                        }
+                    }
+                    
+                    //$scope.data = [{fecha: 2006, peso: 4},{fecha: 2010, peso: 5},{fecha: 2011, peso: 2}];
+                    
+//                    document.write('Hola: ' + $scope.tareas);
+//                    document.write('Hola: ' + $scope.data);
+                    
+                    
+                    for (var i = 0; i < $scope.num_tareas; i++) {
+                    $scope.lista_id_responsable = $scope.lista_id_responsable.concat("{$oid: '");       
+                    $scope.lista_id_responsable = $scope.lista_id_responsable.concat($scope.tareas[i].responsable.$oid);
+                    $scope.lista_id_responsable = $scope.lista_id_responsable.concat("'");       
+                    if (i !== $scope.num_tareas-1)
+                        $scope.lista_id_responsable = $scope.lista_id_responsable.concat("},");
+                    else
+                        $scope.lista_id_responsable = $scope.lista_id_responsable.concat("}");
+                    }
+                    
+                    
+                    service.getObjetosColeccion({"lista_id": $scope.lista_id_responsable, "coleccion": "participante" }).then(function(object){
+                        $scope.responsables = object.data.data;
+                        
+                    });
+                    /*for (var i = 0; i < $scope.num_tareas; i++) {
+                        service.getObjetosColeccion({"lista_id":$scope.tareas.responsable, "coleccion": "participante"}).then(function(object){
+                            console.log(object.data.data);
+                        });
+                    }*/
                 });
              
             
               
             
             });
-   
+       
         $scope.AActualizarEstado = function(id, nuevoEstado) {
             $scope.submitted = true;
             var fecha = "";
-            if (nuevoEstado == "Completada") {
-                fecha = new Date();
-            } 
+            if (nuevoEstado) {
+                if (nuevoEstado == "finalizada") {
+                    fecha = new Date();
+                } 
             
-            service.actualizarEstado({"_id": JSON.stringify(id), "estado": nuevoEstado, "fecha":fecha }).then(function(object){                
-            });
-            $window.location.reload();
+                service.actualizarEstado({"_id": JSON.stringify(id), "estado": nuevoEstado, "fecha":fecha }).then(function(object){                
+                });
+                $window.location.reload();
+            }
+            
         };
         
         $scope.AReporte = function (id, tipo) {    

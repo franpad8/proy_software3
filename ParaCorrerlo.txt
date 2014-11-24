@@ -5,32 +5,34 @@ Manualmente abrimos un shell y hacemos:
 2) copiamos esto:
 
 DEBEN AGREGAR ALGUNOS PARTICIPANTES A LA BD.
+db.participante.insert({ "_id" : ObjectId("5463dedca3f56071e0812830"), "nombre" : "Jose Hernandez", "clave":"1234", "telefono" : "04144355853", "email" : "jh08@gmail.com" })
+db.participante.insert({ "_id" : ObjectId("5463dedca3f56071e0812831"), "nombre" : "Luis Mercado", "clave":"1234", "telefono" : "04123456788", "email" : "lm12@gmail.com" })
+db.participante.insert({ "_id" : ObjectId("5463dedca3f56071e0812832"), "nombre" : "Carlos Garcia", "clave":"1234", "telefono" : "04162345667", "email" : "sadfq234@gmail.com" })
+db.participante.insert({ "_id" : ObjectId("5463dedca3f56071e0812833"), "nombre" : "Alfonso Santos", "clave":"1234", "telefono" : "0416234123", "email" : "asant234@gmail.com" })
 
-db.participante.insert({nombre: "Jose Hernandez", telefono: "04144355853", email: "jh08@gmail.com"})
-db.participante.insert({nombre: "Luis Mercado", telefono: "04123456788", email: "lm12@gmail.com"})
-db.participante.insert({nombre: "Carlos Garcia", telefono: "04162345667", email: "sadfq234@gmail.com"})
-db.participante.insert({nombre: "Alfonso Santos", telefono: "0416234123", email: "asant234@gmail.com"})
+SE DEBEN INSERTAR tareas:
+db.tarea.insert({ "_id" : ObjectId("5463df60a3f56071e0812838"), "peso" : "4", "estado" : "pendiente", "responsable" : ObjectId("5463dedca3f56071e0812831") })
+db.tarea.insert({ "_id" : ObjectId("5463df60a3f56071e0812839"), "peso" : "7", "estado" : "pendiente", "responsable" : ObjectId("5463dedca3f56071e0812833") })
+db.tarea.insert({ "_id" : ObjectId("5463df60a3f56071e0812837"), "peso" : "1", "estado" : "finalizada", "responsable" : ObjectId("5463dedca3f56071e0812830"), "fechaFin" : "2014-11-13T21:35:42.804Z" })
 
 SE DEBEN INSERTAR carreras:
-db.carrera.insert({numero: "1"})
-db.carrera.insert({numero: "2"})
-db.carrera.insert({numero: "42"})
-db.carrera.insert({"numero": "9", "tareas" : [{"_id" : ObjectId("545d0d8cdca2d8dccb2b080d")}, { "_id" : ObjectId("545d0d8cdca2d8dccb2b080e")}, { "_id" : ObjectId("545d0d8cdca2d8dccb2b080f")}]})
-
-db.tarea.insert({"_id" : ObjectId("545d0d8cdca2d8dccb2b080d", "peso" : "1", "estado" : "Completado", "fechaFin" : "22/10/2014" })
-db.tarea.insert({ "_id" : ObjectId("545d0d8cdca2d8dccb2b080e"), "peso" : "4", "estado" : "Completado", "fechaFin" : "22/10/2014" })
-db.tarea.insert( "_id" : ObjectId("545d0d8cdca2d8dccb2b080f"), {"peso" : "7", "estado" : "Pendiente", "fechaFin" : "22/10/2014" })
+db.carrera.insert({ "_id" : ObjectId("54652308262704b6a9919cc7"), "numero" : "178954", "tareas" : [ ObjectId("5463df60a3f56071e0812837"), ObjectId("5463df60a3f56071e0812838"), ObjectId("5463df60a3f56071e0812839") ], "ceremonias" : [ { "tipo" : "1", "usuario" : "Carlos Garcia", "reporte" : "Juajajaja", "fecha" : "2014-11-13T21:41:26.124Z" } ] })
 
 SE DEBEN INSERTAR requisitos:
-db.requisito.insert({nombre: "Realizar diseno de BD", prioridad:"1"})
-db.requisito.insert({nombre: "Realizar vistas principales", prioridad:"2"})
-
-
-
+db.requisito.insert({ "_id" : ObjectId("5463e04da3f56071e081283f"), "nombre" : "Realizar diseno de BD", "prioridad" : "1" })
+db.requisito.insert({ "_id" : ObjectId("5463e04da3f56071e0812840"), "nombre" : "Realizar vistas principales", "prioridad" : "2" })
 
 SE DE INSERTAR AL MENOS UN PROYECTO
-db.proyecto.insert({nombre : "Proyecto ", participantes : [{ "_id" : ObjectId("5455521824f736735b1bbbb9")}, { "_id" : ObjectId("5455521824f736735b1bbbba")}], requisitos : [{ "_id" : ObjectId("545ab95dcf7b8d17fbd08fd0")}, { "_id" : ObjectId("545ab95dcf7b8d17fbd08fd1")}], descripcion: "Descripcion 1", carreras: [{ "_id" : ObjectId("5455522924f736735b1bbbbd")},{ "_id" : ObjectId("5455522a24f736735b1bbbbf")}]})
+db.proyecto.insert({ "_id" : ObjectId("5465354f262704b6a9919ccb"), "nombre" : "Proyecto Acomodando Modificar", "participantes" : [ ObjectId("5463dedca3f56071e0812832"), ObjectId("5463dedca3f56071e0812833") ], "requisitos" : [ ObjectId("5463e04da3f56071e081283f"), ObjectId("546535728cc0f9723a14d7d9") ], "descripcion" : "Descripcion 1", "carreras" : [ ObjectId("54652308262704b6a9919cc7") ] })
 
+
+
+BORRAR TODO:
+db.proyecto.drop()
+db.carrera.drop()
+db.requisito.drop()
+db.tarea.drop()
+db.participante.drop()
 
 Donde los objetos ids de participantes(o requisitos) de la forma: 
 {_id: ObjectId("542def37fca1960c201ddf2b")} 
