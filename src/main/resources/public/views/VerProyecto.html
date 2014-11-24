@@ -33,7 +33,7 @@
                     <th><a> Email </a></th>
                 </tr>
 
-                <tr ng-repeat="participante in participantes| filter: searchText | orderBy:nombrePart:reversePart" ng-show='participantes.length'>
+                <tr ng-repeat="participante in listaParts| filter: searchText | orderBy:nombrePart:reversePart" ng-show='participantes.length'>
                     <td>  
                         {{participante.nombre}}
 
@@ -47,6 +47,27 @@
                     </td>
                 </tr>
             </table>
+            
+            
+            
+            <!--INICIO DE PAGINACION PARTICIPANTE-->
+
+	<div ng-show="necesitaPaginacionParts" style="text-align: center">
+
+	    <button type="button" class="btn btn-primary" 
+		ng-disabled="!quedanMenosParts"
+                ng-click="cargarMenosParts($event)">&lt PREV</button>
+
+	    <b><span> Página {{nroPaginaActualParts}} / {{nroPaginasParts}} </span></b>
+		
+	    <button type="button" class="btn btn-primary"
+		ng-disabled="!quedanMasParts"
+		ng-click="cargarMasParts($event)"> NEXT &gt;</button>
+	       
+	</div>
+        <!--FIN DE PAGINACION-->
+            
+            
         </div>
     </li>
 
