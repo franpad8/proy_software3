@@ -5,26 +5,269 @@ Manualmente abrimos un shell y hacemos:
 2) copiamos esto:
 
 DEBEN AGREGAR ALGUNOS PARTICIPANTES A LA BD.
-db.participante.insert({ "_id" : ObjectId("5463dedca3f56071e0812830"), "nombre" : "Jose Hernandez", "clave":"1234", "telefono" : "04144355853", "email" : "jh08@gmail.com" })
-db.participante.insert({ "_id" : ObjectId("5463dedca3f56071e0812831"), "nombre" : "Luis Mercado", "clave":"1234", "telefono" : "04123456788", "email" : "lm12@gmail.com" })
-db.participante.insert({ "_id" : ObjectId("5463dedca3f56071e0812832"), "nombre" : "Carlos Garcia", "clave":"1234", "telefono" : "04162345667", "email" : "sadfq234@gmail.com" })
-db.participante.insert({ "_id" : ObjectId("5463dedca3f56071e0812833"), "nombre" : "Alfonso Santos", "clave":"1234", "telefono" : "0416234123", "email" : "asant234@gmail.com" })
+db.participante.insert({_id : ObjectId("5463dedca3f56071e0812830"), 
+			nombre : "Jose Hernandez", 
+			clave:"1234", 
+			telefono : "04144355853", 
+			email : "jh08@gmail.com" })
+db.participante.insert({ _id : ObjectId("5463dedca3f56071e0812831"), 
+			nombre : "Luis Mercado", 
+			clave:"1234", 
+			telefono : "04123456788", 
+			email : "lm12@gmail.com" })
+db.participante.insert({ _id : ObjectId("5463dedca3f56071e0812832"), 
+			nombre : "Carlos Garcia", 
+			clave:"1234", 
+			telefono : "04162345667", 
+			email : "cg@gmail.com" })
+db.participante.insert({ _id : ObjectId("5463dedca3f56071e0812833"), 
+			nombre : "Alfonso Santos", 
+			clave:"1234", 
+			telefono : "04162341232", 
+			email : "alfs@gmail.com" })
+db.participante.insert({ _id : ObjectId("5463dedca3f56071e0812834"), 
+			nombre : "Pablo Perez", 
+			clave:"1234", 
+			telefono : "04144354453", 
+			email : "pppp@gmail.com" })
+db.participante.insert({ _id : ObjectId("5463dedca3f56071e0812835"), 
+			nombre : "Maria Mendez", 
+			clave:"1234", 
+			telefono : "04124355853", 
+			email : "mariamen08@gmail.com" })
+db.participante.insert({ _id : ObjectId("5463dedca3f56071e0812836"), 
+			nombre : "Carmen Da Silva", 
+			clave:"1234", 
+			telefono : "04167895547", 
+			email : "cardas13@gmail.com" })
+db.participante.insert({ _id : ObjectId("5463dedca3f56071e0812837"), 
+			nombre : "Rosangel Brito", 
+			clave:"1234", 
+			telefono : "04247132648", 
+			email : "rosabrito01@gmail.com" })
+
 
 SE DEBEN INSERTAR tareas:
-db.tarea.insert({ "_id" : ObjectId("5463df60a3f56071e0812838"), "peso" : "4", "estado" : "pendiente", "responsable" : ObjectId("5463dedca3f56071e0812831") })
-db.tarea.insert({ "_id" : ObjectId("5463df60a3f56071e0812839"), "peso" : "7", "estado" : "pendiente", "responsable" : ObjectId("5463dedca3f56071e0812833") })
-db.tarea.insert({ "_id" : ObjectId("5463df60a3f56071e0812837"), "peso" : "1", "estado" : "finalizada", "responsable" : ObjectId("5463dedca3f56071e0812830"), "fechaFin" : "2014-11-13T21:35:42.804Z" })
+// tareas carrera 1 Scrum
+db.tarea.insert({ _id : ObjectId("5463df60a3f56071e0812838"), 
+		  peso : "4", 
+		  estado : "pendiente", 
+		  responsable : ObjectId("5463dedca3f56071e0812832") })
+db.tarea.insert({ _id : ObjectId("5463df60a3f56071e0812839"), 
+		  peso : "7", 
+		  estado : "pendiente", 
+		  responsable : ObjectId("5463dedca3f56071e0812833") })
+db.tarea.insert({ _id : ObjectId("5463df60a3f56071e0812837"), 
+		  peso : "1", 
+		  estado : "finalizada", 
+		  responsable : ObjectId("5463dedca3f56071e0812830"), 
+		  fechaFin : "13-11-2014" })
 
+// tareas carrera 2 Scrum
+db.tarea.insert({ _id : ObjectId("5463df60a3f56071e0812836"), 
+		  peso : "5", 
+		  estado : "pendiente", 
+		  responsable : ObjectId("5463dedca3f56071e0812830") })
+db.tarea.insert({ _id : ObjectId("5463df60a3f56071e0812835"), 
+		  peso : "6", 
+		  estado : "pendiente", 
+		  responsable : ObjectId("5463dedca3f56071e0812835") })
+
+// tareas carrera 3 Scrum
+db.tarea.insert({ _id : ObjectId("5463df60a3f56071e0812834"), 
+		  peso : "1", 
+		  estado : "pendiente", 
+		  responsable : ObjectId("5463dedca3f56071e0812832") })
+		  
+//tareas carrera unica dijkstra
+db.tarea.insert({ _id : ObjectId("5463df60a3f56071e0812830"), 
+		  peso : "1", 
+		  estado : "pendiente", 
+		  responsable : ObjectId("5463dedca3f56071e0812831") })
+db.tarea.insert({ _id : ObjectId("5463df60a3f56071e0812831"), 
+		  peso : "3", 
+		  estado : "pendiente", 
+		  responsable : ObjectId("5463dedca3f56071e0812831") })
+db.tarea.insert({ _id : ObjectId("5463df60a3f56071e0812832"), 
+		  peso : "4", 
+		  estado : "pendiente", 
+		  responsable : ObjectId("5463dedca3f56071e0812832") })
+db.tarea.insert({ _id : ObjectId("5463df60a3f56071e0812833"), 
+		  peso : "4", 
+		  estado : "pendiente", 
+		  responsable : ObjectId("5463dedca3f56071e0812837") })
+
+//tareas carrera 1 Last Research
+db.tarea.insert({ _id : ObjectId("5463df60a3f56071e0812840"), 
+		  peso : "5", 
+		  estado : "pendiente", 
+		  responsable : ObjectId("5463dedca3f56071e0812830") })
+db.tarea.insert({ _id : ObjectId("5463df60a3f56071e0812841"), 
+		  peso : "5", 
+		  estado : "pendiente", 
+		  responsable : ObjectId("5463dedca3f56071e0812836") })
+
+//tareas carrera 2 Last Research
+db.tarea.insert({ _id : ObjectId("5463df60a3f56071e0812842"), 
+		  peso : "5", 
+		  estado : "pendiente", 
+		  responsable : ObjectId("5463dedca3f56071e0812834") })
+db.tarea.insert({ _id : ObjectId("5463df60a3f56071e0812843"), 
+		  peso : "5", 
+		  estado : "pendiente", 
+		  responsable : ObjectId("5463dedca3f56071e0812833") })
+
+		  
+//tareas carrera 1 Admin Quote
+db.tarea.insert({ _id : ObjectId("5463df60a3f56071e0812844"), 
+		  peso : "7", 
+		  estado : "pendiente", 
+		  responsable : ObjectId("5463dedca3f56071e0812834") })
+db.tarea.insert({ _id : ObjectId("5463df60a3f56071e0812845"), 
+		  peso : "5", 
+		  estado : "pendiente", 
+		  responsable : ObjectId("5463dedca3f56071e0812836") })
+
+//tareas carrera 2 Admin Quote
+db.tarea.insert({ _id : ObjectId("5463df60a3f56071e0812846"), 
+		  peso : "6", 
+		  estado : "pendiente", 
+		  responsable : ObjectId("5463dedca3f56071e0812837") })
+db.tarea.insert({ _id : ObjectId("5463df60a3f56071e0812847"), 
+		  peso : "3", 
+		  estado : "pendiente", 
+		  responsable : ObjectId("5463dedca3f56071e0812837") })
+
+//tareas carrera 2 Admin Quote
+db.tarea.insert({ _id : ObjectId("5463df60a3f56071e0812848"), 
+		  peso : "4", 
+		  estado : "pendiente", 
+		  responsable : ObjectId("5463dedca3f56071e0812836") })
+db.tarea.insert({ _id : ObjectId("5463df60a3f56071e0812849"), 
+		  peso : "2", 
+		  estado : "pendiente", 
+		  responsable : ObjectId("5463dedca3f56071e0812834") })
+
+		  
+		  
 SE DEBEN INSERTAR carreras:
-db.carrera.insert({ "_id" : ObjectId("54652308262704b6a9919cc7"), "numero" : "178954", "tareas" : [ ObjectId("5463df60a3f56071e0812837"), ObjectId("5463df60a3f56071e0812838"), ObjectId("5463df60a3f56071e0812839") ], "ceremonias" : [ { "tipo" : "1", "usuario" : "Carlos Garcia", "reporte" : "Juajajaja", "fecha" : "2014-11-13T21:41:26.124Z" } ] })
+// carreras SCRUM
+db.carrera.insert({ _id : ObjectId("54652308262704b6a9919cc7"), 
+		    numero : "1", 
+		    tareas : [ ObjectId("5463df60a3f56071e0812837"), ObjectId("5463df60a3f56071e0812838"), ObjectId("5463df60a3f56071e0812839") ], 
+		    ceremonias : [ { "tipo" : "1", "usuario" : "Carlos Garcia", "reporte" : "Juajajaja", "fecha" : "2014-11-13T21:41:26.124Z" } ] })
+db.carrera.insert({ _id : ObjectId("54652308262704b6a9919cc8"), 
+		    numero : "2", 
+		    tareas : [ ObjectId("5463df60a3f56071e0812836"), ObjectId("5463df60a3f56071e0812835") ] })
+db.carrera.insert({ _id : ObjectId("54652308262704b6a9919cc9"), 
+		    numero : "3", 
+		    tareas : [ ObjectId("5463df60a3f56071e0812834") ]})
 
+// carreras dijkstra
+db.carrera.insert({ _id : ObjectId("54652308262704b6a9919cc6"), 
+		    numero : "1", 
+		    tareas : [ ObjectId("5463df60a3f56071e0812830"), ObjectId("5463df60a3f56071e0812831"),ObjectId("5463df60a3f56071e0812832"),ObjectId("5463df60a3f56071e0812833")  ] })
+
+// carreras Las Research
+db.carrera.insert({ _id : ObjectId("54652308262704b6a9919cc5"), 
+		    numero : "1", 
+		    tareas : [ ObjectId("5463df60a3f56071e0812840"), ObjectId("5463df60a3f56071e0812841") ] })
+db.carrera.insert({ _id : ObjectId("54652308262704b6a9919cc4"), 
+		    numero : "2", 
+		    tareas : [ ObjectId("5463df60a3f56071e0812842"), ObjectId("5463df60a3f56071e0812843") ]})
+
+// carreras Admin Quote
+db.carrera.insert({ _id : ObjectId("54652308262704b6a9919cc3"), 
+		    numero : "1", 
+		    tareas : [ ObjectId("5463df60a3f56071e0812844"), ObjectId("5463df60a3f56071e0812845") ]})
+db.carrera.insert({ _id : ObjectId("54652308262704b6a9919cc2"), 
+		    numero : "2", 
+		    tareas : [ ObjectId("5463df60a3f56071e0812846"), ObjectId("5463df60a3f56071e0812847") ] })
+db.carrera.insert({ _id : ObjectId("54652308262704b6a9919cc1"), 
+		    numero : "3", 
+		    tareas : [ ObjectId("5463df60a3f56071e0812848"), ObjectId("5463df60a3f56071e0812849")]})
+
+		    
 SE DEBEN INSERTAR requisitos:
-db.requisito.insert({ "_id" : ObjectId("5463e04da3f56071e081283f"), "nombre" : "Realizar diseno de BD", "prioridad" : "1" })
-db.requisito.insert({ "_id" : ObjectId("5463e04da3f56071e0812840"), "nombre" : "Realizar vistas principales", "prioridad" : "2" })
+// requisitos scrum
+db.requisito.insert({ _id : ObjectId("5463e04da3f56071e081283f"), 
+		      nombre : "Realizar diseno de BD", 
+		      prioridad : "1" })
+db.requisito.insert({ _id : ObjectId("5463e04da3f56071e0812840"), 
+		      nombre : "Realizar vistas principales", 
+		      prioridad : "2" })
+
+//requisitos dijkstra
+db.requisito.insert({ _id : ObjectId("5463e04da3f56071e0812841"), 
+		      nombre : "Indicar estados de tiempo original", 
+		      prioridad : "1" })
+db.requisito.insert({ _id : ObjectId("5463e04da3f56071e0812842"), 
+		      nombre : "Reorganizar la estructura propuesta", 
+		      prioridad : "1" })
+db.requisito.insert({ _id : ObjectId("5463e04da3f56071e0812843"), 
+		      nombre : "Agregar sentencias entre las pruebas", 
+		      prioridad : "2" })
+
+//requisitos Last Research
+db.requisito.insert({ _id : ObjectId("5463e04da3f56071e0812844"), 
+		      nombre : "Recopilacion de datos", 
+		      prioridad : "1" })
+db.requisito.insert({ _id : ObjectId("5463e04da3f56071e0812845"), 
+		      nombre : "Organizacion de datos", 
+		      prioridad : "1" })
+db.requisito.insert({ _id : ObjectId("5463e04da3f56071e0812846"), 
+		      nombre : "Efectividad en el tiempo de los datos", 
+		      prioridad : "2" })
+
+//requisitos Admin Quote
+db.requisito.insert({ _id : ObjectId("5463e04da3f56071e0812847"), 
+		      nombre : "Almacenar pedidos de balances", 
+		      prioridad : "2" })
+db.requisito.insert({ _id : ObjectId("5463e04da3f56071e0812848"), 
+		      nombre : "Formular peticiones deseadas", 
+		      prioridad : "2" })
+db.requisito.insert({ _id : ObjectId("5463e04da3f56071e0812849"), 
+		      nombre : "Manejar datos en tiempo real", 
+		      prioridad : "1" })
+db.requisito.insert({ _id : ObjectId("5463e04da3f56071e0812850"), 
+		      nombre : "Preparar indicadores de empresa", 
+		      prioridad : "3" })
+db.requisito.insert({ _id : ObjectId("5463e04da3f56071e0812851"), 
+		      nombre : "Suministrar resultados parciales y totales", 
+		      prioridad : "1" })
+		      
+
+		      
 
 SE DE INSERTAR AL MENOS UN PROYECTO
-db.proyecto.insert({ "_id" : ObjectId("5465354f262704b6a9919ccb"), "nombre" : "Proyecto Acomodando Modificar", "participantes" : [ ObjectId("5463dedca3f56071e0812832"), ObjectId("5463dedca3f56071e0812833") ], "requisitos" : [ ObjectId("5463e04da3f56071e081283f"), ObjectId("546535728cc0f9723a14d7d9") ], "descripcion" : "Descripcion 1", "carreras" : [ ObjectId("54652308262704b6a9919cc7") ] })
 
+db.proyecto.insert({ _id : ObjectId("5465354f262704b6a9919ccb"), 
+		     nombre : "Proyecto SCRUM fase I", 
+		     participantes : [ ObjectId("5463dedca3f56071e0812832"), ObjectId("5463dedca3f56071e0812833"), ObjectId("5463dedca3f56071e0812835"), ObjectId("5463dedca3f56071e0812830") ], 
+		     requisitos : [ ObjectId("5463e04da3f56071e081283f"), ObjectId("5463e04da3f56071e0812840") ], 
+		     descripcion : "Formar un sistema capaz de soportar los requisitos de una metologia SCRUM para desarrollo de software", 
+		     carreras : [ ObjectId("54652308262704b6a9919cc7"), ObjectId("54652308262704b6a9919cc8"), ObjectId("54652308262704b6a9919cc9") ] })
+
+db.proyecto.insert({ _id : ObjectId("5465354f262704b6a9919ccc"), 
+		     nombre : "Dijkstra, enfoque mejorado", 
+		     participantes : [ ObjectId("5463dedca3f56071e0812832"), ObjectId("5463dedca3f56071e0812831"), ObjectId("5463dedca3f56071e0812837") ], 
+		     requisitos : [ ObjectId("5463e04da3f56071e0812841"), ObjectId("5463e04da3f56071e0812842"), ObjectId("5463e04da3f56071e0812843") ], 
+		     descripcion : "Organizar pruebas exhaustivas sobre la utilizacion del algoritmo Dijkstra, proponiendo una mejora al mismo", 
+		     carreras : [ ObjectId("54652308262704b6a9919cc6") ] })
+
+db.proyecto.insert({ _id : ObjectId("5465354f262704b6a9919ccd"), 
+		     nombre : "Last Research", 
+		     participantes : [ ObjectId("5463dedca3f56071e0812830"), ObjectId("5463dedca3f56071e0812833"), ObjectId("5463dedca3f56071e0812836"), ObjectId("5463dedca3f56071e0812834") ], 
+		     requisitos : [ ObjectId("5463e04da3f56071e0812844"), ObjectId("5463e04da3f56071e0812845"), ObjectId("5463e04da3f56071e0812846") ], 
+		     descripcion : "Recopilacion de datos y uso de estos para evaluar ciertas situaciones de la vida real", 
+		     carreras : [ ObjectId("54652308262704b6a9919cc5"),ObjectId("54652308262704b6a9919cc4") ] })
+
+db.proyecto.insert({ _id : ObjectId("5465354f262704b6a9919ccf"), 
+		     nombre : "Admin Quote", 
+		     participantes : [ ObjectId("5463dedca3f56071e0812836"), ObjectId("5463dedca3f56071e0812837"), ObjectId("5463dedca3f56071e0812834") ], 
+		     requisitos : [ ObjectId("5463e04da3f56071e0812847"), ObjectId("5463e04da3f56071e0812848"), ObjectId("5463e04da3f56071e0812849"), ObjectId("5463e04da3f56071e0812850"), ObjectId("5463e04da3f56071e0812851") ], 
+		     descripcion : "Suministrar herramientas potenciales para el manejo constante de balances en el ambito financiero", 
+		     carreras : [ ObjectId("54652308262704b6a9919cc3"),ObjectId("54652308262704b6a9919cc2"), ObjectId("54652308262704b6a9919cc1") ] })
 
 
 BORRAR TODO:
