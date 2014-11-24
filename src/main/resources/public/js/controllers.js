@@ -179,7 +179,19 @@ myApp.controller('VerProyecto', ['$route','$scope', '$window','$location', '$rou
 
         $scope.proy = '';
         $scope.participantes = [];
-
+        
+        
+        
+        //PARA LA PAGINACIÓN DE PARTICIPANTES
+        $scope.nroPartsMostradosPorPagina = 2;
+        $scope.nroPartsMostrados = $scope.nroPartsMostradosPorPagina;
+        $scope.tamanioListaParts = 0;
+        $scope.necesitaPaginacionParts = false;
+        $scope.quedanMasParts = true;
+        $scope.quedanMenosParts = false;
+        $scope.nroPaginasParts = 0;
+        $scope.nroPaginaActualParts = 1;
+        //
 
         service.Proyecto({"_id": $routeParams._id}).then(function(object) {
             $scope.res = object.data;
@@ -191,6 +203,13 @@ myApp.controller('VerProyecto', ['$route','$scope', '$window','$location', '$rou
             }
             
             $scope.num_participantes = object.data.proyecto['participantes'].length;
+            
+            //PARA LA PAGINACIÓN DE PARTICIPANTES
+            $scope.tamanioListaParts = $scope.num_participantes;
+            $scope.nroPaginasParts = Math.ceil($scope.tamanioListaParts/$scope.nroPartsMostradosPorPagina);
+            $scope.necesitaPaginacionParts = $scope.tamanioListaParts > $scope.nroPartsMostradosPorPagina;
+            //
+            
             
             for (var i = 0; i < $scope.num_participantes; i++) {
                 $scope.lista_id = $scope.lista_id.concat("{$oid: '");       
@@ -206,8 +225,19 @@ myApp.controller('VerProyecto', ['$route','$scope', '$window','$location', '$rou
             //console.log("Participantes <- "+ $scope.lista_id);
             service.getObjetosColeccion({"lista_id": $scope.lista_id, "coleccion": "participante" }).then(function(object){
                 $scope.participantes = object.data.data; 
+                
+                
+                
+                //PARA LA PAGINACIÓN DE PARTICIPANTES
+                $scope.listaParts = $scope.participantes.slice(0, $scope.nroPartsMostrados);          
+                //
+                
                     
             });
+            
+            
+            
+            
             
             //Esto es de carreras 
             $scope.res = object.data;
@@ -265,6 +295,43 @@ myApp.controller('VerProyecto', ['$route','$scope', '$window','$location', '$rou
             
         });
         
+        
+        
+        //PARA PAGINACIÓN DE PARTICIPANTES
+        $scope.cargarMasParts = function(e){
+          var ini = $scope.nroPartsMostrados;
+          $scope.nroPartsMostrados += $scope.nroPartsMostradosPorPagina;
+          var fin = $scope.nroPartsMostrados;;
+          $scope.listaParts = $scope.participantes.slice(ini, fin);
+          $scope.quedanMenosParts = true;
+          $scope.nroPaginaActualParts += 1;
+          if($scope.nroPartsMostrados >= $scope.tamanioListaParts){
+              $scope.quedanMasParts = false;
+              $scope.nroPartsMostrados = $scope.tamanioListaParts;
+          }
+        };
+        $scope.cargarMenosParts = function(e){
+          var ini = $scope.nroPartsMostrados - 2*$scope.nroPartsMostradosPorPagina;
+          $scope.nroPartsMostrados -= $scope.nroPartsMostradosPorPagina;
+          var fin = $scope.nroPartsMostrados;
+          
+          
+          if (ini<=0)
+          {
+              $scope.quedanMenosParts = false;
+              $scope.quedanMasParts = true;
+              $scope.nroPartsMostrados = $scope.nroPartsMostradosPorPagina;
+              $scope.listaParts = $scope.participantes.slice(ini, fin);
+              $scope.listaParts = $scope.participantes.slice(0, $scope.nroPartsMostrados);
+              $scope.nroPaginaActualParts = 1;
+          } else
+          {
+          $scope.listaParts = $scope.participantes.slice(ini, fin);
+          $scope.nroPaginaActualParts -= 1;
+          }
+        
+        };
+        //
           
         
 
@@ -529,7 +596,6 @@ myApp.controller('Carrera', ['$window', '$scope', '$location', '$routeParams', '
         $scope.AReporte = function (id, tipo) {    
             $location.path('/AReporte/' + id + '/' + tipo);
         };
-        
         
 }]);
 
