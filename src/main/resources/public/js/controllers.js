@@ -183,7 +183,7 @@ myApp.controller('VerProyecto', ['$route','$scope', '$window','$location', '$rou
         
         
         //PARA LA PAGINACIÓN DE PARTICIPANTES
-        $scope.nroPartsMostradosPorPagina = 2;
+        $scope.nroPartsMostradosPorPagina = 1;
         $scope.nroPartsMostrados = $scope.nroPartsMostradosPorPagina;
         $scope.tamanioListaParts = 0;
         $scope.necesitaPaginacionParts = false;
@@ -194,7 +194,7 @@ myApp.controller('VerProyecto', ['$route','$scope', '$window','$location', '$rou
         //
         
         //PARA LA PAGINACIÓN DE REQUISITOS
-        $scope.nroReqsMostradosPorPagina = 3;
+        $scope.nroReqsMostradosPorPagina = 1;
         $scope.nroReqsMostrados = $scope.nroReqsMostradosPorPagina;
         $scope.tamanioListaReqs = 0;
         $scope.necesitaPaginacionReqs = false;
