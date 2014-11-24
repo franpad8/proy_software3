@@ -87,7 +87,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="requisito in requisitos | filter: searchRequisito | orderBy:predicate:reverse">
+                    <tr ng-repeat="requisito in listaReqs | filter: searchRequisito | orderBy:predicate:reverse">
                         <td>  
                             <a ng-click="modificarRequisito(requisito.nombre,requisito.prioridad)">{{requisito.nombre}}</a>
 
@@ -98,6 +98,23 @@
                     </tr>
                 </tbody>
             </table>
+            
+              <!--INICIO DE PAGINACION REQUISITOS-->
+
+            <div ng-show="necesitaPaginacionReqs" style="text-align: center">
+
+                <button type="button" class="btn btn-primary" 
+                    ng-disabled="!quedanMenosReqs"
+                    ng-click="cargarMenosReqs($event)">&lt PREV</button>
+
+                <b><span> Página {{nroPaginaActualReqs}} / {{nroPaginasReqs}} </span></b>
+
+                <button type="button" class="btn btn-primary"
+                    ng-disabled="!quedanMasReqs"
+                    ng-click="cargarMasReqs($event)"> NEXT &gt;</button>
+
+            </div>
+            <!--FIN DE PAGINACION-->
         </div>
 
 
@@ -134,12 +151,29 @@
                     <th> Nombre </th>
                 </tr>
 
-                <tr ng-repeat="carrera in carreras | filter: searchCarrera" ng-show='carreras.length'>
+                <tr ng-repeat="carrera in listaCarrs | filter: searchCarrera" ng-show='carreras.length'>
                     <td>
                         <a ng_click="ACarrera(carrera._id,carrera.numero)"> {{"Carrera " + carrera.numero}}</a>
                     </td>
                 </tr>
             </table>
+            
+            <!--INICIO DE PAGINACION REQUISITOS-->
+
+            <div ng-show="necesitaPaginacionCarrs" style="text-align: center">
+
+                <button type="button" class="btn btn-primary" 
+                    ng-disabled="!quedanMenosCarrs"
+                    ng-click="cargarMenosCarrs($event)">&lt PREV</button>
+
+                <b><span> Página {{nroPaginaActualCarrs}} / {{nroPaginasCarrs}} </span></b>
+
+                <button type="button" class="btn btn-primary"
+                    ng-disabled="!quedanMasCarrs"
+                    ng-click="cargarMasCarrs($event)"> NEXT &gt;</button>
+
+            </div>
+            <!--FIN DE PAGINACION-->
 
         </div>
 

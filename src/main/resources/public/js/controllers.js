@@ -192,6 +192,28 @@ myApp.controller('VerProyecto', ['$route','$scope', '$window','$location', '$rou
         $scope.nroPaginasParts = 0;
         $scope.nroPaginaActualParts = 1;
         //
+        
+        //PARA LA PAGINACIÓN DE REQUISITOS
+        $scope.nroReqsMostradosPorPagina = 3;
+        $scope.nroReqsMostrados = $scope.nroReqsMostradosPorPagina;
+        $scope.tamanioListaReqs = 0;
+        $scope.necesitaPaginacionReqs = false;
+        $scope.quedanMasReqs = true;
+        $scope.quedanMenosReqs = false;
+        $scope.nroPaginasReqs = 0;
+        $scope.nroPaginaActualReqs = 1;
+        //
+        
+         //PARA LA PAGINACIÓN DE CARRERAS
+        $scope.nroCarrsMostradosPorPagina = 1;
+        $scope.nroCarrsMostrados = $scope.nroCarrsMostradosPorPagina;
+        $scope.tamanioListaCarrs = 0;
+        $scope.necesitaPaginacionCarrs = false;
+        $scope.quedanMasCarrs = true;
+        $scope.quedanMenosCarrs = false;
+        $scope.nroPaginasCarrs = 0;
+        $scope.nroPaginaActualCarrs = 1;
+        //
 
         service.Proyecto({"_id": $routeParams._id}).then(function(object) {
             $scope.res = object.data;
@@ -264,6 +286,17 @@ myApp.controller('VerProyecto', ['$route','$scope', '$window','$location', '$rou
             service.getObjColec({"lista_id": $scope.lista_id, "coleccion": "carrera"}).then(function (object) {
 
                 $scope.carreras = object.data.data;
+                
+                //PARA LA PAGINACIÓN DE REQUISITOS
+                $scope.tamanioListaCarrs = $scope.carreras.length;
+                $scope.nroPaginasCarrs = Math.ceil($scope.tamanioListaCarrs/$scope.nroCarrsMostradosPorPagina);
+                $scope.necesitaPaginacionCarrs = $scope.tamanioListaCarrs > $scope.nroCarrsMostradosPorPagina;
+
+                $scope.listaCarrs = $scope.carreras.slice(0, $scope.nroCarrsMostrados);          
+
+                 //
+                
+                
             });
             
             //Esto es de requisitos 
@@ -291,6 +324,17 @@ myApp.controller('VerProyecto', ['$route','$scope', '$window','$location', '$rou
                 service.getObjetosColeccion({"lista_id": $scope.req_id, "coleccion": "requisito"}).then(function (object) {
 
                 $scope.requisitos = object.data.data;
+                
+                //PARA LA PAGINACIÓN DE REQUISITOS
+                $scope.tamanioListaReqs = $scope.requisitos.length;
+                $scope.nroPaginasReqs = Math.ceil($scope.tamanioListaReqs/$scope.nroReqsMostradosPorPagina);
+                $scope.necesitaPaginacionReqs = $scope.tamanioListaReqs > $scope.nroReqsMostradosPorPagina;
+
+                $scope.listaReqs = $scope.requisitos.slice(0, $scope.nroReqsMostrados);          
+
+                 //
+                
+                
             });
             
         });
@@ -332,6 +376,80 @@ myApp.controller('VerProyecto', ['$route','$scope', '$window','$location', '$rou
         
         };
         //
+        
+         //PARA PAGINACIÓN DE CARRERAS
+        $scope.cargarMasCarrs = function(e){
+          var ini = $scope.nroCarrsMostrados;
+          $scope.nroCarrsMostrados += $scope.nroCarrsMostradosPorPagina;
+          var fin = $scope.nroCarrsMostrados;;
+          $scope.listaCarrs = $scope.carreras.slice(ini, fin);
+          $scope.quedanMenosCarrs = true;
+          $scope.nroPaginaActualCarrs += 1;
+          if($scope.nroCarrsMostrados >= $scope.tamanioListaCarrs){
+              $scope.quedanMasCarrs = false;
+              $scope.nroCarrsMostrados = $scope.tamanioListaCarrs;
+          }
+        };
+        $scope.cargarMenosCarrs = function(e){
+          var ini = $scope.nroCarrsMostrados - 2*$scope.nroCarrsMostradosPorPagina;
+          $scope.nroCarrsMostrados -= $scope.nroCarrsMostradosPorPagina;
+          var fin = $scope.nroCarrsMostrados;
+          
+          
+          if (ini<=0)
+          {
+              $scope.quedanMenosCarrs = false;
+              $scope.quedanMasCarrs = true;
+              $scope.nroCarrsMostrados = $scope.nroCarrsMostradosPorPagina;
+              $scope.listaCarrs = $scope.carreras.slice(ini, fin);
+              $scope.listaCarrs = $scope.carreras.slice(0, $scope.nroCarrsMostrados);
+              $scope.nroPaginaActualCarrs = 1;
+          } else
+          {
+          $scope.listaCarrs = $scope.carreras.slice(ini, fin);
+          $scope.nroPaginaActualCarrs -= 1;
+          }
+        
+        };
+        //
+        
+        
+        //PARA PAGINACIÓN DE REQUISITOS
+        $scope.cargarMasReqs = function(e){
+          var ini = $scope.nroReqsMostrados;
+          $scope.nroReqsMostrados += $scope.nroReqsMostradosPorPagina;
+          var fin = $scope.nroReqsMostrados;;
+          $scope.listaReqs = $scope.requisitos.slice(ini, fin);
+          $scope.quedanMenosReqs = true;
+          $scope.nroPaginaActualReqs += 1;
+          if($scope.nroReqsMostrados >= $scope.tamanioListaReqs){
+              $scope.quedanMasReqs = false;
+              $scope.nroReqsMostrados = $scope.tamanioListaReqs;
+          }
+        };
+        $scope.cargarMenosReqs = function(e){
+          var ini = $scope.nroReqsMostrados - 2*$scope.nroReqsMostradosPorPagina;
+          $scope.nroReqsMostrados -= $scope.nroReqsMostradosPorPagina;
+          var fin = $scope.nroReqsMostrados;
+          
+          
+          if (ini<=0)
+          {
+              $scope.quedanMenosReqs = false;
+              $scope.quedanMasReqs = true;
+              $scope.nroReqsMostrados = $scope.nroReqsMostradosPorPagina;
+              $scope.listaReqs = $scope.requisitos.slice(ini, fin);
+              $scope.listaReqs = $scope.requisitos.slice(0, $scope.nroReqsMostrados);
+              $scope.nroPaginaActualReqs = 1;
+          } else
+          {
+          $scope.listaReqs = $scope.requisitos.slice(ini, fin);
+          $scope.nroPaginaActualReqs -= 1;
+          }
+        
+        };
+        //
+        
           
         
 
