@@ -649,13 +649,13 @@ myApp.controller('Carrera', ['$window', '$scope', '$location', '$routeParams', '
                     var i=0;
                     for (var j = 0; j < $scope.num_tareas; j++) {
                         
-                        if($scope.tareas[j].estado == "Pendiente"){
+                        if($scope.tareas[j].estado == "pendiente"){
                            //$scope.data[i] = estado.concat($scope.tareas[j].estado).concat(peso).concat($scope.tareas[j].peso).concat(fin);
                            $scope.data[i] = $scope.tareas[j];
                            $scope.totalPeso = $scope.totalPeso + $scope.tareas[j].peso;
                            i++;
                         }
-                        if($scope.tareas[j].estado == "Atrasada"){
+                        if($scope.tareas[j].estado == "atrasada"){
                            //$scope.data[i] = estado.concat($scope.tareas[j].estado).concat(peso).concat($scope.tareas[j].peso).concat(fin);
                            $scope.data[i] = $scope.tareas[j];
                            $scope.totalPeso = $scope.totalPeso + $scope.tareas[j].peso;
